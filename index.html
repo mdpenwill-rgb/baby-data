@@ -1,1 +1,877 @@
+<!DOCTYPE html>
+<html>
+<head>
 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Baby Data</title>
+
+<link rel="manifest" href="manifest.json">
+
+<meta name="theme-color" content="#B9AEEA">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:#F4F1FB;
+display:flex;
+justify-content:center;
+}
+
+.app{
+width:100%;
+max-width:480px;
+min-height:100vh;
+padding-bottom:40px;
+}
+
+h1{
+text-align:center;
+padding:20px 0 10px;
+font-family:'Baloo 2',cursive;
+font-size:30px;
+color:#6B5FA7;
+}
+
+.tabs{
+display:flex;
+margin:0 16px 16px;
+background:#E6E1F5;
+border-radius:14px;
+overflow:hidden;
+}
+
+.tab{
+flex:1;
+padding:14px;
+text-align:center;
+cursor:pointer;
+font-weight:600;
+color:#6B5FA7;
+}
+
+.tab.active{
+background:#B9AEEA;
+color:white;
+}
+
+.content{padding:0 16px;}
+
+.section-header{
+margin:22px 0 8px 4px;
+font-size:14px;
+font-weight:700;
+color:#7C73B6;
+}
+
+.card{
+background:white;
+padding:16px;
+border-radius:18px;
+margin-bottom:14px;
+box-shadow:0 6px 16px rgba(0,0,0,0.06);
+}
+
+.row{display:flex;align-items:center;}
+
+.row-space{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+button.small{
+background:none;
+border:none;
+font-size:16px;
+cursor:pointer;
+margin-left:8px;
+}
+.icon-box{
+width:42px;
+height:42px;
+border-radius:14px;
+display:flex;
+align-items:center;
+justify-content:center;
+margin-right:12px;
+font-size:20px;
+}
+
+.feed-bg{background:#FFD6E8;}
+.med-bg{background:#D6E8FF;}
+.stretch-bg{background:#E6D6FF;}
+.nappy-bg{background:#D6FFE8;}
+.nap-bg{background:#FFF3D6;}
+.pump-bg{background:#E6F7FF;}
+
+.title{font-weight:700;}
+.sub{font-size:14px;color:#666;margin-top:4px;}
+.time{
+font-size:13px;
+color:#666;
+font-weight:600;
+margin-top:2px;
+margin-bottom:4px;
+}
+
+button.primary,button.random{
+border:none;
+padding:16px;
+border-radius:16px;
+width:100%;
+margin-top:12px;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+}
+
+button.primary{background:#B9AEEA;color:white;}
+button.random{background:#AEEACB;}
+.filter-active{
+background:#B9AEEA !important;
+color:white;
+}
+
+.choice-row{
+display:flex;
+gap:10px;
+}
+
+.choice-row button{flex:1;}
+
+.feed-buttons{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:10px;
+margin-top:10px;
+}
+
+.feed-buttons button{
+padding:12px;
+border:none;
+border-radius:12px;
+background:#eee;
+cursor:pointer;
+}
+
+.hidden{display:none;}
+.countdown-red{
+color:#ff4d4d;
+font-weight:700;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<h1>🤖 Baby Data</h1>
+
+<div class="tabs">
+<div class="tab active" onclick="switchTab('log')">Log</div>
+<div class="tab" onclick="switchTab('regime')">Regimes</div>
+</div>
+
+<div class="content" id="logTab">
+
+<div class="section-header">Regime Log</div>
+<div id="regimeButtons"></div>
+
+<div class="section-header">Quick Log</div>
+
+<div class="choice-row">
+<button class="random" onclick="logNappy('Wet')">💧 Wet</button>
+<button class="random" onclick="logNappy('Dirty')">💩 Dirty</button>
+<button class="random" onclick="logNappy('Both')">💧💩 Both</button>
+</div>
+
+<button class="random" onclick="logNap()">😴 Nap</button>
+<button class="random" onclick="logPump()">🤱 Pump</button>
+
+<div class="section-header">Feed</div>
+
+<div class="choice-row">
+<button class="primary" onclick="startFeed('Bottle')">Bottle</button>
+<button class="primary" onclick="startFeed('Breast')">Breast</button>
+</div>
+
+<div id="feedStep2" class="hidden">
+
+<div class="section-header">Milk</div>
+
+<div class="choice-row">
+<button class="primary" onclick="chooseMilk('Milly Milk')">Milly Milk</button>
+<button class="primary" onclick="chooseMilk('Formula')">Formula</button>
+</div>
+
+</div>
+
+<div id="feedAmounts" class="feed-buttons hidden">
+<button onclick="finishFeed(10)">10</button>
+<button onclick="finishFeed(20)">20</button>
+<button onclick="finishFeed(30)">30</button>
+<button onclick="finishFeed(40)">40</button>
+</div>
+
+<div id="breastMinutes" class="feed-buttons hidden">
+<button onclick="finishBreast(5)">5</button>
+<button onclick="finishBreast(10)">10</button>
+<button onclick="finishBreast(15)">15</button>
+<button onclick="finishBreast(20)">20</button>
+<button onclick="finishBreast(25)">25</button>
+<button onclick="finishBreast(30)">30</button>
+</div>
+
+<div class="section-header">Entries</div>
+
+<div class="choice-row">
+<button class="random filter-btn" onclick="setFilter('All')">All</button>
+<button class="random filter-btn" onclick="setFilter('Feed')">Feed</button>
+<button class="random filter-btn" onclick="setFilter('Pump')">Pump</button>
+<button class="random filter-btn" onclick="setFilter('Nappy')">Nappy</button>
+</div>
+<div id="entries"></div>
+
+</div>
+
+<div class="content hidden" id="regimeTab">
+
+<div class="section-header">Create Regime</div>
+
+<select id="rType" onchange="adjustRegimeForm()">
+<option value="Feed">Feed</option>
+<option value="Medication">Medication</option>
+<option value="Stretch">Stretch</option>
+</select>
+
+<div id="feedOptions">
+
+<input id="rIntervalFeed" type="number" placeholder="Interval hours">
+
+</div>
+
+<div id="medOptions" class="hidden">
+
+<input id="rName" placeholder="Medication name">
+<input id="rDose" type="number" placeholder="Dose (ml)">
+<input id="rIntervalMed" type="number" placeholder="Interval hours">
+
+</div>
+
+<div id="stretchOptions" class="hidden">
+
+<input id="rIntervalStretch" type="number" placeholder="Interval hours">
+
+</div>
+
+<button class="primary" onclick="createRegime()">Save Regime</button>
+
+<div class="section-header">Existing Regimes</div>
+<div id="regimeList"></div>
+
+</div>
+
+</div>
+
+<script>
+
+if ('serviceWorker' in navigator) {
+window.addEventListener('load', () => {
+navigator.serviceWorker.register('sw.js')
+})
+}
+
+let regimes=JSON.parse(localStorage.getItem('regimes')||'[]')
+let events=JSON.parse(localStorage.getItem('events')||'[]')
+
+let activeFilter="All"
+
+/* repair older events missing type */
+
+/* repair older events */
+
+events.forEach(e => {
+
+if(!e.type){
+
+if(e.icon === "🤱") e.type="Pump"
+if(e.icon === "🍼") e.type="Feed"
+if(e.icon === "🧷") e.type="Nappy"
+if(e.icon === "👄") e.type="Stretch"
+if(e.icon === "💊") e.type="Medication"
+if(e.icon === "😴") e.type="Nap"
+
+}
+
+/* repair missing fields */
+
+if(e.type==="Pump" && e.value===undefined) e.value=0
+
+if(e.type==="Feed"){
+if(!e.mode) e.mode="Bottle"
+if(!e.milk) e.milk="Milly Milk"
+if(e.value===undefined) e.value=0
+}
+
+})
+
+if(events.length===0){
+
+events=[
+
+{ id:1,type:"Feed",mode:"Bottle",milk:"Milly Milk",value:30,unit:"ml",icon:"🍼",bg:"feed-bg",time:"2026-03-03T22:00:00"},
+{ id:2,type:"Medication",name:"Calpol",value:2,unit:"ml",icon:"💊",bg:"med-bg",time:"2026-03-04T04:00:00"},
+{ id:3,type:"Feed",mode:"Bottle",milk:"Milly Milk",value:30,unit:"ml",icon:"🍼",bg:"feed-bg",time:"2026-03-04T04:10:00"},
+{ id:4,type:"Feed",mode:"Bottle",milk:"Formula",value:30,unit:"ml",icon:"🍼",bg:"feed-bg",time:"2026-03-04T08:40:00"},
+{ id:5,type:"Pump",value:70,unit:"ml",icon:"🤱",bg:"pump-bg",time:"2026-03-04T09:30:00"},
+{ id:6,type:"Feed",mode:"Bottle",milk:"Milly Milk",value:30,unit:"ml",icon:"🍼",bg:"feed-bg",time:"2026-03-04T12:00:00"},
+{ id:7,type:"Feed",mode:"Breast",milk:"Milly Milk",value:0,unit:"min",icon:"🍼",bg:"feed-bg",time:"2026-03-04T12:01:00"},
+{ id:8,type:"Stretch",icon:"👄",bg:"stretch-bg",time:"2026-03-04T14:45:00"},
+{ id:9,type:"Feed",mode:"Breast",milk:"Milly Milk",value:0,unit:"min",icon:"🍼",bg:"feed-bg",time:"2026-03-04T16:00:00"},
+{ id:10,type:"Pump",value:50,unit:"ml",icon:"🤱",bg:"pump-bg",time:"2026-03-04T16:01:00"}
+
+]
+
+saveAll()
+
+}
+
+function saveAll(){
+localStorage.setItem('regimes',JSON.stringify(regimes))
+localStorage.setItem('events',JSON.stringify(events))
+}
+
+function scrollTop(){
+window.scrollTo({top:0,behavior:"smooth"})
+}
+
+function switchTab(tab){
+
+document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'))
+
+if(tab==='log'){
+logTab.classList.remove('hidden')
+regimeTab.classList.add('hidden')
+document.querySelectorAll('.tab')[0].classList.add('active')
+}
+
+if(tab==='regime'){
+logTab.classList.add('hidden')
+regimeTab.classList.remove('hidden')
+document.querySelectorAll('.tab')[1].classList.add('active')
+}
+
+}
+
+let feedMode=null
+let feedMilk=null
+
+function startFeed(mode){
+
+resetFeed()
+
+feedMode=mode
+
+if(mode==="Bottle"){
+feedStep2.classList.remove("hidden")
+}else{
+feedMilk="Milly Milk"
+breastMinutes.classList.remove("hidden")
+}
+
+}
+
+function chooseMilk(milk){
+
+feedMilk=milk
+feedStep2.classList.add("hidden")
+feedAmounts.classList.remove("hidden")
+
+}
+
+function finishFeed(amount){
+
+events.unshift({
+id:Date.now(),
+type:"Feed",
+mode:"Bottle",
+milk:feedMilk,
+value:amount,
+unit:"ml",
+icon:"🍼",
+bg:"feed-bg",
+time:new Date().toISOString()
+})
+
+resetFeed()
+saveAll()
+renderAll()
+scrollTop()
+
+}
+
+function finishBreast(min){
+
+events.unshift({
+id:Date.now(),
+type:"Feed",
+mode:"Breast",
+milk:"Milly Milk",
+value:min,
+unit:"min",
+icon:"🍼",
+bg:"feed-bg",
+time:new Date().toISOString()
+})
+
+resetFeed()
+saveAll()
+renderAll()
+scrollTop()
+
+}
+
+function resetFeed(){
+
+feedMode=null
+feedMilk=null
+
+feedStep2.classList.add("hidden")
+feedAmounts.classList.add("hidden")
+breastMinutes.classList.add("hidden")
+
+}
+
+function logPump(){
+
+let input = prompt("Pump ml")
+
+if(!input) return
+
+let v=parseInt(input)
+
+events.unshift({
+id:Date.now(),
+type:"Pump",
+value:v,
+unit:"ml",
+icon:"🤱",
+bg:"pump-bg",
+time:new Date().toISOString()
+})
+
+saveAll()
+renderAll()
+scrollTop()
+
+}
+
+function logNap(){
+
+events.unshift({
+id:Date.now(),
+type:"Nap",
+icon:"😴",
+bg:"nap-bg",
+time:new Date().toISOString()
+})
+
+saveAll()
+renderAll()
+scrollTop()
+
+}
+
+function logNappy(t){
+
+events.unshift({
+id:Date.now(),
+type:"Nappy",
+detail:t,
+icon:"🧷",
+bg:"nappy-bg",
+time:new Date().toISOString()
+})
+
+saveAll()
+renderAll()
+scrollTop()
+
+}
+
+function deleteEvent(id){
+
+events = events.filter(e => e.id !== id)
+
+saveAll()
+renderAll()
+
+}
+
+function editEvent(id){
+
+const e = events.find(x => x.id === id)
+
+/* ---- EDIT FEED ---- */
+
+if(e.type==="Feed"){
+
+let mode = prompt("Bottle or Breast?", e.mode)
+if(mode) e.mode = mode
+
+let milk = prompt("Milk type", e.milk)
+if(milk) e.milk = milk
+
+let value = prompt("Amount / Minutes", e.value)
+if(value !== null) e.value = parseInt(value)
+
+}
+
+/* ---- EDIT PUMP ---- */
+
+if(e.type==="Pump"){
+
+let value = prompt("Pump ml", e.value)
+if(value !== null) e.value = parseInt(value)
+
+}
+
+/* ---- EDIT NAPPY ---- */
+
+if(e.type==="Nappy"){
+
+let detail = prompt("Wet / Dirty / Both", e.detail)
+if(detail) e.detail = detail
+
+}
+
+/* ---- EDIT TIME ---- */
+
+let newTime = prompt(
+"Edit time (HH:MM)",
+new Date(e.time).toTimeString().slice(0,5)
+)
+
+if(newTime){
+
+const base = new Date(e.time)
+const [h,m] = newTime.split(":")
+
+base.setHours(parseInt(h))
+base.setMinutes(parseInt(m))
+
+e.time = base.toISOString()
+
+}
+
+saveAll()
+renderAll()
+
+}
+
+function adjustRegimeForm(){
+
+const type = rType.value
+
+feedOptions.classList.toggle('hidden', type !== "Feed")
+medOptions.classList.toggle('hidden', type !== "Medication")
+stretchOptions.classList.toggle('hidden', type !== "Stretch")
+
+}
+
+function createRegime(){
+
+const type = rType.value
+
+let r = {
+id: Date.now(),
+type: type
+}
+
+if(type==="Feed"){
+r.name = "Feed"
+r.interval = parseFloat(rIntervalFeed.value)
+}
+
+if(type==="Medication"){
+r.name = rName.value
+r.dose = parseFloat(rDose.value)
+r.interval = parseFloat(rIntervalMed.value)
+}
+
+if(type==="Stretch"){
+r.name = "Stretch"
+r.interval = parseFloat(rIntervalStretch.value)
+}
+
+regimes.push(r)
+
+saveAll()
+renderRegimes()
+
+}
+
+function deleteRegime(id){
+
+regimes = regimes.filter(r => r.id !== id)
+
+saveAll()
+renderRegimes()
+
+}
+
+function renderRegimeButtons(){
+
+regimeButtons.innerHTML=""
+
+const now = new Date()
+
+regimes.forEach(r=>{
+
+let label = r.type
+let dueClass=""
+
+if(r.interval){
+
+const last = events.find(e => e.type === r.type)
+
+if(last){
+
+const next = new Date(new Date(last.time).getTime() + r.interval*3600000)
+
+const diff = next - now
+
+if(diff <= 0){
+label += " • DUE"
+dueClass="countdown-red"
+}
+else{
+
+const mins = Math.floor(diff/60000)
+const h = Math.floor(mins/60)
+const m = mins % 60
+
+label += ` • ${h}h ${m}m`
+
+}
+
+}
+
+}
+
+let icon=""
+
+if(r.type==="Feed") icon="🍼"
+if(r.type==="Medication") icon="💊"
+if(r.type==="Stretch") icon="👄"
+
+regimeButtons.innerHTML += `
+<button class="primary ${dueClass}">${icon} ${label}</button>
+`
+
+})
+
+}
+
+function renderRegimes(){
+
+regimeList.innerHTML=""
+
+regimes.forEach(r=>{
+
+let icon=""
+
+if(r.type==="Feed") icon="🍼"
+if(r.type==="Medication") icon="💊"
+if(r.type==="Stretch") icon="👄"
+
+regimeList.innerHTML += `
+
+<div class="card">
+
+<div class="row-space">
+
+<div class="row">
+
+<div class="icon-box">
+${icon}
+</div>
+
+<div>
+
+<div class="title">${r.name}</div>
+<div class="sub">${r.interval ? r.interval+"h interval" : "No interval"}</div>
+
+</div>
+
+</div>
+
+<div>
+
+<button class="small" onclick="deleteRegime(${r.id})">🗑</button>
+
+</div>
+
+</div>
+
+</div>
+
+`
+
+})
+
+}
+
+function setFilter(type){
+
+activeFilter = type
+
+document.querySelectorAll(".filter-btn").forEach(b=>{
+b.classList.remove("filter-active")
+})
+
+event.target.classList.add("filter-active")
+
+renderEntries()
+
+}
+
+function renderEntries(){
+
+entries.innerHTML=""
+
+events.sort((a,b)=> new Date(b.time) - new Date(a.time))
+
+let lastDay=""
+let lastFeedTime=null
+
+events.forEach(e=>{
+
+if(activeFilter!=="All" && e.type!==activeFilter) return
+/* show feed interval */
+
+if(activeFilter==="Feed"){
+
+if(lastFeedTime){
+
+const diff = lastFeedTime - new Date(e.time)
+
+if(diff < 600000){   // 10 minutes
+lastFeedTime = new Date(e.time)
+return
+}
+
+const mins = Math.floor(diff/60000)
+const h = Math.floor(mins/60)
+const m = mins % 60
+
+entries.innerHTML += `
+<div style="text-align:center;font-weight:600;color:#6B5FA7;margin:10px 0;">
+${h}h ${m}m
+</div>
+`
+
+}
+
+lastFeedTime = new Date(e.time)
+
+}
+
+const date=new Date(e.time)
+
+const today=new Date()
+const yesterday=new Date()
+yesterday.setDate(today.getDate()-1)
+
+let label=""
+
+if(date.toDateString()===today.toDateString()){
+label="Today"
+}
+else if(date.toDateString()===yesterday.toDateString()){
+label="Yesterday"
+}
+else{
+label=date.toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'long'})
+}
+
+if(label!==lastDay){
+entries.innerHTML+=`<div class="section-header">${label}</div>`
+lastDay=label
+}
+
+let details=""
+
+if(e.type==="Feed"){
+details=`${e.mode} • ${e.milk}`
+if(e.value !== undefined && e.value !== 0)
+details+=` • ${e.value} ${e.unit}`
+}
+
+if(e.type==="Pump") details=`${e.value} ml`
+if(e.type==="Nappy") details=e.detail
+if(e.type==="Stretch") details="Stretch"
+if(e.type==="Medication") details=`${e.name} ${e.value} ml`
+
+entries.innerHTML+=`
+
+<div class="card">
+
+<div class="row-space">
+
+<div class="row">
+
+<div class="icon-box ${e.bg}">${e.icon}</div>
+
+<div>
+
+<div class="title">${e.type}</div>
+<div class="time">${new Date(e.time).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}</div>
+<div class="sub">${details}</div>
+
+</div>
+
+</div>
+
+<div>
+
+<button class="small" onclick="editEvent(${e.id})">✏</button>
+<button class="small" onclick="deleteEvent(${e.id})">🗑</button>
+
+</div>
+
+</div>
+
+</div>
+
+`
+
+})
+
+}
+
+function renderAll(){
+renderEntries()
+renderRegimes()
+renderRegimeButtons()
+}
+
+renderAll()
+
+setInterval(() => {
+renderRegimeButtons()
+}, 60000)
+
+</script>
+
+</body>
+</html>
