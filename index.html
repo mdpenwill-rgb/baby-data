@@ -1396,6 +1396,52 @@ ${new Date(e.time).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}
 
 }
 
+function repairEvents(){
+
+events.forEach(e => {
+
+if(!e.type){
+if(e.icon==="🤱") e.type="Pump"
+if(e.icon==="🍼") e.type="Feed"
+if(e.icon==="🧷") e.type="Nappy"
+if(e.icon==="👄") e.type="Stretch"
+if(e.icon==="💊") e.type="Medication"
+}
+
+if(!e.icon){
+if(e.type==="Feed") e.icon="🍼"
+if(e.type==="Pump") e.icon="🤱"
+if(e.type==="Nappy") e.icon="🧷"
+if(e.type==="Medication") e.icon="💊"
+if(e.type==="Stretch") e.icon="👄"
+}
+
+if(!e.bg){
+if(e.type==="Feed") e.bg="feed-bg"
+if(e.type==="Pump") e.bg="pump-bg"
+if(e.type==="Nappy") e.bg="nappy-bg"
+if(e.type==="Medication") e.bg="med-bg"
+if(e.type==="Stretch") e.bg="stretch-bg"
+}
+
+if(e.type==="Nappy" && !e.detail){
+e.detail="Wet"
+}
+
+if(e.type==="Pump" && e.value===undefined){
+e.value=0
+}
+
+if(e.type==="Feed"){
+if(!e.mode) e.mode="Bottle"
+if(!e.milk) e.milk="Milly Milk"
+if(!e.unit) e.unit = e.mode==="Breast" ? "min" : "ml"
+}
+
+})
+
+}
+
 function editDate(id, el){
 
 const e = events.find(x => x.id === id)
@@ -1917,7 +1963,7 @@ let rows = [
 ["id","type","mode","milk","value","unit","detail","name","time"]
 ]
 
-events.forEach(e => {
+repairEvents()
 
 rows.push([
 e.id || "",
@@ -2012,6 +2058,8 @@ events.push(newEvent)
 imported++
 
 })
+
+repairEvents()
 
 saveAll()
 renderAll()
