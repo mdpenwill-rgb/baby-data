@@ -12,7 +12,7 @@
 <meta name="theme-color" content="#B9AEEA">
 <meta name="apple-mobile-web-app-capable" content="yes">
 
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
 
 <style>
 
@@ -32,6 +32,10 @@
 
 }
 
+*{
+-webkit-tap-highlight-color: transparent;
+}
+
 .header-bar{
 display:flex;
 align-items:center;
@@ -43,6 +47,19 @@ padding:10px 16px;
 flex:1;
 text-align:center;
 margin:0;
+}
+
+.header-bar h1{
+margin:0;
+padding:0;
+}
+
+.glass-header{
+position:sticky;
+top:0;
+z-index:100;
+background:inherit;
+border-bottom:1px solid rgba(175,163,232,0.15);
 }
 
 .import-btn{
@@ -67,8 +84,11 @@ cursor:pointer;
 
 body{
 margin:0;
-font-family:-apple-system,BlinkMacSystemFont,sans-serif;
-background:#F4F1FB;
+font-family:'Quicksand', -apple-system, BlinkMacSystemFont, sans-serif;
+font-size:16px;
+line-height:1.45;
+background:
+radial-gradient(circle at 20% 50%, #E6DFFA 0%, #EFEAF9 50%, #E8EFFD 100%);
 display:flex;
 justify-content:center;
 }
@@ -114,9 +134,58 @@ color:#2F2A55;
 .quick-pump{background:var(--pump);color:#3A2A66;}
 .quick-meds{background:var(--meds);color:#5C1F3C;}
 .quick-exercise{background:var(--exercise);color:#134735;}
-.quick-option.pump{
-background:#E6E0F1;
+.quick-option.pump{background:#E6E0F1;color:#4E3F73;
+}
+
+.pump-slider-wrap{
+margin-top:18px;
+text-align:center;
+}
+
+.pump-slider{
+width:100%;
+margin:20px 0;
+}
+
+.pump-row{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:12px;
+margin-top:12px;
+align-items:center;
+}
+
+.pump-slider{
+flex:1;
+margin:0;
+}
+
+.pump-slider{
+grid-column:1 / span 4;
+width:100%;
+margin:0;
+}
+
+.pump-log{
+aspect-ratio:1/1;
+padding:10px;
+font-size:13px;
+}
+
+.pump-log{
+grid-column:5;
+aspect-ratio:1/1;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+}
+
+.pump-value{
+font-size:20px;
+font-weight:700;
 color:#4E3F73;
+margin-bottom:12px;
 }
 
 .content{padding:0 16px;}
@@ -135,10 +204,25 @@ color:#7C73B6;
 .card{
 background:white;
 padding:16px;
-border-radius:18px;
+
+border-radius:22px;
+
 margin-bottom:14px;
-box-shadow:0 6px 16px rgba(0,0,0,0.06);
+
+box-shadow:0 4px 20px rgba(0,0,0,0.05);
+
+border-top:3px solid transparent;
+
+transition:
+transform 0.2s ease,
+box-shadow 0.2s ease;
+
 animation:cardIn 0.25s ease-out;
+}
+
+.card:hover{
+transform:translateY(-1px);
+box-shadow:0 8px 24px rgba(0,0,0,0.08);
 }
 
 @keyframes cardIn{
@@ -187,14 +271,22 @@ border:1px solid rgba(0,0,0,0.05);
 .nap-bg{background:#F5EED9;}
 .pump-bg{background:#E6E0F1;}
 
-.title{font-weight:700;}
-.sub{font-size:14px;color:#666;margin-top:4px;}
+.title{
+font-weight:700;
+font-size:16px;
+}
+.sub{
+font-size:14px;
+color:#555;
+margin-top:4px;
+line-height:1.4;
+}
 .time{
-font-size:13px;
+font-size:14px;
 color:#666;
 font-weight:600;
-margin-top:2px;
-margin-bottom:4px;
+margin-top:4px;
+margin-bottom:6px;
 }
 
 .sub span{
@@ -267,7 +359,34 @@ button.primary.quick-feed{background:var(--feed);color:#0B3A5C;}
 button.primary.quick-pump{background:var(--pump);color:#3A2A66;}
 button.primary.quick-meds{background:var(--meds);color:#5C1F3C;}
 button.primary.quick-exercise{background:var(--exercise);color:#134735;}
-button.random{background:#E8EDF7;color:var(--ui-blue-dark);
+button.random{
+
+background:#E8EDF7;
+
+color:var(--ui-purple-dark);
+
+border:none;
+
+padding:8px 16px;
+
+border-radius:20px;
+
+font-weight:600;
+
+font-size:14px;
+
+cursor:pointer;
+
+transition:
+transform 0.15s ease,
+background 0.15s ease;
+
+font-family:'Quicksand',sans-serif;
+
+}
+
+button.random:hover{
+transform:scale(1.05);
 }
 .filter-active{
 background:var(--ui-blue) !important;
@@ -319,17 +438,42 @@ padding:14px;
 margin-top:10px;
 border-radius:12px;
 border:none;
+
+font-family:'Quicksand',sans-serif;
+font-weight:600;
 font-size:16px;
+
 box-sizing:border-box;
 background:white;
+color:#4E3F73;
+}
+
+input::placeholder{
+font-weight:600;
+color:#8A84B8;
 }
 
 .regime-line{
-padding:6px 0;
-margin:4px 4px;
-font-size:14px;
+
+padding:10px 14px;
+
+margin:6px 0;
+
+font-size:15px;
 font-weight:600;
-color:#6B5FA7;
+
+border-radius:14px;
+
+border-left:4px solid transparent;
+
+transition:all 0.2s ease;
+
+font-family:'Quicksand',sans-serif;
+
+}
+
+.regime-line:hover{
+transform:translateX(2px);
 }
 
 .regime-DUE{
@@ -380,22 +524,37 @@ margin-top:12px;
 /* TILE STYLE */
 
 .quick-tile{
+
 border:none;
-border-radius:18px;
-padding:14px 6px;
+border-radius:20px;
+
+padding:16px 6px;
+
 cursor:pointer;
+
 display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
+
 gap:6px;
-font-weight:600;
-font-size:14px;
-transition:transform 0.1s ease;
+
+font-weight:700;
+font-size:13px;
+
+font-family:'Quicksand',sans-serif;
+
+box-shadow:0 2px 8px rgba(0,0,0,0.06);
+
+transition:
+transform 0.2s ease,
+box-shadow 0.2s ease;
+
 }
 
 .quick-tile:active{
 transform:scale(0.94);
+box-shadow:0 2px 6px rgba(0,0,0,0.15) inset;
 }
 
 /* ICON */
@@ -436,6 +595,18 @@ display:grid;
 grid-template-columns:repeat(5,1fr);
 gap:12px;
 margin-top:12px;
+
+animation:quickPop 0.18s ease-out;
+}
+@keyframes quickPop{
+0%{
+opacity:0;
+transform:scale(0.92) translateY(6px);
+}
+100%{
+opacity:1;
+transform:scale(1) translateY(0);
+}
 }
 
 .quick-option{
@@ -451,6 +622,10 @@ gap:6px;
 font-weight:600;
 font-size:14px;
 transition:transform 0.1s ease;
+}
+
+.quick-option:active{
+transform:scale(0.94);
 }
 
 .quick-option:active{
@@ -486,6 +661,8 @@ color:#3E5E4C;
 
 <div class="app">
 
+<div class="glass-header">
+
 <div class="header-bar">
 
 <button class="import-btn" onclick="importCSV()">⬆️ Import</button>
@@ -493,6 +670,8 @@ color:#3E5E4C;
 <h1>🤖 Baby Data</h1>
 
 <button class="export-btn" onclick="exportCSV()">⬇️ Export</button>
+
+</div>
 
 </div>
 
@@ -543,7 +722,7 @@ color:#3E5E4C;
 <div class="section-header">Entries</div>
 
 <div class="choice-row">
-<button class="random filter-btn" onclick="setFilter('All')">All</button>
+<button class="random filter-btn filter-active" onclick="setFilter('All')">All</button>
 <button class="random filter-btn" onclick="setFilter('Feed')">Feed</button>
 <button class="random filter-btn" onclick="setFilter('Pump')">Pump</button>
 <button class="random filter-btn" onclick="setFilter('Nappy')">Nappy</button>
@@ -624,29 +803,68 @@ let quickFeedSide=null
 
 events.forEach(e => {
 
+/* fix missing type */
+
 if(!e.type){
 
-if(e.icon === "🤱") e.type="Pump"
-if(e.icon === "🍼") e.type="Feed"
-if(e.icon === "🧷") e.type="Nappy"
-if(e.icon === "👄") e.type="Stretch"
-if(e.icon === "💊") e.type="Medication"
-if(e.icon === "😴") e.type="Nap"
+if(e.icon==="🤱") e.type="Pump"
+if(e.icon==="🍼") e.type="Feed"
+if(e.icon==="🧷") e.type="Nappy"
+if(e.icon==="👄") e.type="Stretch"
+if(e.icon==="💊") e.type="Medication"
 
 }
 
-/* repair missing fields */
+/* fix icon */
 
-if(e.type==="Pump" && e.value===undefined) e.value=0
+if(!e.icon){
+
+if(e.type==="Feed") e.icon="🍼"
+if(e.type==="Pump") e.icon="🤱"
+if(e.type==="Nappy") e.icon="🧷"
+if(e.type==="Medication") e.icon="💊"
+if(e.type==="Stretch") e.icon="👄"
+
+}
+
+/* fix background */
+
+if(!e.bg){
+
+if(e.type==="Feed") e.bg="feed-bg"
+if(e.type==="Pump") e.bg="pump-bg"
+if(e.type==="Nappy") e.bg="nappy-bg"
+if(e.type==="Medication") e.bg="med-bg"
+if(e.type==="Stretch") e.bg="stretch-bg"
+
+}
+
+/* fix feed fields */
 
 if(e.type==="Feed"){
+
 if(!e.mode) e.mode="Bottle"
 if(!e.milk) e.milk="Milly Milk"
 if(e.value===undefined) e.value=0
 if(!e.unit) e.unit = e.mode==="Breast" ? "min" : "ml"
+
+}
+
+/* fix nappy */
+
+if(e.type==="Nappy" && !e.detail){
+e.detail="Wet"
+}
+
+/* fix pump */
+
+if(e.type==="Pump" && e.value===undefined){
+e.value=0
 }
 
 })
+
+saveAll()
 
 if(events.length === 0){
 
@@ -1108,8 +1326,11 @@ let details=""
 
 if(e.type==="Feed"){
 
-details=`<span onclick="chooseMode(${e.id}, this)">${e.mode}</span> • 
-<span onclick="chooseMilkType(${e.id}, this)">${e.milk}</span>`
+const mode = e.mode || "Bottle"
+const milk = e.milk || "Milly Milk"
+
+details=`<span onclick="chooseMode(${e.id}, this)">${mode}</span> • 
+<span onclick="chooseMilkType(${e.id}, this)">${milk}</span>`
 
 if(e.mode==="Breast"){
 details+=` • <span onclick="editBreastTime(${e.id}, this)">${e.value} min</span>`
@@ -1122,11 +1343,15 @@ details+=` • <span onclick="editValue(${e.id}, this)">${e.value ?? ""} ${e.uni
 if(e.type==="Pump"){
 details=`<span onclick="choosePump(${e.id}, this)">${e.value ?? ""} ml</span>`}
 if(e.type==="Nappy"){
-details=`<span onclick="chooseNappy(${e.id}, this)">${e.detail}</span>`
+const detail = e.detail || "Wet"
+details=`<span onclick="chooseNappy(${e.id}, this)">${detail}</span>`
 }
 if(e.type==="Stretch") details="Stretch"
-if(e.type==="Medication") details=`${e.name ?? ""} ${e.value ?? ""} ml`
-
+if(e.type==="Medication"){
+const name = e.name || "Medication"
+const val = e.value ?? ""
+details=`${name} ${val} ml`
+}
 entries.innerHTML+=`
 
 <div class="card">
@@ -1180,14 +1405,17 @@ const yyyy = current.getFullYear()
 const mm = String(current.getMonth()+1).padStart(2,'0')
 const dd = String(current.getDate()).padStart(2,'0')
 
-el.innerHTML = `<input type="date" value="${yyyy}-${mm}-${dd}" style="font-size:14px;">`
+el.innerHTML = `<input type="date" value="${yyyy}-${mm}-${dd}">`
 
 const input = el.querySelector("input")
 input.focus()
 
 input.onblur = () => {
 
-if(!input.value) return
+if(!input.value){
+renderAll()
+return
+}
 
 const [y,m,d] = input.value.split("-")
 
@@ -1749,20 +1977,34 @@ if(cols.length < 9) return
 const id = parseInt(cols[0])
 
 /* skip duplicates */
-
 if(events.some(ev => ev.id === id)) return
 
 const newEvent = {
 
 id: id,
 type: cols[1] || "",
+
 mode: cols[2] || "",
 milk: cols[3] || "",
 value: cols[4] ? parseInt(cols[4]) : 0,
 unit: cols[5] || "",
 detail: cols[6] || "",
 name: cols[7] || "",
-time: cols[8] || ""
+time: cols[8] || "",
+
+icon:
+cols[1] === "Feed" ? "🍼" :
+cols[1] === "Pump" ? "🤱" :
+cols[1] === "Nappy" ? "🧷" :
+cols[1] === "Medication" ? "💊" :
+cols[1] === "Stretch" ? "👄" : "",
+
+bg:
+cols[1] === "Feed" ? "feed-bg" :
+cols[1] === "Pump" ? "pump-bg" :
+cols[1] === "Nappy" ? "nappy-bg" :
+cols[1] === "Medication" ? "med-bg" :
+cols[1] === "Stretch" ? "stretch-bg" : ""
 
 }
 
@@ -1844,19 +2086,32 @@ Mixed
 if(type==="pump"){
 
 panel.innerHTML=`
-<div class="quick-option-grid">
 
-<button class="quick-option pump" onclick="finishPump(15)">15 ml</button>
+<div class="pump-row">
 
-<button class="quick-option pump" onclick="finishPump(30)">30 ml</button>
+<input 
+type="range"
+min="10"
+max="70"
+step="5"
+value="30"
+id="pumpSlider"
+class="pump-slider"
+oninput="updatePumpValue(this.value)"
+>
 
-<button class="quick-option pump" onclick="finishPump(40)">40 ml</button>
-
-<button class="quick-option pump" onclick="finishPump(50)">50 ml</button>
-
-<button class="quick-option pump" onclick="finishPump(60)">60 ml</button>
+<button class="quick-tile pump pump-log"
+onclick="finishPump(document.getElementById('pumpSlider').value)">
+<div class="tile-icon">🤱</div>
+Log
+</button>
 
 </div>
+
+<div class="pump-value">
+<span id="pumpValue">30</span> ml
+</div>
+
 `
 
 }
@@ -1927,6 +2182,10 @@ Stretch
 
 }
 
+}
+
+function updatePumpValue(v){
+document.getElementById("pumpValue").textContent = v
 }
 
 function logMedication(name){
@@ -2105,7 +2364,9 @@ time:new Date().toISOString()
 
 saveAll()
 renderAll()
-document.querySelectorAll(".filter-btn")[0].classList.add("filter-active")
+
+/* set default filter button */
+document.querySelector(".filter-btn").classList.add("filter-active")
 
 document.getElementById("quickPanel").innerHTML=""
 
