@@ -1244,15 +1244,16 @@ ${icon}
 
 }
 
-function setFilter(type, ev){
+function setFilter(type, btn){
+
 activeFilter = type
 
 document.querySelectorAll(".filter-btn").forEach(b=>{
 b.classList.remove("filter-active")
 })
 
-ev.target.classList.add("filter-active")
- 
+btn.classList.add("filter-active")
+
 renderEntries()
 
 }
