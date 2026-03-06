@@ -1965,6 +1965,8 @@ let rows = [
 
 repairEvents()
 
+events.forEach(e => {
+
 rows.push([
 e.id || "",
 e.type || "",
@@ -1982,7 +1984,6 @@ e.time || ""
 let csv = rows.map(r => r.join(",")).join("\n")
 
 let blob = new Blob([csv], {type:"text/csv"})
-
 let url = URL.createObjectURL(blob)
 
 let a = document.createElement("a")
