@@ -40,7 +40,7 @@
 display:flex;
 align-items:center;
 justify-content:space-between;
-padding:10px 16px;
+padding:18px 16px 12px 16px;
 }
 
 .header-bar h1{
@@ -58,9 +58,40 @@ padding:0;
 position:sticky;
 top:0;
 z-index:100;
-background:inherit;
-border-bottom:1px solid rgba(175,163,232,0.15);
-position:relative;
+
+background:transparent;
+}
+
+.save-btn{
+
+background:var(--ui-purple);
+color:white;
+
+border:none;
+
+height:48px;
+padding:0 20px;
+
+border-radius:999px;
+
+font-family:'Quicksand',sans-serif;
+font-weight:700;
+font-size:16px;
+
+cursor:pointer;
+
+display:block;
+margin:16px auto;
+
+transition:transform 0.12s ease, box-shadow 0.12s ease;
+
+box-shadow:0 2px 8px rgba(0,0,0,0.08);
+
+}
+
+.save-btn:active{
+transform:scale(0.95);
+box-shadow:0 2px 6px rgba(0,0,0,0.15) inset;
 }
 
 .import-btn{
@@ -206,6 +237,36 @@ margin:22px 0 8px 4px;
 font-size:14px;
 font-weight:700;
 color:#7C73B6;
+}
+
+.app-title{
+display:flex;
+align-items:center;
+font-family:'Baloo 2',cursive;
+font-size:26px;
+color:#6B5FA7;
+}
+
+.app-icon{
+background:rgba(255,255,255,0.45);
+border-radius:12px;
+padding:6px 8px;
+font-size:18px;
+
+backdrop-filter:blur(10px);
+-webkit-backdrop-filter:blur(10px);
+
+border:1px solid rgba(255,255,255,0.6);
+box-shadow:0 2px 8px rgba(0,0,0,0.08);
+
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.app-name{
+font-weight:700;
+letter-spacing:0.3px;
 }
 
 .card{
@@ -556,7 +617,7 @@ transform:translateX(-50%) translateY(-6px);
 display:grid;
 grid-template-columns:repeat(5,1fr);
 gap:12px;
-margin-top:12px;
+margin-top:6px;
 }
 
 /* TILE STYLE */
@@ -601,6 +662,35 @@ box-shadow:0 2px 6px rgba(0,0,0,0.15) inset;
 font-size:22px;
 }
 
+.bell-btn{
+background:none;
+border:none;
+font-size:22px;
+cursor:pointer;
+
+color:#B8BCD4;
+
+transition:color 0.2s ease;
+}
+
+.bell-btn svg{
+display:block;
+}
+
+/* bell states */
+
+.bell-normal{
+color:#B8BCD4;
+}
+
+.bell-soon{
+color:var(--ui-purple-dark);
+}
+
+.bell-due{
+color:#E54848;
+}
+
 /* COLOURS (soft pastel) */
 
 .quick-tile.nappy{
@@ -634,7 +724,7 @@ grid-template-columns:repeat(auto-fit,80px);
 justify-content:center;
 gap:12px;
 margin-top:12px;
-animation:quickPop 0.18s ease-out;
+animation:quickPop 0.22s cubic-bezier(.25,.8,.25,1);
 }
 
 @keyframes quickPop{
@@ -649,7 +739,7 @@ transform:scale(1) translateY(0);
 }
 
 .quick-option{
-width:64px;
+width:74px;
 border:none;
 border-radius:18px;
 aspect-ratio:1/1;
@@ -706,7 +796,9 @@ font-family:'Quicksand',sans-serif;
 position:absolute;
 right:16px;
 top:60px;
-background:white;
+background:rgba(255,255,255,0.6);
+backdrop-filter:blur(14px);
+-webkit-backdrop-filter:blur(14px);
 border-radius:14px;
 box-shadow:0 6px 20px rgba(0,0,0,0.15);
 padding:10px;
@@ -715,6 +807,28 @@ gap:6px;
 z-index:200;
 
 display:none;
+}
+
+.regime-panel{
+position:absolute;
+left:16px;
+top:60px;
+
+background:rgba(255,255,255,0.6);
+backdrop-filter:blur(14px);
+-webkit-backdrop-filter:blur(14px);
+
+border-radius:14px;
+box-shadow:0 6px 20px rgba(0,0,0,0.15);
+padding:10px;
+flex-direction:column;
+gap:6px;
+z-index:200;
+display:none;
+}
+
+.regime-panel:not(.hidden){
+display:flex;
 }
 
 .feed-buttons{
@@ -737,6 +851,15 @@ border-radius:10px;
 font-family:'Quicksand',sans-serif;
 font-weight:600;
 cursor:pointer;
+}
+
+.regime-panel div{
+font-family:'Quicksand',sans-serif;
+font-weight:600;
+font-size:15px;
+
+padding:8px 12px;
+border-radius:10px;
 }
 
 .back-row{
@@ -791,9 +914,15 @@ background:#F1F2F6;
 
 <div class="header-bar">
 
-<div style="width:40px;"></div>
-
-<h1>🤖 Baby Data</h1>
+<button class="bell-btn" onclick="toggleRegimes(event)">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
+<path d="M13.73 21a2 2 0 01-3.46 0"/>
+</svg>
+</button>
+<div class="app-title">
+<span class="app-name">Baby Alex</span>
+</div>
 
 <button class="menu-btn" onclick="toggleMenu(event)">☰</button>
 
@@ -802,22 +931,18 @@ background:#F1F2F6;
 <div id="menuPanel" class="menu-panel hidden">
 
 <button onclick="importCSV()">⬆️ Import</button>
-
 <button onclick="exportCSV()">⬇️ Export</button>
-
 <button onclick="openRegimes()">⚙️ Regimes</button>
 
 </div>
+
+<div id="regimePanel" class="regime-panel hidden"></div>
 
 </div>
 
 <input type="file" id="csvFile" accept=".csv" style="display:none">
 
 <div class="content" id="logTab">
-
-<div id="regimeButtons"></div>
-
-<div class="section-header">Log</div>
 
 <div class="quick-grid">
 
@@ -899,7 +1024,7 @@ background:#F1F2F6;
 
 </div>
 
-<button class="primary" onclick="createRegime()">Save Regime</button>
+<button class="save-btn" onclick="createRegime()">Save</button>
 
 <div class="section-header">Existing Regimes</div>
 <div id="regimeList"></div>
@@ -1287,7 +1412,10 @@ const now = new Date()
 
 regimes.forEach(r=>{
 
-const last = events.find(e => e.type === r.type)
+const last = events.find(e =>
+e.type === r.type &&
+(r.type !== "Medication" || e.name === r.name)
+)
 
 if(!last) return
 
@@ -1403,24 +1531,43 @@ entries.innerHTML=""
 
 events.sort((a,b)=> new Date(b.time) - new Date(a.time))
 
-let lastDay=""
+let lastDayKey=""
 let lastFeedTime=null
+
+let pumpTotals = {}
+
+if(activeFilter==="Pump"){
+
+const pumpEvents = events.filter(e => (e.type||"").toLowerCase()==="pump")
+
+pumpEvents.forEach(e=>{
+
+const d = new Date(e.time)
+const key = d.toDateString()
+
+if(!pumpTotals[key]) pumpTotals[key]=0
+
+pumpTotals[key] += (parseInt(e.value) || 0)
+
+})
+
+}
 
 events.forEach(e=>{
 
-if(activeFilter!=="All" && e.type!==activeFilter) return
 /* show feed interval */
 
-if(activeFilter==="Feed"){
+if(activeFilter==="Feed" && e.type==="Feed"){
+
+const currentFeedTime = new Date(e.time)
 
 if(lastFeedTime){
 
-const diff = lastFeedTime - new Date(e.time)
+const diff = lastFeedTime - currentFeedTime
 
-if(diff < 600000){   // 10 minutes
-lastFeedTime = new Date(e.time)
-return
-}
+/* ignore cluster feeds under 30 minutes */
+
+if(diff >= 1800000){
 
 const mins = Math.floor(diff/60000)
 const h = Math.floor(mins/60)
@@ -1434,7 +1581,9 @@ ${h}h ${m}m
 
 }
 
-lastFeedTime = new Date(e.time)
+}
+
+lastFeedTime = currentFeedTime
 
 }
 
@@ -1456,10 +1605,25 @@ else{
 label=date.toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'long'})
 }
 
-if(label!==lastDay){
-entries.innerHTML+=`<div class="section-header">${label}</div>`
-lastDay=label
+const dayKey = date.toDateString()
+
+if(dayKey!==lastDayKey){
+
+let headerText = label
+
+if(activeFilter==="Pump" && pumpTotals[dayKey]){
+headerText += ` — ${pumpTotals[dayKey]} ml`
 }
+
+entries.innerHTML+=`<div class="section-header">${headerText}</div>`
+
+lastDayKey = dayKey
+
+}
+
+/* FILTER AFTER HEADER */
+
+if(activeFilter!=="All" && (e.type||"").toLowerCase() !== activeFilter.toLowerCase()) return
 
 let details=""
 
@@ -1674,7 +1838,7 @@ renderAll()
 function renderAll(){
 renderEntries()
 renderRegimes()
-renderRegimeButtons()
+updateBell()
 }
 
 renderAll()
@@ -1682,6 +1846,7 @@ renderAll()
 setInterval(() => {
 renderRegimeButtons()
 }, 60000)
+setInterval(updateBell,60000)
 
 function logPump(){
 
@@ -1786,11 +1951,14 @@ renderAll()
 }
 
 function editValue(id, el){
+
 if(activeEditor){
 renderAll()
 activeEditor=null
 }
+
 activeEditor = el
+
 const e = events.find(x => x.id === id)
 
 el.innerHTML = `
@@ -1805,15 +1973,31 @@ padding:2px 4px;
 `
 
 const input = el.querySelector("input")
-
 input.focus()
+
+/* prevent click inside input from closing */
+input.addEventListener("click", function(ev){
+ev.stopPropagation()
+})
 
 input.oninput = () => {
 
-e.value = parseInt(input.value)
-
+e.value = parseInt(input.value) || 0
 saveAll()
+
+}
+
+/* click-away close */
+
+document.addEventListener("click", close)
+
+function close(ev){
+
+if(!el.contains(ev.target)){
 renderAll()
+activeEditor=null
+document.removeEventListener("click", close)
+}
 
 }
 
@@ -2443,7 +2627,7 @@ function finishPump(amount){
 events.unshift({
 id:Date.now(),
 type:"Pump",
-value:amount,
+value:parseInt(amount),
 unit:"ml",
 icon:"🤱",
 bg:"pump-bg",
@@ -2602,7 +2786,7 @@ Log
 function toggleMenu(e){
 
 e.stopPropagation()
-
+document.getElementById("regimePanel").classList.add("hidden")
 const menu = document.getElementById("menuPanel")
 
 menu.classList.toggle("hidden")
@@ -2614,15 +2798,31 @@ menu.classList.toggle("hidden")
 window.addEventListener("click", function(e){
 
 const menu = document.getElementById("menuPanel")
+const regime = document.getElementById("regimePanel")
+
 const burger = document.querySelector(".menu-btn")
+const bell = document.querySelector(".bell-btn")
 
-if(menu.classList.contains("hidden")) return
+/* close menu */
 
+if(!menu.classList.contains("hidden")){
 if(
 !menu.contains(e.target) &&
 !burger.contains(e.target)
 ){
 menu.classList.add("hidden")
+}
+}
+
+/* close regimes */
+
+if(!regime.classList.contains("hidden")){
+if(
+!regime.contains(e.target) &&
+!bell.contains(e.target)
+){
+regime.classList.add("hidden")
+}
 }
 
 })
@@ -2650,8 +2850,134 @@ document.getElementById("menuPanel").classList.add("hidden")
 })
 
 function showStep(html){
+
 const panel = document.getElementById("quickPanel")
+
+panel.style.opacity = 0
+panel.style.transform = "translateY(6px)"
+
+setTimeout(()=>{
 panel.innerHTML = html
+panel.style.transition = "all 0.18s ease"
+panel.style.opacity = 1
+panel.style.transform = "translateY(0)"
+},80)
+
+}
+
+function toggleRegimes(e){
+
+e.stopPropagation()
+
+document.getElementById("menuPanel").classList.add("hidden")
+
+const panel = document.getElementById("regimePanel")
+
+panel.classList.toggle("hidden")
+
+renderRegimePanel()
+
+}
+
+function renderRegimePanel(){
+
+const panel = document.getElementById("regimePanel")
+
+const now = new Date()
+
+let dueNow = []
+let upcoming = []
+
+regimes.forEach(r=>{
+
+const last = events.find(e =>
+e.type === r.type &&
+(r.type !== "Medication" || e.name === r.name)
+)
+if(!last) return
+
+const next = new Date(new Date(last.time).getTime() + r.interval*3600000)
+
+const diff = next - now
+
+if(diff <= 0){
+dueNow.push(r)
+}else{
+upcoming.push({r,diff})
+}
+
+})
+
+let html=""
+
+/* DUE NOW */
+
+if(dueNow.length){
+
+html+=`<div style="color:#E54848;font-weight:700;margin-bottom:8px">Due now</div>`
+
+dueNow.forEach(r=>{
+html+=`<div>${r.name}</div>`
+})
+
+html+=`<hr style="margin:10px 0;border:none;border-top:1px solid #eee">`
+
+}
+
+/* UPCOMING */
+
+upcoming.forEach(o=>{
+
+const mins = Math.floor(o.diff/60000)
+const h = Math.floor(mins/60)
+const m = mins % 60
+
+html+=`<div>${o.r.name} — ${h}h ${m}m</div>`
+
+})
+
+panel.innerHTML = html
+
+}
+
+function updateBell(){
+
+const bell = document.querySelector(".bell-btn")
+
+const now = new Date()
+
+let state = "normal"
+
+regimes.forEach(r=>{
+
+const last = events
+.filter(e =>
+e.type === r.type &&
+(r.type !== "Medication" || e.name === r.name)
+)
+.sort((a,b)=> new Date(b.time) - new Date(a.time))[0]
+
+if(!last) return
+
+const next = new Date(new Date(last.time).getTime() + r.interval*3600000)
+
+const diff = next - now
+
+if(diff <= 0){
+state = "due"
+}
+else if(diff < 1800000 && state !== "due"){ // 30 minutes
+state = "soon"
+}
+
+})
+
+bell.classList.remove("bell-normal","bell-soon","bell-due")
+
+if(state==="due") bell.classList.add("bell-due")
+else if(state==="soon") bell.classList.add("bell-soon")
+else bell.classList.add("bell-normal")
+
 }
 
 </script>
