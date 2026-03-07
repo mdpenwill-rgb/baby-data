@@ -60,6 +60,7 @@ top:0;
 z-index:100;
 background:inherit;
 border-bottom:1px solid rgba(175,163,232,0.15);
+position:relative;
 }
 
 .import-btn{
@@ -95,6 +96,8 @@ background:
 radial-gradient(circle at 20% 50%, #E6DFFA 0%, #EFEAF9 50%, #E8EFFD 100%);
 display:flex;
 justify-content:center;
+
+overflow-y:scroll;
 }
 
 .app{
@@ -286,11 +289,9 @@ margin-top:4px;
 line-height:1.4;
 }
 .time{
-font-size:14px;
-color:#666;
+font-size:13px;
+color:#777;
 font-weight:600;
-margin-top:4px;
-margin-bottom:6px;
 }
 
 .sub span{
@@ -328,16 +329,30 @@ padding:2px 4px;
 font-size:13px;
 }
 
-button.primary,button.random{
-border:none;
-padding:16px;
-border-radius:16px;
-width:100%;
-margin-top:12px;
-font-size:16px;
+button.random{
+
+background:#F4F6FD;
+
+color:var(--ui-purple-dark);
+
+border:1px solid rgba(107,95,167,0.25);
+
+padding:8px 16px;
+
+border-radius:20px;
+
 font-weight:600;
+
+font-size:14px;
+
 cursor:pointer;
-transition:transform 0.08s ease, box-shadow 0.08s ease;
+
+transition:
+transform 0.15s ease,
+background 0.15s ease;
+
+font-family:'Quicksand',sans-serif;
+
 }
 
 button.primary:active,
@@ -400,15 +415,34 @@ color:#2F4C63;
 .choice-row{
 display:flex;
 gap:10px;
+overflow-x:auto;
+padding-bottom:2px;
+scrollbar-width:none;
+position:relative;
 }
 
-.choice-row button{flex:1;}
+.choice-row::-webkit-scrollbar{
+display:none;
+}
 
-.feed-buttons{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:10px;
-margin-top:10px;
+.choice-row button{
+flex:0 0 calc((100% - 30px) / 4);
+}
+
+.choice-row::after{
+content:"";
+position:absolute;
+right:0;
+top:0;
+bottom:0;
+width:28px;
+pointer-events:none;
+
+background:linear-gradient(
+to right,
+rgba(255,255,255,0),
+rgba(232,237,247,0.9)
+);
 }
 
 .feed-buttons button{
@@ -596,12 +630,13 @@ color:#3E5E4C;
 
 .quick-option-grid{
 display:grid;
-grid-template-columns:repeat(5,1fr);
+grid-template-columns:repeat(auto-fit,80px);
+justify-content:center;
 gap:12px;
 margin-top:12px;
-
 animation:quickPop 0.18s ease-out;
 }
+
 @keyframes quickPop{
 0%{
 opacity:0;
@@ -614,6 +649,7 @@ transform:scale(1) translateY(0);
 }
 
 .quick-option{
+width:64px;
 border:none;
 border-radius:18px;
 aspect-ratio:1/1;
@@ -623,8 +659,8 @@ flex-direction:column;
 align-items:center;
 justify-content:center;
 gap:6px;
-font-weight:600;
-font-size:14px;
+font-weight:700;
+font-size:13px;
 transition:transform 0.1s ease;
 }
 
@@ -658,6 +694,92 @@ background:#DFEEE6;
 color:#3E5E4C;
 }
 
+.menu-btn{
+background:none;
+border:none;
+font-size:22px;
+cursor:pointer;
+font-family:'Quicksand',sans-serif;
+}
+
+.menu-panel{
+position:absolute;
+right:16px;
+top:60px;
+background:white;
+border-radius:14px;
+box-shadow:0 6px 20px rgba(0,0,0,0.15);
+padding:10px;
+flex-direction:column;
+gap:6px;
+z-index:200;
+
+display:none;
+}
+
+.feed-buttons{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:10px;
+margin-top:10px;
+}
+
+.menu-panel:not(.hidden){
+display:flex;
+}
+
+.menu-panel button{
+border:none;
+background:none;
+text-align:left;
+padding:10px 14px;
+border-radius:10px;
+font-family:'Quicksand',sans-serif;
+font-weight:600;
+cursor:pointer;
+}
+
+.back-row{
+margin-bottom:14px;
+}
+
+.back-row button{
+
+border:none;
+
+background:rgba(255,255,255,0.55);
+
+backdrop-filter:blur(10px);
+-webkit-backdrop-filter:blur(10px);
+
+color:var(--ui-purple-dark);
+
+padding:10px 16px;
+
+border-radius:14px;
+
+font-family:'Quicksand',sans-serif;
+font-weight:700;
+
+cursor:pointer;
+
+box-shadow:0 2px 10px rgba(0,0,0,0.08);
+
+transition:
+transform 0.08s ease,
+box-shadow 0.08s ease;
+
+}
+
+.back-row button:active{
+transform:scale(0.95);
+box-shadow:0 2px 6px rgba(0,0,0,0.15) inset;
+}
+
+.menu-panel button:hover{
+background:#F1F2F6;
+}
+
 </style>
 </head>
 
@@ -669,11 +791,21 @@ color:#3E5E4C;
 
 <div class="header-bar">
 
-<button class="import-btn" onclick="importCSV()">⬆️ Import</button>
+<div style="width:40px;"></div>
 
 <h1>🤖 Baby Data</h1>
 
-<button class="export-btn" onclick="exportCSV()">⬇️ Export</button>
+<button class="menu-btn" onclick="toggleMenu(event)">☰</button>
+
+</div>
+
+<div id="menuPanel" class="menu-panel hidden">
+
+<button onclick="importCSV()">⬆️ Import</button>
+
+<button onclick="exportCSV()">⬇️ Export</button>
+
+<button onclick="openRegimes()">⚙️ Regimes</button>
 
 </div>
 
@@ -681,16 +813,11 @@ color:#3E5E4C;
 
 <input type="file" id="csvFile" accept=".csv" style="display:none">
 
-<div class="tabs">
-<div class="tab active" onclick="switchTab('log')">Log</div>
-<div class="tab" onclick="switchTab('regime')">Regimes</div>
-</div>
-
 <div class="content" id="logTab">
 
 <div id="regimeButtons"></div>
 
-<div class="section-header">Quick Log</div>
+<div class="section-header">Log</div>
 
 <div class="quick-grid">
 
@@ -721,21 +848,28 @@ color:#3E5E4C;
 
 </div>
 
-<div id="quickPanel" onclick="event.stopPropagation()"></div>
+<div id="quickPanel"></div>
 
-<div class="section-header">Entries</div>
+<div class="section-header">Filter by</div>
 
 <div class="choice-row">
+
 <button class="random filter-btn filter-active" onclick="setFilter('All', this)">All</button>
 <button class="random filter-btn" onclick="setFilter('Feed', this)">Feed</button>
 <button class="random filter-btn" onclick="setFilter('Pump', this)">Pump</button>
 <button class="random filter-btn" onclick="setFilter('Nappy', this)">Nappy</button>
+<button class="random filter-btn" onclick="setFilter('Medication', this)">Meds</button>
+<button class="random filter-btn" onclick="setFilter('Stretch', this)">Exercise</button>
 </div>
 <div id="entries"></div>
 
 </div>
 
 <div class="content hidden" id="regimeTab">
+
+<div class="back-row">
+<button onclick="goBack()">← Back</button>
+</div>
 
 <div class="section-header">Create Regime</div>
 
@@ -802,6 +936,7 @@ let activeEditor=null
 let quickFeedMode=null
 let quickFeedMilk=null
 let quickFeedSide=null
+let quickFeedMinutes=null
 
 /* repair older events */
 
@@ -1368,7 +1503,12 @@ entries.innerHTML+=`
 
 <div>
 
-<div class="title">${e.type}</div>
+<div class="row-space">
+
+<div class="title">
+${e.type}
+</div>
+
 <div class="time">
 <span onclick="editDate(${e.id}, this)">
 ${new Date(e.time).toLocaleDateString([], {month:'short', day:'numeric'})}
@@ -1378,6 +1518,9 @@ ${new Date(e.time).toLocaleDateString([], {month:'short', day:'numeric'})}
 ${new Date(e.time).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}
 </span>
 </div>
+
+</div>
+
 <div class="sub">${details}</div>
 
 </div>
@@ -2093,14 +2236,16 @@ function closeQuick(e){
 
 const panel = document.getElementById("quickPanel")
 
-if(
-panel.innerHTML !== "" &&
-!panel.contains(e.target) &&
-!e.target.closest(".quick-tile")
-){
+if(!panel) return
+
+// if click is inside wizard, ignore
+if(panel.contains(e.target)) return
+
+// if click is on quick tile, ignore
+if(e.target.closest(".quick-tile")) return
+
 panel.innerHTML=""
 document.removeEventListener("click", closeQuick)
-}
 
 }
 
@@ -2153,7 +2298,7 @@ class="pump-slider"
 oninput="updatePumpValue(this.value)"
 >
 
-<button class="quick-tile pump pump-log"
+<button class="quick-option pump pump-log"
 onclick="finishPump(document.getElementById('pumpSlider').value)">
 <div class="tile-icon">🤱</div>
 Log
@@ -2172,25 +2317,8 @@ Log
 /* FEED */
 
 if(type==="feed"){
-
-panel.innerHTML=`
-<div class="quick-option-grid">
-
-<button class="quick-option feed" onclick="feedModeSelect('Bottle')">
-🍼
-Bottle
-</button>
-
-<button class="quick-option feed" onclick="feedModeSelect('Breast')">
-🤱
-Breast
-</button>
-
-</div>
-`
-
+showFeedStep1()
 }
-
 /* MEDS */
 
 if(type==="meds"){
@@ -2263,99 +2391,6 @@ scrollTop()
 
 }
 
-function feedModeSelect(mode){
-
-quickFeedMode = mode
-
-const panel = document.getElementById("quickPanel")
-
-if(mode==="Bottle"){
-
-panel.innerHTML=`
-<div class="quick-option-grid">
-
-<button class="quick-option feed" onclick="feedMilkSelect('Milly Milk')">
-🥛
-Milly Milk
-</button>
-
-<button class="quick-option feed" onclick="feedMilkSelect('Formula')">
-🧪
-Formula
-</button>
-
-</div>
-`
-
-}
-
-if(mode==="Breast"){
-
-panel.innerHTML=`
-<div class="quick-option-grid">
-
-<button class="quick-option feed" onclick="feedSideSelect('Left')">
-⬅️
-Left
-</button>
-
-<button class="quick-option feed" onclick="feedSideSelect('Right')">
-➡️
-Right
-</button>
-
-<button class="quick-option feed" onclick="feedSideSelect('Both')">
-🔄
-Both
-</button>
-
-</div>
-`
-
-}
-
-}
-
-function feedMilkSelect(milk){
-
-quickFeedMilk = milk
-
-const panel = document.getElementById("quickPanel")
-
-panel.innerHTML=`
-<div class="quick-option-grid">
-
-<button class="quick-option feed" onclick="finishBottleFeed(10)">10 ml</button>
-<button class="quick-option feed" onclick="finishBottleFeed(20)">20 ml</button>
-<button class="quick-option feed" onclick="finishBottleFeed(30)">30 ml</button>
-<button class="quick-option feed" onclick="finishBottleFeed(40)">40 ml</button>
-
-</div>
-`
-
-}
-
-function feedSideSelect(side){
-
-quickFeedSide = side
-
-const panel = document.getElementById("quickPanel")
-
-panel.innerHTML=`
-<div class="quick-option-grid">
-
-<button class="quick-option feed" onclick="finishBreastFeed(5)">5 min</button>
-<button class="quick-option feed" onclick="finishBreastFeed(10)">10 min</button>
-<button class="quick-option feed" onclick="finishBreastFeed(15)">15 min</button>
-<button class="quick-option feed" onclick="finishBreastFeed(20)">20 min</button>
-<button class="quick-option feed" onclick="finishBreastFeed(25)">25 min</button>
-<button class="quick-option feed" onclick="finishBreastFeed(30)">30 min</button>
-
-</div>
-`
-
-}
-
 function finishBottleFeed(amount){
 
 events.unshift({
@@ -2379,15 +2414,15 @@ scrollTop()
 
 }
 
-function finishBreastFeed(minutes){
+function finishBreastFeed(minutes,side){
 
 events.unshift({
 id:Date.now(),
 type:"Feed",
 mode:"Breast",
 milk:"Milly Milk",
-side:quickFeedSide,
-value:minutes,
+side:side,
+value:parseInt(minutes),
 unit:"min",
 icon:"🍼",
 bg:"feed-bg",
@@ -2422,6 +2457,201 @@ document.getElementById("quickPanel").innerHTML=""
 
 scrollTop()
 
+}
+
+/* ---------- FEED WIZARD ---------- */
+
+function showFeedStep1(){
+
+showStep(`
+<div class="quick-option-grid">
+
+<button class="quick-option feed"
+onclick="event.stopPropagation(); showFeedBreastSlider()">
+🤱
+Breast
+</button>
+
+<button class="quick-option feed"
+onclick="event.stopPropagation(); showFeedBottleMilk()">
+🍼
+Bottle
+</button>
+
+</div>
+`)
+
+}
+
+function showFeedBreastSlider(){
+
+showStep(`
+
+<div class="pump-row">
+
+<input
+type="range"
+min="1"
+max="20"
+step="1"
+value="10"
+id="breastSlider"
+class="pump-slider"
+oninput="document.getElementById('breastValue').textContent=this.value"
+>
+
+<button class="quick-option feed pump-log"
+onclick="event.stopPropagation(); showFeedBreastSide(document.getElementById('breastSlider').value)">
+Next
+</button>
+
+</div>
+
+<div class="pump-value">
+<span id="breastValue">10</span> min
+</div>
+
+`)
+
+}
+
+function showFeedBreastSide(minutes){
+
+quickFeedMinutes = minutes
+
+showStep(`
+<div class="quick-option-grid">
+
+<button class="quick-option feed"
+onclick="event.stopPropagation(); finishBreastFeed(${minutes},'Left')">
+⬅️
+Left
+</button>
+
+<button class="quick-option feed"
+onclick="event.stopPropagation(); finishBreastFeed(${minutes},'Right')">
+➡️
+Right
+</button>
+
+<button class="quick-option feed"
+onclick="event.stopPropagation(); finishBreastFeed(${minutes},'Both')">
+🔄
+Both
+</button>
+
+</div>
+`)
+}
+
+function showFeedBottleMilk(){
+
+showStep(`
+<div class="quick-option-grid">
+
+<button class="quick-option feed"
+onclick="event.stopPropagation(); showFeedBottleSlider('Milly Milk')">
+🥛
+Milly
+</button>
+
+<button class="quick-option feed"
+onclick="event.stopPropagation(); showFeedBottleSlider('Formula')">
+🧪
+Formula
+</button>
+
+</div>
+`)
+}
+
+function showFeedBottleSlider(milk){
+
+quickFeedMilk = milk
+
+showStep(`
+
+<div class="pump-row">
+
+<input
+type="range"
+min="0"
+max="70"
+step="5"
+value="30"
+id="bottleSlider"
+class="pump-slider"
+oninput="document.getElementById('bottleValue').textContent=this.value"
+>
+
+<button class="quick-option feed pump-log"
+onclick="event.stopPropagation(); finishBottleFeed(document.getElementById('bottleSlider').value)">
+Log
+</button>
+
+</div>
+
+<div class="pump-value">
+<span id="bottleValue">30</span> ml
+</div>
+
+`)
+
+}
+
+function toggleMenu(e){
+
+e.stopPropagation()
+
+const menu = document.getElementById("menuPanel")
+
+menu.classList.toggle("hidden")
+
+}
+
+/* close menu if clicking outside */
+
+window.addEventListener("click", function(e){
+
+const menu = document.getElementById("menuPanel")
+const burger = document.querySelector(".menu-btn")
+
+if(menu.classList.contains("hidden")) return
+
+if(
+!menu.contains(e.target) &&
+!burger.contains(e.target)
+){
+menu.classList.add("hidden")
+}
+
+})
+
+function openRegimes(){
+
+document.getElementById("menuPanel").classList.add("hidden")
+
+document.getElementById("logTab").classList.add("hidden")
+document.getElementById("regimeTab").classList.remove("hidden")
+
+}
+
+function goBack(){
+
+document.getElementById("regimeTab").classList.add("hidden")
+document.getElementById("logTab").classList.remove("hidden")
+
+}
+
+window.addEventListener("DOMContentLoaded", function(){
+
+document.getElementById("menuPanel").classList.add("hidden")
+
+})
+
+function showStep(html){
+const panel = document.getElementById("quickPanel")
+panel.innerHTML = html
 }
 
 </script>
