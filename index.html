@@ -36,6 +36,18 @@
 -webkit-tap-highlight-color: transparent;
 }
 
+.menu-import{
+display:block;
+padding:10px 14px;
+border-radius:10px;
+font-family:'Quicksand',sans-serif;
+font-weight:600;
+cursor:pointer;
+}
+.menu-import:hover{
+background:#F1F2F6;
+}
+
 #csvFile{
 position:absolute;
 left:-9999px;
@@ -919,7 +931,7 @@ background:#F1F2F6;
 
 <div id="menuPanel" class="menu-panel hidden">
 
-<button onclick="importCSV()">⬆️ Import</button>
+<label for="csvFile" class="menu-import">⬆️ Import</label>
 <button onclick="exportCSV()">⬇️ Export</button>
 <button onclick="openRegimes()">⚙️ Regimes</button>
 <button onclick="clearAllData()">🗑 Clear Data</button>
@@ -930,7 +942,7 @@ background:#F1F2F6;
 
 </div>
 
-<input type="file" id="csvFile" accept=".csv">
+<input type="file" id="csvFile" accept=".csv" onchange="handleCSVImport(event)">
 <div class="content" id="logTab">
 
 <div class="quick-grid">
@@ -2416,15 +2428,10 @@ URL.revokeObjectURL(url)
 
 }
 
-function importCSV(){
 
-document.getElementById("csvFile").click()
+function handleCSVImport(event){
+const file = event.target.files[0]
 
-}
-
-document.getElementById("csvFile").addEventListener("change", function(){
-
-const file = this.files[0]
 if(!file) return
 
 const reader = new FileReader()
@@ -2496,7 +2503,7 @@ alert(imported + " new events imported")
 
 reader.readAsText(file)
 
-})
+}
 
 function openQuick(type){
 
