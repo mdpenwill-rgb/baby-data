@@ -36,23 +36,6 @@
 -webkit-tap-highlight-color: transparent;
 }
 
-.menu-import{
-display:block;
-background:none;
-border:none;
-text-align:left;
-padding:10px 14px;
-border-radius:10px;
-font-family:'Quicksand',sans-serif;
-font-weight:600;
-font-size:14px;
-cursor:pointer;
-width:100%;
-}
-.menu-import:hover{
-background:#F1F2F6;
-}
-
 #csvFile{
 position:absolute;
 opacity:0;
@@ -938,7 +921,7 @@ background:#F1F2F6;
 
 <div id="menuPanel" class="menu-panel hidden">
 
-<label for="csvFile" class="menu-import">⬆️ Import</label>
+<button onclick="document.getElementById('csvFile').click()">⬆️ Import</button>
 <button onclick="exportCSV()">⬇️ Export</button>
 <button onclick="openRegimes()">⚙️ Regimes</button>
 <button onclick="clearAllData()">🗑 Clear Data</button>
