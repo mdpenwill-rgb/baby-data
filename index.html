@@ -58,8 +58,8 @@ padding:0;
 position:sticky;
 top:0;
 z-index:100;
-
 background:transparent;
+position: relative;
 }
 
 .save-btn{
@@ -179,23 +179,12 @@ color:#2F2A55;
 margin-top:18px;
 text-align:center;
 }
-
-.pump-slider{
-width:100%;
-margin:20px 0;
-}
-
 .pump-row{
 display:grid;
 grid-template-columns:repeat(5,1fr);
 gap:12px;
 margin-top:12px;
 align-items:center;
-}
-
-.pump-slider{
-flex:1;
-margin:0;
 }
 
 .pump-slider{
@@ -479,7 +468,6 @@ gap:10px;
 overflow-x:auto;
 padding-bottom:2px;
 scrollbar-width:none;
-position:relative;
 }
 
 .choice-row::-webkit-scrollbar{
@@ -487,23 +475,7 @@ display:none;
 }
 
 .choice-row button{
-flex:0 0 calc((100% - 30px) / 4);
-}
-
-.choice-row::after{
-content:"";
-position:absolute;
-right:0;
-top:0;
-bottom:0;
-width:28px;
-pointer-events:none;
-
-background:linear-gradient(
-to right,
-rgba(255,255,255,0),
-rgba(232,237,247,0.9)
-);
+flex:0 0 calc((100% - 36px) / 4.5);
 }
 
 .feed-buttons button{
@@ -814,19 +786,32 @@ position:absolute;
 left:16px;
 top:60px;
 
-background:rgba(255,255,255,0.6);
+min-width:180px;
+max-width:260px;
+
+background:rgba(255,255,255,0.75);
 backdrop-filter:blur(14px);
--webkit-backdrop-filter:blur(14px);
 
 border-radius:14px;
 box-shadow:0 6px 20px rgba(0,0,0,0.15);
-padding:10px;
+padding:12px;
+
 flex-direction:column;
 gap:6px;
+
 z-index:200;
+
+display:none;
 }
 
 .regime-panel:not(.hidden){
+display:flex;
+}
+.regime-panel.hidden{
+display:none;
+}
+
+.regime-panel.show{
 display:flex;
 }
 
@@ -855,7 +840,7 @@ cursor:pointer;
 .regime-panel div{
 font-family:'Quicksand',sans-serif;
 font-weight:600;
-font-size:15px;
+font-size:14px;
 
 padding:8px 12px;
 border-radius:10px;
@@ -932,6 +917,7 @@ background:#F1F2F6;
 <button onclick="importCSV()">⬆️ Import</button>
 <button onclick="exportCSV()">⬇️ Export</button>
 <button onclick="openRegimes()">⚙️ Regimes</button>
+<button onclick="clearAllData()">🗑 Clear Data</button>
 
 </div>
 
@@ -1000,7 +986,7 @@ background:#F1F2F6;
 <select id="rType" onchange="adjustRegimeForm()">
 <option value="Feed">Feed</option>
 <option value="Medication">Medication</option>
-<option value="Stretch">Stretch</option>
+<option value="Stretch">Exercise</option>
 </select>
 
 <div id="feedOptions">
@@ -1019,6 +1005,7 @@ background:#F1F2F6;
 
 <div id="stretchOptions" class="hidden">
 
+<input id="rStretchName" placeholder="Exercise name">
 <input id="rIntervalStretch" type="number" placeholder="Interval hours">
 
 </div>
@@ -1073,7 +1060,7 @@ if(!e.type){
 if(e.icon==="🤱") e.type="Pump"
 if(e.icon==="🍼") e.type="Feed"
 if(e.icon==="🧷") e.type="Nappy"
-if(e.icon==="👄") e.type="Stretch"
+if(e.icon==="🏋️") e.type="Stretch"
 if(e.icon==="💊") e.type="Medication"
 
 }
@@ -1086,7 +1073,7 @@ if(e.type==="Feed") e.icon="🍼"
 if(e.type==="Pump") e.icon="🤱"
 if(e.type==="Nappy") e.icon="🧷"
 if(e.type==="Medication") e.icon="💊"
-if(e.type==="Stretch") e.icon="👄"
+if(e.type==="Stretch") e.icon="🏋️"
 
 }
 
@@ -1151,7 +1138,7 @@ localStorage.setItem("events", JSON.stringify([
 {"id":10,"type":"Pump","value":50,"unit":"ml","icon":"🤱","bg":"pump-bg","time":"2026-03-04T16:01:00"},
 {"id":1772656224633,"type":"Nappy","detail":"Wet","icon":"🧷","bg":"nappy-bg","time":"2026-03-04T14:00:24.633Z"},
 {"id":9,"type":"Feed","mode":"Breast","milk":"Milly Milk","value":0,"unit":"min","icon":"🍼","bg":"feed-bg","time":"2026-03-04T16:00:00"},
-{"id":8,"type":"Stretch","icon":"👄","bg":"stretch-bg","time":"2026-03-04T12:45:00.000Z"},
+{"id":8,"type":"Stretch","icon":"🏋️","bg":"stretch-bg","time":"2026-03-04T12:45:00.000Z"},
 {"id":7,"type":"Feed","mode":"Breast","milk":"Milly Milk","value":0,"unit":"min","icon":"🍼","bg":"feed-bg","time":"2026-03-04T12:01:00"},
 {"id":1772656258823,"type":"Nappy","detail":"Wet","icon":"🧷","bg":"nappy-bg","time":"2026-03-04T10:00:58.823Z"},
 {"id":6,"type":"Feed","mode":"Bottle","milk":"Milly Milk","value":30,"unit":"ml","icon":"🍼","bg":"feed-bg","time":"2026-03-04T12:00:00"},
@@ -1383,7 +1370,7 @@ r.interval = parseFloat(rIntervalMed.value)
 }
 
 if(type==="Stretch"){
-r.name = "Stretch"
+r.name = rStretchName.value || "Exercise"
 r.interval = parseFloat(rIntervalStretch.value)
 }
 
@@ -1429,7 +1416,7 @@ let icon=""
 
 if(r.type==="Feed") icon="🍼"
 if(r.type==="Medication") icon="💊"
-if(r.type==="Stretch") icon="👄"
+if(r.type==="Stretch") icon="🏋️"
 
 if(diff <= 0){
 
@@ -1471,12 +1458,11 @@ let icon=""
 
 if(r.type==="Feed") icon="🍼"
 if(r.type==="Medication") icon="💊"
-if(r.type==="Stretch") icon="👄"
+if(r.type==="Stretch") icon="🏋️"
 
 regimeList.innerHTML += `
 
 <div class="card">
-
 <div class="row-space">
 
 <div class="row">
@@ -1552,6 +1538,25 @@ pumpTotals[key] += (parseInt(e.value) || 0)
 
 }
 
+let nappyTotals = {}
+
+if(activeFilter==="Nappy"){
+
+const nappyEvents = events.filter(e => (e.type||"").toLowerCase()==="nappy")
+
+nappyEvents.forEach(e=>{
+
+const d = new Date(e.time)
+const key = d.toDateString()
+
+if(!nappyTotals[key]) nappyTotals[key]=0
+
+nappyTotals[key] += 1
+
+})
+
+}
+
 events.forEach(e=>{
 
 /* show feed interval */
@@ -1614,6 +1619,10 @@ if(activeFilter==="Pump" && pumpTotals[dayKey]){
 headerText += ` — ${pumpTotals[dayKey]} ml`
 }
 
+if(activeFilter==="Nappy" && nappyTotals[dayKey]){
+headerText += ` — ${nappyTotals[dayKey]} nappies`
+}
+
 entries.innerHTML+=`<div class="section-header">${headerText}</div>`
 
 lastDayKey = dayKey
@@ -1648,7 +1657,7 @@ if(e.type==="Nappy"){
 const detail = e.detail || "Wet"
 details=`<span onclick="chooseNappy(${e.id}, this)">${detail}</span>`
 }
-if(e.type==="Stretch") details="Stretch"
+if(e.type==="Stretch") details="Exercise"
 if(e.type==="Medication"){
 const name = e.name || "Medication"
 const val = e.value ?? ""
@@ -1656,7 +1665,7 @@ details=`${name} ${val} ml`
 }
 entries.innerHTML+=`
 
-<div class="card">
+<div class="card" id="event-${e.id}">
 
 <div class="row-space">
 
@@ -1701,9 +1710,54 @@ ${new Date(e.time).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}
 </div>
 
 `
-
 })
 
+}
+
+
+function renderSingleEvent(id){
+
+const e = events.find(x => x.id === id)
+const card = document.getElementById(`event-${id}`)
+
+if(!card || !e) return
+
+let details=""
+
+if(e.type==="Feed"){
+
+const mode = e.mode || "Bottle"
+const milk = e.milk || "Milly Milk"
+
+details=`<span onclick="chooseMode(${e.id}, this)">${mode}</span> • 
+<span onclick="chooseMilkType(${e.id}, this)">${milk}</span>`
+
+if(e.mode==="Breast"){
+details+=` • <span onclick="editBreastTime(${e.id}, this)">${e.value} min</span>`
+}
+else{
+details+=` • <span onclick="editValue(${e.id}, this)">${e.value ?? ""} ${e.unit ?? ""}</span>`
+}
+
+}
+
+if(e.type==="Pump"){
+details=`<span onclick="choosePump(${e.id}, this)">${e.value ?? ""} ml</span>`
+}
+
+if(e.type==="Nappy"){
+details=`<span onclick="chooseNappy(${e.id}, this)">${e.detail}</span>`
+}
+
+if(e.type==="Stretch"){
+details="Stretch"
+}
+
+if(e.type==="Medication"){
+details=`${e.name} ${e.value ?? ""} ml`
+}
+
+card.querySelector(".sub").innerHTML = details
 }
 
 function repairEvents(){
@@ -1714,7 +1768,7 @@ if(!e.type){
 if(e.icon==="🤱") e.type="Pump"
 if(e.icon==="🍼") e.type="Feed"
 if(e.icon==="🧷") e.type="Nappy"
-if(e.icon==="👄") e.type="Stretch"
+if(e.icon==="🏋️") e.type="Stretch"
 if(e.icon==="💊") e.type="Medication"
 }
 
@@ -1723,7 +1777,7 @@ if(e.type==="Feed") e.icon="🍼"
 if(e.type==="Pump") e.icon="🤱"
 if(e.type==="Nappy") e.icon="🧷"
 if(e.type==="Medication") e.icon="💊"
-if(e.type==="Stretch") e.icon="👄"
+if(e.type==="Stretch") e.icon="🏋️"
 }
 
 if(!e.bg){
@@ -1769,7 +1823,7 @@ input.focus()
 input.onblur = () => {
 
 if(!input.value){
-renderAll()
+renderSingleEvent(id)
 return
 }
 
@@ -1782,7 +1836,8 @@ current.setDate(parseInt(d))
 e.time = current.toISOString()
 
 saveAll()
-renderAll()
+renderSingleEvent(id)
+updateBell()
 
 }
 
@@ -1807,14 +1862,14 @@ input.focus()
 input.onblur = () => {
 
 if(!input.value) {
-renderAll()
+renderSingleEvent(id)
 return
 }
 
 /* do nothing if unchanged */
 
 if(input.value === original){
-renderAll()
+renderSingleEvent(id)
 return
 }
 
@@ -1828,8 +1883,8 @@ updated.setMinutes(parseInt(m))
 e.time = updated.toISOString()
 
 saveAll()
-renderAll()
-
+renderSingleEvent(id)
+updateBell()
 }
 
 }
@@ -1842,10 +1897,24 @@ updateBell()
 
 renderAll()
 
-setInterval(() => {
-renderRegimeButtons()
-}, 60000)
+setTimeout(updateBell,50)
+
 setInterval(updateBell,60000)
+
+function logEvent(data){
+
+events.unshift({
+id:Date.now(),
+time:new Date().toISOString(),
+...data
+})
+
+saveAll()
+renderAll()
+closeWizard()
+scrollTop()
+
+}
 
 function logPump(){
 
@@ -1889,7 +1958,7 @@ function logStretch(){
 events.unshift({
 id:Date.now(),
 type:"Stretch",
-icon:"👄",
+icon:"🏋️",
 bg:"stretch-bg",
 time:new Date().toISOString()
 })
@@ -1945,14 +2014,16 @@ e.milk = "Milly Milk"
 }
 
 saveAll()
-renderAll()
+renderSingleEvent(id)
+updateBell()
 
 }
 
 function editValue(id, el){
 
 if(activeEditor){
-renderAll()
+renderSingleEvent(id)
+updateBell()
 activeEditor=null
 }
 
@@ -1993,7 +2064,8 @@ document.addEventListener("click", close)
 function close(ev){
 
 if(!el.contains(ev.target)){
-renderAll()
+renderSingleEvent(id)
+updateBell()
 activeEditor=null
 document.removeEventListener("click", close)
 }
@@ -2005,7 +2077,8 @@ document.removeEventListener("click", close)
 function chooseMode(id, el){
 
 if(activeEditor){
-renderAll()
+renderSingleEvent(id)
+updateBell()
 activeEditor=null
 }
 
@@ -2027,8 +2100,8 @@ b.onclick = () => {
 e.mode = b.dataset.v
 
 saveAll()
-renderAll()
-
+renderSingleEvent(id)
+updateBell()
 }
 
 })
@@ -2038,18 +2111,19 @@ document.addEventListener("click", close)
 function close(ev){
 
 if(!el.contains(ev.target)){
-renderAll()
+renderSingleEvent(id)
+updateBell()
 activeEditor=null
 document.removeEventListener("click", close)
 }
-
 }
 
 }
 
 function chooseMilkType(id, el){
 if(activeEditor){
-renderAll()
+renderSingleEvent(id)
+updateBell()
 activeEditor=null
 }
 
@@ -2071,8 +2145,8 @@ b.onclick = () => {
 e.milk = b.dataset.v
 
 saveAll()
-renderAll()
-
+renderSingleEvent(id)
+updateBell()
 }
 
 })
@@ -2082,7 +2156,8 @@ document.addEventListener("click", close)
 function close(ev){
 
 if(!el.contains(ev.target)){
-renderAll()
+renderSingleEvent(id)
+updateBell()
 activeEditor=null
 document.removeEventListener("click", close)
 }
@@ -2093,7 +2168,8 @@ document.removeEventListener("click", close)
 
 function chooseNappy(id, el){
 if(activeEditor){
-renderAll()
+renderSingleEvent(id)
+updateBell()
 activeEditor=null
 }
 activeEditor = el
@@ -2115,8 +2191,8 @@ b.onclick = () => {
 e.detail = b.dataset.v
 
 saveAll()
-renderAll()
-
+renderSingleEvent(id)
+updateBell()
 }
 
 })
@@ -2126,7 +2202,8 @@ document.addEventListener("click", close)
 function close(ev){
 
 if(!el.contains(ev.target)){
-renderAll()
+renderSingleEvent(id)
+updateBell()
 activeEditor=null
 document.removeEventListener("click", close)
 }
@@ -2136,10 +2213,15 @@ document.removeEventListener("click", close)
 }
 
 function choosePump(id, el){
+
 if(activeEditor){
-renderAll()
+renderSingleEvent(id)
+updateBell()
 activeEditor=null
 }
+
+activeEditor = el
+
 const e = events.find(x => x.id === id)
 
 const amounts = [15,30,40,50,60,70]
@@ -2161,7 +2243,8 @@ ev.stopPropagation()
 e.value = parseInt(b.dataset.v)
 
 saveAll()
-renderAll()
+renderSingleEvent(id)
+updateBell()
 
 }
 
@@ -2172,7 +2255,8 @@ document.addEventListener("click", close)
 function close(ev){
 
 if(!el.contains(ev.target)){
-renderAll()
+renderSingleEvent(id)
+updateBell()
 activeEditor=null
 document.removeEventListener("click", close)
 }
@@ -2211,7 +2295,8 @@ document.addEventListener("click", close)
 function close(ev){
 
 if(!el.contains(ev.target)){
-renderAll()
+renderSingleEvent(id)
+updateBell()
 activeEditor=null
 document.removeEventListener("click", close)
 }
@@ -2223,7 +2308,8 @@ document.removeEventListener("click", close)
 function editBreastTime(id, el){
 
 if(activeEditor){
-renderAll()
+renderSingleEvent(id)
+updateBell()
 activeEditor=null
 }
 
@@ -2262,7 +2348,8 @@ document.addEventListener("click", close)
 function close(ev){
 
 if(!el.contains(ev.target)){
-renderAll()
+renderSingleEvent(id)
+updateBell()
 activeEditor=null
 document.removeEventListener("click", close)
 }
@@ -2374,7 +2461,7 @@ cols[1] === "Feed" ? "🍼" :
 cols[1] === "Pump" ? "🤱" :
 cols[1] === "Nappy" ? "🧷" :
 cols[1] === "Medication" ? "💊" :
-cols[1] === "Stretch" ? "👄" : "",
+cols[1] === "Stretch" ? "🏋️" : "",
 
 bg:
 cols[1] === "Feed" ? "feed-bg" :
@@ -2506,46 +2593,64 @@ showFeedStep1()
 
 if(type==="meds"){
 
-panel.innerHTML=`
-<div class="quick-option-grid">
+let meds = regimes.filter(r => r.type==="Medication")
 
-<button class="quick-option meds" onclick="logMedication('Calpol')">
+let html = `<div class="quick-option-grid">`
+
+meds.forEach(m=>{
+html += `
+<button class="quick-option meds"
+onclick="logMedication('${m.name}')">
 💊
-Calpol
+${m.name}
 </button>
+`
+})
 
-<button class="quick-option meds" onclick="logMedication('White Pills')">
-⚪
-White
+html += `
+<button class="quick-option meds"
+onclick="showMedicationWizard()">
+➕
+New
 </button>
-
-<button class="quick-option meds" onclick="logMedication('Blue Pills')">
-🔵
-Blue
-</button>
-
-</div>
 `
 
-}
+html += `</div>`
 
+panel.innerHTML = html
+
+}
 /* EXERCISE */
 
 if(type==="exercise"){
 
-panel.innerHTML=`
-<div class="quick-option-grid">
+let exercises = regimes.filter(r => r.type==="Stretch")
 
-<button class="quick-option exercise" onclick="logStretch()">
-🧘
-Stretch
+let html = `<div class="quick-option-grid">`
+
+exercises.forEach(ex=>{
+html += `
+<button class="quick-option exercise"
+onclick="logExercise('${ex.name}')">
+🏋️
+${ex.name}
 </button>
+`
+})
 
-</div>
+html += `
+<button class="quick-option exercise"
+onclick="showExerciseWizard()">
+➕
+New
+</button>
 `
 
-}
+html += `</div>`
 
+panel.innerHTML = html
+
+}
 }
 
 function updatePumpValue(v){
@@ -2663,6 +2768,133 @@ Bottle
 
 </div>
 `)
+
+}
+
+function showExerciseWizard(){
+
+showStep(`
+
+<div style="padding:10px">
+
+<input id="exerciseName" placeholder="Exercise name">
+
+<button class="save-btn"
+onclick="finishExerciseWizard()">
+Log
+</button>
+
+</div>
+
+`)
+
+}
+
+function finishExerciseWizard(){
+
+const name = document.getElementById("exerciseName").value.trim()
+
+if(!name){
+alert("Enter exercise name")
+return
+}
+
+logEvent({
+type:"Stretch",
+name:name,
+icon:"🏋️",
+bg:"stretch-bg"
+})
+
+}
+function logExercise(name){
+
+logEvent({
+type:"Stretch",
+name:name,
+icon:"🏋️",
+bg:"stretch-bg"
+})
+
+}
+
+function showMedicationWizard(){
+
+showStep(`
+
+<div style="padding:10px">
+
+<input id="medName" placeholder="Medication name">
+
+<button class="save-btn"
+onclick="showMedicationDose()">
+Next
+</button>
+
+</div>
+
+`)
+
+}
+
+function showMedicationDose(){
+
+const name = document.getElementById("medName").value.trim()
+
+if(!name){
+alert("Enter medication name")
+return
+}
+
+showStep(`
+
+<div style="padding:10px">
+
+<input id="medDose" type="number" placeholder="Dose">
+
+<select id="medUnit">
+<option value="ml">ml</option>
+<option value="mg">mg</option>
+</select>
+
+<button class="save-btn"
+onclick="finishMedication('${name}')">
+Log
+</button>
+
+</div>
+
+`)
+
+}
+
+function finishMedication(name){
+
+const dose = parseFloat(document.getElementById("medDose").value)
+const unit = document.getElementById("medUnit").value
+
+if(!dose){
+alert("Enter dose")
+return
+}
+
+events.unshift({
+id:Date.now(),
+type:"Medication",
+name:name,
+value:dose,
+unit:unit,
+icon:"💊",
+bg:"med-bg",
+time:new Date().toISOString()
+})
+
+saveAll()
+renderAll()
+
+document.getElementById("quickPanel").innerHTML=""
+
+scrollTop()
 
 }
 
@@ -2792,7 +3024,7 @@ menu.classList.toggle("hidden")
 
 }
 
-/* close menu if clicking outside */
+/* close menu or regimes if clicking outside */
 
 window.addEventListener("click", function(e){
 
@@ -2804,22 +3036,16 @@ const bell = document.querySelector(".bell-btn")
 
 /* close menu */
 
-if(!menu.classList.contains("hidden")){
-if(
-!menu.contains(e.target) &&
-!burger.contains(e.target)
-){
+if(menu && !menu.classList.contains("hidden")){
+if(!menu.contains(e.target) && !burger.contains(e.target)){
 menu.classList.add("hidden")
 }
 }
 
 /* close regimes */
 
-if(!regime.classList.contains("hidden")){
-if(
-!regime.contains(e.target) &&
-!bell.contains(e.target)
-){
+if(regime && !regime.classList.contains("hidden")){
+if(!regime.contains(e.target) && !bell.contains(e.target)){
 regime.classList.add("hidden")
 }
 }
@@ -2863,18 +3089,23 @@ panel.style.transform = "translateY(0)"
 },80)
 
 }
+function closeWizard(){
+document.getElementById("quickPanel").innerHTML=""
+}
 
 function toggleRegimes(e){
 
 e.stopPropagation()
 
-document.getElementById("menuPanel").classList.add("hidden")
-
 const panel = document.getElementById("regimePanel")
+
+document.getElementById("menuPanel").classList.add("hidden")
 
 panel.classList.toggle("hidden")
 
+if(!panel.classList.contains("hidden")){
 renderRegimePanel()
+}
 
 }
 
@@ -2889,11 +3120,17 @@ let upcoming = []
 
 regimes.forEach(r=>{
 
-const last = events.find(e =>
+const last = events
+.filter(e =>
 e.type === r.type &&
 (r.type !== "Medication" || e.name === r.name)
 )
-if(!last) return
+.sort((a,b)=> new Date(b.time) - new Date(a.time))[0]
+
+if(!last){
+dueNow.push(r)
+return
+}
 
 const next = new Date(new Date(last.time).getTime() + r.interval*3600000)
 
@@ -2901,7 +3138,8 @@ const diff = next - now
 
 if(diff <= 0){
 dueNow.push(r)
-}else{
+}
+else{
 upcoming.push({r,diff})
 }
 
@@ -2935,6 +3173,10 @@ html+=`<div>${o.r.name} — ${h}h ${m}m</div>`
 
 })
 
+if(html===""){
+html = `<div>No regimes saved</div>`
+}
+
 panel.innerHTML = html
 
 }
@@ -2942,6 +3184,8 @@ panel.innerHTML = html
 function updateBell(){
 
 const bell = document.querySelector(".bell-btn")
+
+if(!bell) return
 
 const now = new Date()
 
@@ -2956,7 +3200,10 @@ e.type === r.type &&
 )
 .sort((a,b)=> new Date(b.time) - new Date(a.time))[0]
 
-if(!last) return
+if(!last){
+state = "due"
+return
+}
 
 const next = new Date(new Date(last.time).getTime() + r.interval*3600000)
 
@@ -2965,7 +3212,7 @@ const diff = next - now
 if(diff <= 0){
 state = "due"
 }
-else if(diff < 1800000 && state !== "due"){ // 30 minutes
+else if(diff < 1800000 && state !== "due"){
 state = "soon"
 }
 
@@ -2973,9 +3220,31 @@ state = "soon"
 
 bell.classList.remove("bell-normal","bell-soon","bell-due")
 
-if(state==="due") bell.classList.add("bell-due")
-else if(state==="soon") bell.classList.add("bell-soon")
-else bell.classList.add("bell-normal")
+bell.classList.add(
+state==="due" ? "bell-due" :
+state==="soon" ? "bell-soon" :
+"bell-normal"
+)
+
+}
+
+function clearAllData(){
+
+if(!confirm("Clear ALL events and regimes?")){
+return
+}
+
+events = []
+regimes = []
+
+localStorage.setItem("events","[]")
+localStorage.setItem("regimes","[]")
+
+renderAll()
+
+document.getElementById("menuPanel").classList.add("hidden")
+
+showToast("All data cleared")
 
 }
 
