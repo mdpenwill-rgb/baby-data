@@ -1123,53 +1123,6 @@ e.value=0
 
 saveAll()
 
-if(events.length === 0){
-
-localStorage.setItem("events", JSON.stringify([
-{"id":1772703244674,"type":"Nappy","detail":"Both","icon":"🧷","bg":"nappy-bg","time":"2026-03-05T09:34:04.674Z"},
-{"id":1772699358350,"type":"Feed","mode":"Breast","milk":"Milly Milk","value":10,"unit":"min","icon":"🍼","bg":"feed-bg","time":"2026-03-05T08:29:18.350Z"},
-{"id":1772698194097,"type":"Nappy","detail":"Wet","icon":"🧷","bg":"nappy-bg","time":"2026-03-05T08:09:54.097Z"},
-{"id":1772691836001,"type":"Pump","value":35,"unit":"ml","icon":"🤱","bg":"pump-bg","time":"2026-03-05T06:23:56.001Z"},
-{"id":1772697506629,"type":"Nappy","detail":"Dirty","icon":"🧷","bg":"nappy-bg","time":"2026-03-05T05:31:26.629Z"},
-{"id":1772691780849,"type":"Feed","mode":"Bottle","milk":"Formula","value":15,"unit":"ml","icon":"🍼","bg":"feed-bg","time":"2026-03-05T05:30:00.849Z"},
-{"id":1772691749395,"type":"Feed","mode":"Bottle","milk":"Milly Milk","value":15,"unit":"ml","icon":"🍼","bg":"feed-bg","time":"2026-03-05T05:22:29.395Z"},
-{"id":1772672654275,"type":"Feed","mode":"Bottle","milk":"Milly Milk","value":15,"unit":"ml","icon":"🍼","bg":"feed-bg","time":"2026-03-05T01:04:14.275Z"},
-{"id":1772672621140,"type":"Feed","mode":"Bottle","milk":"Formula","value":15,"unit":"ml","icon":"🍼","bg":"feed-bg","time":"2026-03-05T01:03:41.140Z"},
-{"id":1772658709885,"type":"Nappy","detail":"Dirty","icon":"🧷","bg":"nappy-bg","time":"2026-03-04T21:05:49.885Z"},
-{"id":1772658328291,"type":"Feed","mode":"Bottle","milk":"Formula","value":30,"unit":"ml","icon":"🍼","bg":"feed-bg","time":"2026-03-04T21:05:28.291Z"},
-{"id":1772656063331,"type":"Pump","value":35,"unit":"ml","icon":"🤱","bg":"pump-bg","time":"2026-03-04T20:27:43.331Z"},
-{"id":1772658928913,"type":"Feed","mode":"Breast","milk":"Milly Milk","value":10,"unit":"min","icon":"🍼","bg":"feed-bg","time":"2026-03-04T17:16:28.913Z"},
-{"id":1772658892232,"type":"Feed","mode":"Bottle","milk":"Milly Milk","value":25,"unit":"ml","icon":"🍼","bg":"feed-bg","time":"2026-03-04T17:15:52.232Z"},
-{"id":1772658807089,"type":"Feed","mode":"Breast","milk":"Milly Milk","value":10,"unit":"min","icon":"🍼","bg":"feed-bg","time":"2026-03-04T17:15:27.089Z"},
-{"id":1772656330927,"type":"Pump","value":55,"unit":"ml","icon":"🤱","bg":"pump-bg","time":"2026-03-04T17:15:10.927Z"},
-{"id":10,"type":"Pump","value":50,"unit":"ml","icon":"🤱","bg":"pump-bg","time":"2026-03-04T16:01:00"},
-{"id":1772656224633,"type":"Nappy","detail":"Wet","icon":"🧷","bg":"nappy-bg","time":"2026-03-04T14:00:24.633Z"},
-{"id":9,"type":"Feed","mode":"Breast","milk":"Milly Milk","value":0,"unit":"min","icon":"🍼","bg":"feed-bg","time":"2026-03-04T16:00:00"},
-{"id":8,"type":"Stretch","icon":"🏋️","bg":"stretch-bg","time":"2026-03-04T12:45:00.000Z"},
-{"id":7,"type":"Feed","mode":"Breast","milk":"Milly Milk","value":0,"unit":"min","icon":"🍼","bg":"feed-bg","time":"2026-03-04T12:01:00"},
-{"id":1772656258823,"type":"Nappy","detail":"Wet","icon":"🧷","bg":"nappy-bg","time":"2026-03-04T10:00:58.823Z"},
-{"id":6,"type":"Feed","mode":"Bottle","milk":"Milly Milk","value":30,"unit":"ml","icon":"🍼","bg":"feed-bg","time":"2026-03-04T12:00:00"},
-{"id":5,"type":"Pump","value":70,"unit":"ml","icon":"🤱","bg":"pump-bg","time":"2026-03-04T09:30:00"},
-{"id":4,"type":"Feed","mode":"Bottle","milk":"Formula","value":30,"unit":"ml","icon":"🍼","bg":"feed-bg","time":"2026-03-04T08:40:00"},
-{"id":3,"type":"Feed","mode":"Bottle","milk":"Milly Milk","value":30,"unit":"ml","icon":"🍼","bg":"feed-bg","time":"2026-03-04T04:10:00"},
-{"id":2,"type":"Medication","name":"Calpol","value":2,"unit":"ml","icon":"💊","bg":"med-bg","time":"2026-03-04T04:00:00"},
-{"id":1,"type":"Feed","mode":"Bottle","milk":"Milly Milk","value":30,"unit":"ml","icon":"🍼","bg":"feed-bg","time":"2026-03-03T20:00:00.000Z"}
-]))
-events = JSON.parse(localStorage.getItem("events"))
-
-}
-
-if(localStorage.getItem("regimes") === null){
-localStorage.setItem("regimes", JSON.stringify([
-
-{"id":1772656122254,"type":"Feed","name":"Feed","interval":4},
-{"id":1772656136528,"type":"Medication","name":"White Pills","dose":null,"interval":12},
-{"id":1772656143200,"type":"Medication","name":"Blue Pills","dose":null,"interval":6},
-{"id":1772656152109,"type":"Stretch","name":"Stretch","interval":6}
-]))
-
-}
-
 function saveAll(){
 localStorage.setItem('regimes',JSON.stringify(regimes))
 localStorage.setItem('events',JSON.stringify(events))
@@ -1234,8 +1187,7 @@ value:amount,
 unit:"ml",
 icon:"🍼",
 bg:"feed-bg",
-time:new Date().toISOString()
-})
+time:new Date().toLocaleString("sv-SE").replace(" ","T")})
 
 resetFeed()
 saveAll()
@@ -1255,8 +1207,7 @@ value:min,
 unit:"min",
 icon:"🍼",
 bg:"feed-bg",
-time:new Date().toISOString()
-})
+time:new Date().toLocaleString("sv-SE").replace(" ","T")})
 
 resetFeed()
 saveAll()
@@ -1912,7 +1863,7 @@ function logEvent(data){
 
 events.unshift({
 id:Date.now(),
-time:new Date().toISOString(),
+time:new Date().toLocaleString("sv-SE").replace(" ","T"),
 ...data
 })
 
@@ -1935,8 +1886,7 @@ value:parseInt(v),
 unit:"ml",
 icon:"🤱",
 bg:"pump-bg",
-time:new Date().toISOString()
-})
+time:new Date().toLocaleString("sv-SE").replace(" ","T")})
 
 saveAll()
 renderAll()
@@ -1951,8 +1901,7 @@ id:Date.now(),
 type:"Nap",
 icon:"😴",
 bg:"nap-bg",
-time:new Date().toISOString()
-})
+time:new Date().toLocaleString("sv-SE").replace(" ","T")})
 
 saveAll()
 renderAll()
@@ -1967,8 +1916,7 @@ id:Date.now(),
 type:"Stretch",
 icon:"🏋️",
 bg:"stretch-bg",
-time:new Date().toISOString()
-})
+time:new Date().toLocaleString("sv-SE").replace(" ","T")})
 
 saveAll()
 renderAll()
@@ -1984,8 +1932,7 @@ type:"Nappy",
 detail:type,
 icon:"🧷",
 bg:"nappy-bg",
-time:new Date().toISOString()
-})
+time:new Date().toLocaleString("sv-SE").replace(" ","T")})
 
 saveAll()
 renderAll()
@@ -2456,7 +2403,7 @@ value: cols[4] ? parseInt(cols[4]) : 0,
 unit: cols[5] || "",
 detail: cols[6] || "",
 name: cols[7] || "",
-time: cols[8] || "",
+time: cols[8] ? new Date(cols[8]).toISOString() : "",
 
 icon:
 cols[1] === "Feed" ? "🍼" :
@@ -2669,8 +2616,7 @@ value:0,
 unit:"ml",
 icon:"💊",
 bg:"med-bg",
-time:new Date().toISOString()
-})
+time:new Date().toLocaleString("sv-SE").replace(" ","T")})
 
 saveAll()
 renderAll()
@@ -2692,8 +2638,7 @@ value:amount,
 unit:"ml",
 icon:"🍼",
 bg:"feed-bg",
-time:new Date().toISOString()
-})
+time:new Date().toLocaleString("sv-SE").replace(" ","T")})
 
 saveAll()
 renderAll()
@@ -2716,8 +2661,7 @@ value:parseInt(minutes),
 unit:"min",
 icon:"🍼",
 bg:"feed-bg",
-time:new Date().toISOString()
-})
+time:new Date().toLocaleString("sv-SE").replace(" ","T")})
 
 saveAll()
 renderAll()
@@ -2737,8 +2681,7 @@ value:parseInt(amount),
 unit:"ml",
 icon:"🤱",
 bg:"pump-bg",
-time:new Date().toISOString()
-})
+time:new Date().toLocaleString("sv-SE").replace(" ","T")})
 
 saveAll()
 renderAll()
@@ -2888,8 +2831,7 @@ value:dose,
 unit:unit,
 icon:"💊",
 bg:"med-bg",
-time:new Date().toISOString()
-})
+time:new Date().toLocaleString("sv-SE").replace(" ","T")})
 
 saveAll()
 renderAll()
