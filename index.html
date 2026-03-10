@@ -17,20 +17,18 @@
 <style>
 
 :root{
-
 --nappy:#FFD66B;
 --feed:#7EC6FF;
 --pump:#C4A5FF;
 --meds:#FF9EC7;
 --exercise:#8FE0B5;
-
 --ui-purple:#AFA3E8;
 --ui-purple-dark:#6B5FA7;
-
 --ui-blue:#BFDDF3;
 --ui-blue-dark:#35596B;
-
+--weight:#B8E8D0;
 }
+
 
 *{
 -webkit-tap-highlight-color: transparent;
@@ -54,46 +52,32 @@ padding:18px 16px 12px 16px;
 flex:1;
 text-align:center;
 margin:0;
-}
-
-.header-bar h1{
-margin:0;
 padding:0;
 }
 
+/* FIX: removed duplicate position declaration — now correctly sticky */
 .glass-header{
 position:sticky;
 top:0;
 z-index:100;
 background:transparent;
-position: relative;
 }
 
 .save-btn{
-
 background:var(--ui-purple);
 color:white;
-
 border:none;
-
 height:48px;
 padding:0 20px;
-
 border-radius:999px;
-
 font-family:'Quicksand',sans-serif;
 font-weight:700;
 font-size:16px;
-
 cursor:pointer;
-
 display:block;
 margin:16px auto;
-
 transition:transform 0.12s ease, box-shadow 0.12s ease;
-
 box-shadow:0 2px 8px rgba(0,0,0,0.08);
-
 }
 
 .save-btn:active{
@@ -130,11 +114,9 @@ margin:0;
 font-family:'Quicksand', -apple-system, BlinkMacSystemFont, sans-serif;
 font-size:16px;
 line-height:1.45;
-background:
-radial-gradient(circle at 20% 50%, #E6DFFA 0%, #EFEAF9 50%, #E8EFFD 100%);
+background:radial-gradient(circle at 20% 50%, #E6DFFA 0%, #EFEAF9 50%, #E8EFFD 100%);
 display:flex;
 justify-content:center;
-
 overflow-y:scroll;
 }
 
@@ -174,18 +156,19 @@ color:var(--ui-purple-dark);
 background:var(--ui-purple);
 color:#2F2A55;
 }
+
 .quick-nappy{background:var(--nappy);color:#4A3A00;}
 .quick-feed{background:var(--feed);color:#0B3A5C;}
 .quick-pump{background:var(--pump);color:#3A2A66;}
 .quick-meds{background:var(--meds);color:#5C1F3C;}
 .quick-exercise{background:var(--exercise);color:#134735;}
-.quick-option.pump{background:#E6E0F1;color:#4E3F73;
-}
+.quick-option.pump{background:#E6E0F1;color:#4E3F73;}
 
 .pump-slider-wrap{
 margin-top:18px;
 text-align:center;
 }
+
 .pump-row{
 display:grid;
 grid-template-columns:repeat(5,1fr);
@@ -200,15 +183,12 @@ width:100%;
 margin:0;
 }
 
-.pump-log{
-aspect-ratio:1/1;
-padding:10px;
-font-size:13px;
-}
-
+/* FIX: merged duplicate .pump-log rules into one */
 .pump-log{
 grid-column:5;
 aspect-ratio:1/1;
+padding:10px;
+font-size:13px;
 display:flex;
 flex-direction:column;
 align-items:center;
@@ -223,6 +203,7 @@ margin-bottom:12px;
 }
 
 .content{padding:0 16px;}
+
 #regimeButtons{
 margin-top:8px;
 margin-bottom:10px;
@@ -248,13 +229,10 @@ background:rgba(255,255,255,0.45);
 border-radius:12px;
 padding:6px 8px;
 font-size:18px;
-
 backdrop-filter:blur(10px);
 -webkit-backdrop-filter:blur(10px);
-
 border:1px solid rgba(255,255,255,0.6);
 box-shadow:0 2px 8px rgba(0,0,0,0.08);
-
 display:flex;
 align-items:center;
 justify-content:center;
@@ -268,19 +246,11 @@ letter-spacing:0.3px;
 .card{
 background:white;
 padding:16px;
-
 border-radius:22px;
-
 margin-bottom:14px;
-
 box-shadow:0 4px 20px rgba(0,0,0,0.05);
-
 border-top:3px solid transparent;
-
-transition:
-transform 0.2s ease,
-box-shadow 0.2s ease;
-
+transition:transform 0.2s ease, box-shadow 0.2s ease;
 animation:cardIn 0.25s ease-out;
 }
 
@@ -290,14 +260,8 @@ box-shadow:0 8px 24px rgba(0,0,0,0.08);
 }
 
 @keyframes cardIn{
-0%{
-opacity:0;
-transform:translateY(8px);
-}
-100%{
-opacity:1;
-transform:translateY(0);
-}
+0%{opacity:0;transform:translateY(8px);}
+100%{opacity:1;transform:translateY(0);}
 }
 
 .row{display:flex;align-items:center;}
@@ -334,17 +298,17 @@ border:1px solid rgba(0,0,0,0.05);
 .nappy-bg{background:#F5EED9;}
 .nap-bg{background:#F5EED9;}
 .pump-bg{background:#E6E0F1;}
+.weight-bg{background:#B8E8D0;}
 
-.title{
-font-weight:700;
-font-size:16px;
-}
+.title{font-weight:700;font-size:16px;}
+
 .sub{
 font-size:14px;
 color:#555;
 margin-top:4px;
 line-height:1.4;
 }
+
 .time{
 font-size:13px;
 color:#777;
@@ -376,9 +340,7 @@ padding:2px 6px;
 border-radius:6px;
 }
 
-.time span:active{
-background:#eee;
-}
+.time span:active{background:#eee;}
 
 .time input{
 width:auto;
@@ -387,30 +349,19 @@ font-size:13px;
 }
 
 button.random{
-
-background:#F4F6FD;
-
+background:#E8EDF7;
 color:var(--ui-purple-dark);
-
-border:1px solid rgba(107,95,167,0.25);
-
+border:none;
 padding:8px 16px;
-
 border-radius:20px;
-
 font-weight:600;
-
 font-size:14px;
-
 cursor:pointer;
-
-transition:
-transform 0.15s ease,
-background 0.15s ease;
-
+transition:transform 0.15s ease, background 0.15s ease;
 font-family:'Quicksand',sans-serif;
-
 }
+
+button.random:hover{transform:scale(1.05);}
 
 button.primary:active,
 button.random:active{
@@ -419,51 +370,19 @@ box-shadow:0 2px 6px rgba(0,0,0,0.15) inset;
 }
 
 .import-btn:active,
-.export-btn:active{
-transform:scale(0.95);
-}
+.export-btn:active{transform:scale(0.95);}
 
 button.primary{
 background:#B9AEEA;
 color:white;
 }
 
-/* category overrides */
-
 button.primary.quick-nappy{background:var(--nappy);color:#4A3A00;}
 button.primary.quick-feed{background:var(--feed);color:#0B3A5C;}
 button.primary.quick-pump{background:var(--pump);color:#3A2A66;}
 button.primary.quick-meds{background:var(--meds);color:#5C1F3C;}
 button.primary.quick-exercise{background:var(--exercise);color:#134735;}
-button.random{
 
-background:#E8EDF7;
-
-color:var(--ui-purple-dark);
-
-border:none;
-
-padding:8px 16px;
-
-border-radius:20px;
-
-font-weight:600;
-
-font-size:14px;
-
-cursor:pointer;
-
-transition:
-transform 0.15s ease,
-background 0.15s ease;
-
-font-family:'Quicksand',sans-serif;
-
-}
-
-button.random:hover{
-transform:scale(1.05);
-}
 .filter-active{
 background:var(--ui-blue) !important;
 color:#2F4C63;
@@ -477,9 +396,7 @@ padding-bottom:2px;
 scrollbar-width:none;
 }
 
-.choice-row::-webkit-scrollbar{
-display:none;
-}
+.choice-row::-webkit-scrollbar{display:none;}
 
 .choice-row button{
 flex:0 0 calc((100% - 36px) / 4.5);
@@ -495,6 +412,7 @@ font-weight:600;
 }
 
 .hidden{display:none;}
+
 .countdown-red{
 color:#ff4d4d;
 font-weight:700;
@@ -516,11 +434,9 @@ padding:14px;
 margin-top:10px;
 border-radius:12px;
 border:none;
-
 font-family:'Quicksand',sans-serif;
 font-weight:600;
 font-size:16px;
-
 box-sizing:border-box;
 background:white;
 color:#4E3F73;
@@ -532,42 +448,24 @@ color:#8A84B8;
 }
 
 .regime-line{
-
 padding:8px 12px;
-
 margin:6px 0;
-
 font-size:15px;
 font-weight:600;
-
 border-radius:14px;
-
 border-left:4px solid transparent;
-
 transition:all 0.2s ease;
-
 font-family:'Quicksand',sans-serif;
-
 }
 
-.regime-line:hover{
-transform:translateX(2px);
-}
+.regime-line:hover{transform:translateX(2px);}
 
-.regime-DUE{
-color:#C0392B;
-}
+.regime-DUE{color:#C0392B;}
 
-.regime-soon{
-color:#B9770E;
-}
+/* FIX: removed duplicate .regime-soon rule */
+.regime-soon{color:#B9770E;}
 
-.regime-soon{
-color:#B9770E;
-}
-
-/* TOAST NOTIFICATIONS */
-
+/* TOAST */
 #toast{
 position:fixed;
 bottom:30px;
@@ -591,111 +489,59 @@ transform:translateX(-50%) translateY(-6px);
 }
 
 /* QUICK LOG GRID */
-
 .quick-grid{
 display:grid;
-grid-template-columns:repeat(5,1fr);
-gap:12px;
-margin-top:6px;
+grid-template-columns:repeat(6,1fr);
+gap:10px;
+margin-top:12px;
 }
 
-/* TILE STYLE */
-
 .quick-tile{
-
 border:none;
 border-radius:20px;
-
 padding:16px 6px;
-
 cursor:pointer;
-
 display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
-
 gap:6px;
-
 font-weight:700;
 font-size:13px;
-
 font-family:'Quicksand',sans-serif;
-
 box-shadow:0 2px 8px rgba(0,0,0,0.06);
-
-transition:
-transform 0.2s ease,
-box-shadow 0.2s ease;
-
+transition:transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* FIX: merged duplicate .quick-tile:active rules into one */
 .quick-tile:active{
 transform:scale(0.94);
 box-shadow:0 2px 6px rgba(0,0,0,0.15) inset;
 }
 
-/* ICON */
-
-.tile-icon{
-font-size:22px;
-}
+.tile-icon{font-size:22px;}
 
 .bell-btn{
 background:none;
 border:none;
 font-size:22px;
 cursor:pointer;
-
 color:#B8BCD4;
-
 transition:color 0.2s ease;
 }
 
-.bell-btn svg{
-display:block;
-}
+.bell-btn svg{display:block;}
 
-/* bell states */
+.bell-normal{color:#B8BCD4;}
+.bell-soon{color:var(--ui-purple-dark);}
+.bell-due{color:#E54848;}
 
-.bell-normal{
-color:#B8BCD4;
-}
-
-.bell-soon{
-color:var(--ui-purple-dark);
-}
-
-.bell-due{
-color:#E54848;
-}
-
-/* COLOURS (soft pastel) */
-
-.quick-tile.nappy{
-background:#F5EED9;
-color:#6B5A2E;
-}
-
-.quick-tile.feed{
-background:#DCEAF3;
-color:#35596B;
-}
-
-.quick-tile.pump{
-background:#E6E0F1;
-color:#4E3F73;
-}
-
-.quick-tile.meds{
-background:#F3DFE6;
-color:#6B3C4B;
-}
-
-.quick-tile.exercise{
-background:#DFEEE6;
-color:#3E5E4C;
-}
+.quick-tile.nappy{background:#F5EED9;color:#6B5A2E;}
+.quick-tile.feed{background:#DCEAF3;color:#35596B;}
+.quick-tile.pump{background:#E6E0F1;color:#4E3F73;}
+.quick-tile.meds{background:#F3DFE6;color:#6B3C4B;}
+.quick-tile.exercise{background:#DFEEE6;color:#3E5E4C;}
+.quick-tile.weight{background:#B8E8D0;color:#1F5C3E;}
 
 .quick-option-grid{
 display:grid;
@@ -707,14 +553,8 @@ animation:quickPop 0.22s cubic-bezier(.25,.8,.25,1);
 }
 
 @keyframes quickPop{
-0%{
-opacity:0;
-transform:scale(0.92) translateY(6px);
-}
-100%{
-opacity:1;
-transform:scale(1) translateY(0);
-}
+0%{opacity:0;transform:scale(0.92) translateY(6px);}
+100%{opacity:1;transform:scale(1) translateY(0);}
 }
 
 .quick-option{
@@ -733,35 +573,14 @@ font-size:13px;
 transition:transform 0.1s ease;
 }
 
-.quick-option:active{
-transform:scale(0.94);
-}
+/* FIX: merged duplicate .quick-option:active rules into one */
+.quick-option:active{transform:scale(0.94);}
 
-.quick-option:active{
-transform:scale(0.94);
-}
-
-/* category colours */
-
-.quick-option.feed{
-background:#DCEAF3;
-color:#35596B;
-}
-
-.quick-option.nappy{
-background:#F5EED9;
-color:#6B5A2E;
-}
-
-.quick-option.meds{
-background:#F3DFE6;
-color:#6B3C4B;
-}
-
-.quick-option.exercise{
-background:#DFEEE6;
-color:#3E5E4C;
-}
+.quick-option.feed{background:#DCEAF3;color:#35596B;}
+.quick-option.nappy{background:#F5EED9;color:#6B5A2E;}
+.quick-option.meds{background:#F3DFE6;color:#6B3C4B;}
+.quick-option.exercise{background:#DFEEE6;color:#3E5E4C;}
+.quick-option.weight{background:#B8E8D0;color:#1F5C3E;}
 
 .menu-btn{
 background:none;
@@ -784,7 +603,6 @@ padding:10px;
 flex-direction:column;
 gap:6px;
 z-index:200;
-
 display:none;
 }
 
@@ -792,35 +610,21 @@ display:none;
 position:absolute;
 left:16px;
 top:60px;
-
 min-width:180px;
 max-width:260px;
-
 background:rgba(255,255,255,0.75);
 backdrop-filter:blur(14px);
-
 border-radius:14px;
 box-shadow:0 6px 20px rgba(0,0,0,0.15);
 padding:12px;
-
 flex-direction:column;
 gap:6px;
-
 z-index:200;
-
 display:none;
 }
 
-.regime-panel:not(.hidden){
-display:flex;
-}
-.regime-panel.hidden{
-display:none;
-}
-
-.regime-panel.show{
-display:flex;
-}
+.regime-panel:not(.hidden){display:flex;}
+.regime-panel.hidden{display:none;}
 
 .feed-buttons{
 display:grid;
@@ -829,9 +633,7 @@ gap:10px;
 margin-top:10px;
 }
 
-.menu-panel:not(.hidden){
-display:flex;
-}
+.menu-panel:not(.hidden){display:flex;}
 
 .menu-panel button{
 border:none;
@@ -849,41 +651,25 @@ cursor:pointer;
 font-family:'Quicksand',sans-serif;
 font-weight:600;
 font-size:14px;
-
 padding:8px 12px;
 border-radius:10px;
 }
 
-.back-row{
-margin-bottom:14px;
-}
+.back-row{margin-bottom:14px;}
 
 .back-row button{
-
 border:none;
-
 background:rgba(255,255,255,0.55);
-
 backdrop-filter:blur(10px);
 -webkit-backdrop-filter:blur(10px);
-
 color:var(--ui-purple-dark);
-
 padding:10px 16px;
-
 border-radius:14px;
-
 font-family:'Quicksand',sans-serif;
 font-weight:700;
-
 cursor:pointer;
-
 box-shadow:0 2px 10px rgba(0,0,0,0.08);
-
-transition:
-transform 0.08s ease,
-box-shadow 0.08s ease;
-
+transition:transform 0.08s ease, box-shadow 0.08s ease;
 }
 
 .back-row button:active{
@@ -891,9 +677,274 @@ transform:scale(0.95);
 box-shadow:0 2px 6px rgba(0,0,0,0.15) inset;
 }
 
-.menu-panel button:hover{
-background:#F1F2F6;
+.menu-panel button:hover{background:#F1F2F6;}
+
+/* DAILY SUMMARY */
+/* SWIPEABLE SUMMARY */
+
+.graph-toggle-row{
+display:flex;
+justify-content:center;
+margin-top:8px;
 }
+
+#graphToggleBtn{
+background:#F7F6FD;
+border:none;
+border-radius:12px;
+padding:8px 14px;
+font-family:'Quicksand',sans-serif;
+font-weight:700;
+font-size:13px;
+color:#7C73B6;
+cursor:pointer;
+}
+
+.graph-shelf{
+overflow:hidden;
+max-height:0;
+transition:max-height 0.35s cubic-bezier(.33,1,.68,1);
+padding-top:14px;
+padding-bottom:14px;
+}
+
+.graph-shelf.open{
+max-height:500px;
+}
+.summary-pager{
+margin:22px 0 0;
+position:relative;
+overflow:hidden;
+border-radius:22px;
+}
+
+.summary-slides{
+display:flex;
+width:200%;
+transition:transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
+will-change:transform;
+}
+
+.summary-slide{
+width:50%;
+min-width:50%;
+}
+
+.summary-dots{
+display:flex;
+justify-content:center;
+gap:6px;
+margin-top:8px;
+}
+
+.summary-dot{
+width:6px;
+height:6px;
+border-radius:50%;
+background:#D4D0EE;
+transition:background 0.2s ease;
+cursor:pointer;
+padding:4px;
+box-sizing:content-box;
+}
+
+.summary-dot.active{
+background:var(--ui-purple);
+}
+
+/* HISTORY CHARTS CARD */
+.history-card{
+background:white;
+border-radius:22px;
+padding:14px 16px;
+box-shadow:0 4px 20px rgba(0,0,0,0.05);
+}
+
+.history-tabs{
+display:flex;
+gap:6px;
+margin-top:10px;
+margin-bottom:14px;
+flex-wrap:wrap;
+}
+
+.history-tab{
+flex:1;
+min-width:0;
+border:none;
+border-radius:10px;
+padding:7px 4px;
+font-family:'Quicksand',sans-serif;
+font-weight:700;
+font-size:12px;
+cursor:pointer;
+background:#F7F6FD;
+color:#9B92D4;
+transition:background 0.15s ease, color 0.15s ease;
+white-space:nowrap;
+}
+
+.history-tab.active{
+color:#fff;
+}
+
+.history-tab.ht-feed.active  { background:#7EC6FF; color:#0B3A5C; }
+.history-tab.ht-nappy.active { background:#FFD66B; color:#4A3A00; }
+.history-tab.ht-pump.active  { background:#C4A5FF; color:#3A2A66; }
+.history-tab.ht-weight.active{ background:#8FCA9F; color:#1F5C3E; }
+
+.history-canvas-wrap{
+width:100%;
+}
+
+.history-canvas-wrap canvas{
+display:block;
+width:100%;
+}
+
+.history-chart-empty{
+font-size:13px;
+color:#C4BEE8;
+font-weight:600;
+text-align:center;
+padding:30px 0;
+}
+
+.summary-card{
+background:white;
+border-radius:22px;
+padding:14px 16px;
+margin:22px 0 0;
+box-shadow:0 4px 20px rgba(0,0,0,0.05);
+}
+
+.summary-title{
+font-size:12px;
+font-weight:700;
+color:#9B92D4;
+text-transform:uppercase;
+letter-spacing:0.6px;
+margin-bottom:10px;
+}
+
+.summary-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:8px;
+}
+
+.summary-stat{
+background:#F7F6FD;
+border-radius:14px;
+padding:10px 12px;
+}
+
+.summary-stat-value{
+font-size:18px;
+font-weight:700;
+color:#4E3F73;
+line-height:1.1;
+}
+
+.summary-stat-label{
+font-size:11px;
+font-weight:600;
+color:#9B92D4;
+margin-top:3px;
+}
+
+.summary-empty{
+font-size:13px;
+color:#B0AAD8;
+font-weight:600;
+text-align:center;
+padding:4px 0 2px;
+}
+
+/* INLINE PILL POPOVER */
+.inline-popover{
+display:flex;
+flex-wrap:wrap;
+gap:6px;
+margin-top:8px;
+opacity:0;
+transition:opacity 0.15s ease;
+}
+
+/* WEIGHT CHART */
+.weight-chart-card{
+background:white;
+border-radius:22px;
+padding:16px;
+margin-top:22px;
+margin-bottom:14px;
+box-shadow:0 4px 20px rgba(0,0,0,0.05);
+}
+
+.weight-chart-title{
+font-size:12px;
+font-weight:700;
+color:#9B92D4;
+text-transform:uppercase;
+letter-spacing:0.6px;
+margin-bottom:12px;
+}
+
+.weight-chart-card canvas{
+display:block;
+width:100%;
+border-radius:8px;
+}
+
+.weight-chart-empty{
+font-size:13px;
+color:#B0AAD8;
+font-weight:600;
+text-align:center;
+padding:20px 0;
+}
+
+/* PROFILE */
+.profile-card{
+background:white;
+border-radius:22px;
+padding:18px 16px;
+margin-bottom:14px;
+box-shadow:0 4px 20px rgba(0,0,0,0.05);
+}
+
+.profile-field{
+margin-bottom:14px;
+}
+
+.profile-field label{
+display:block;
+font-size:12px;
+font-weight:700;
+color:#9B92D4;
+text-transform:uppercase;
+letter-spacing:0.5px;
+margin-bottom:4px;
+}
+
+.profile-field input{
+margin-top:0;
+background:#F7F6FD;
+color:#4E3F73;
+}
+
+.profile-saved{
+text-align:center;
+font-size:13px;
+font-weight:600;
+color:#8FCA9F;
+margin-top:-8px;
+margin-bottom:8px;
+min-height:20px;
+transition:opacity 0.3s ease;
+}
+
+
 
 </style>
 </head>
@@ -902,2299 +953,1749 @@ background:#F1F2F6;
 
 <div class="app">
 
-<div class="glass-header">
+  <div class="glass-header">
 
-<div class="header-bar">
+    <div class="header-bar">
 
-<button class="bell-btn" onclick="toggleRegimes(event)">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
-<path d="M13.73 21a2 2 0 01-3.46 0"/>
-</svg>
-</button>
-<div class="app-title">
-<span class="app-name">Baby Alex</span>
+      <button class="bell-btn" onclick="toggleRegimes(event)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
+          <path d="M13.73 21a2 2 0 01-3.46 0"/>
+        </svg>
+      </button>
+
+      <div class="app-title">
+        <span class="app-name">Baby Alex</span>
+      </div>
+
+      <button class="menu-btn" onclick="toggleMenu(event)">☰</button>
+
+    </div>
+
+    <div id="menuPanel" class="menu-panel hidden">
+      <button onclick="document.getElementById('csvFile').click()">⬆️ Import</button>
+      <button onclick="exportCSV()">⬇️ Export</button>
+      <button onclick="openRegimes()">⚙️ Regimes</button>
+      <button onclick="openProfile()">👶 Profile</button>
+      <button onclick="clearAllData()">🗑 Clear Data</button>
+    </div>
+
+    <div id="regimePanel" class="regime-panel hidden"></div>
+
+  </div>
+
+  <input type="file" id="csvFile" onchange="handleCSVImport(event)">
+
+  <div class="content" id="logTab">
+
+    <div id="dailySummary"></div>
+
+<div class="graph-toggle-row">
+  <button id="graphToggleBtn" onclick="toggleGraphs()">Show Graphs ▾</button>
 </div>
 
-<button class="menu-btn" onclick="toggleMenu(event)">☰</button>
+<div id="graphShelf" class="graph-shelf hidden">
+  <div id="historySummary"></div>
+</div>
+
+    <div class="quick-grid">
+      <button class="quick-tile nappy"    onclick="openQuick('nappy')">    <div class="tile-icon">🧷</div><div class="tile-label">Nappy</div>   </button>
+      <button class="quick-tile feed"     onclick="openQuick('feed')">     <div class="tile-icon">🍼</div><div class="tile-label">Feed</div>    </button>
+      <button class="quick-tile pump"     onclick="openQuick('pump')">     <div class="tile-icon">🤱</div><div class="tile-label">Pump</div>    </button>
+      <button class="quick-tile meds"     onclick="openQuick('meds')">     <div class="tile-icon">💊</div><div class="tile-label">Meds</div>    </button>
+      <button class="quick-tile exercise" onclick="openQuick('exercise')"> <div class="tile-icon">🏋️</div><div class="tile-label">Exercise</div></button>
+      <button class="quick-tile weight"   onclick="openQuick('weight')">   <div class="tile-icon">⚖️</div><div class="tile-label">Weight</div>  </button>
+    </div>
+
+    <div id="quickPanel"></div>
+
+    <div class="section-header">Filter by</div>
+
+    <div class="choice-row">
+      <button class="random filter-btn filter-active" onclick="setFilter('All', this)">All</button>
+      <button class="random filter-btn" onclick="setFilter('Feed', this)">Feed</button>
+      <button class="random filter-btn" onclick="setFilter('Pump', this)">Pump</button>
+      <button class="random filter-btn" onclick="setFilter('Nappy', this)">Nappy</button>
+      <button class="random filter-btn" onclick="setFilter('Medication', this)">Meds</button>
+      <button class="random filter-btn" onclick="setFilter('Stretch', this)">Exercise</button>
+      <button class="random filter-btn" onclick="setFilter('Weight', this)">Weight</button>
+    </div>
+
+    <div id="weightChart"></div>
+    <div id="entries"></div>
+
+  </div>
+
+  <div class="content hidden" id="regimeTab">
+
+    <div class="back-row">
+      <button onclick="goBack()">← Back</button>
+    </div>
+
+    <div class="section-header">Create Regime</div>
+
+    <select id="rType" onchange="adjustRegimeForm()">
+      <option value="Feed">Feed</option>
+      <option value="Medication">Medication</option>
+      <option value="Stretch">Exercise</option>
+    </select>
+
+    <div id="feedOptions">
+      <input id="rIntervalFeed" type="number" placeholder="Interval hours">
+    </div>
+
+    <div id="medOptions" class="hidden">
+      <input id="rName" placeholder="Medication name">
+      <input id="rDose" type="number" placeholder="Dose (ml)">
+      <input id="rIntervalMed" type="number" placeholder="Interval hours">
+    </div>
+
+    <div id="stretchOptions" class="hidden">
+      <input id="rStretchName" placeholder="Exercise name">
+      <input id="rIntervalStretch" type="number" placeholder="Interval hours">
+    </div>
+
+    <button class="save-btn" onclick="createRegime()">Save</button>
+
+    <div class="section-header">Existing Regimes</div>
+    <div id="regimeList"></div>
+
+  </div>
+
+  <!-- PROFILE TAB -->
+  <div class="content hidden" id="profileTab">
+
+    <div class="back-row">
+      <button onclick="goBack()">← Back</button>
+    </div>
+
+    <div class="section-header">Baby Profile</div>
+
+    <div class="profile-card">
+
+      <div class="profile-field">
+        <label>Name</label>
+        <input id="profileName" type="text" placeholder="e.g. Alex">
+      </div>
+
+      <div class="profile-field">
+        <label>Date of Birth</label>
+        <input id="profileDOB" type="date">
+      </div>
+
+      <div class="profile-field">
+        <label>Birth Weight (kg)</label>
+        <input id="profileBirthWeight" type="number" step="0.001" min="0" placeholder="e.g. 3.250">
+      </div>
+
+      <div class="profile-field">
+        <label>Birth Length (cm)</label>
+        <input id="profileBirthLength" type="number" step="0.1" min="0" placeholder="e.g. 50.5">
+      </div>
+
+    </div>
+
+    <div class="profile-saved" id="profileSavedMsg"></div>
+
+    <button class="save-btn" onclick="saveProfile()">Save Profile</button>
+
+  </div>
 
 </div>
 
-<div id="menuPanel" class="menu-panel hidden">
-
-<button onclick="document.getElementById('csvFile').click()">⬆️ Import</button>
-<button onclick="exportCSV()">⬇️ Export</button>
-<button onclick="openRegimes()">⚙️ Regimes</button>
-<button onclick="clearAllData()">🗑 Clear Data</button>
-
-</div>
-
-<div id="regimePanel" class="regime-panel hidden"></div>
-
-</div>
-
-<input type="file" id="csvFile" onchange="handleCSVImport(event)">
-<div class="content" id="logTab">
-
-<div class="quick-grid">
-
-<button class="quick-tile nappy" onclick="openQuick('nappy')">
-<div class="tile-icon">🧷</div>
-<div class="tile-label">Nappy</div>
-</button>
-
-<button class="quick-tile feed" onclick="openQuick('feed')">
-<div class="tile-icon">🍼</div>
-<div class="tile-label">Feed</div>
-</button>
-
-<button class="quick-tile pump" onclick="openQuick('pump')">
-<div class="tile-icon">🤱</div>
-<div class="tile-label">Pump</div>
-</button>
-
-<button class="quick-tile meds" onclick="openQuick('meds')">
-<div class="tile-icon">💊</div>
-<div class="tile-label">Meds</div>
-</button>
-
-<button class="quick-tile exercise" onclick="openQuick('exercise')">
-<div class="tile-icon">🏋️</div>
-<div class="tile-label">Exercise</div>
-</button>
-
-</div>
-
-<div id="quickPanel"></div>
-
-<div class="section-header">Filter by</div>
-
-<div class="choice-row">
-
-<button class="random filter-btn filter-active" onclick="setFilter('All', this)">All</button>
-<button class="random filter-btn" onclick="setFilter('Feed', this)">Feed</button>
-<button class="random filter-btn" onclick="setFilter('Pump', this)">Pump</button>
-<button class="random filter-btn" onclick="setFilter('Nappy', this)">Nappy</button>
-<button class="random filter-btn" onclick="setFilter('Medication', this)">Meds</button>
-<button class="random filter-btn" onclick="setFilter('Stretch', this)">Exercise</button>
-</div>
-<div id="entries"></div>
-
-</div>
-
-<div class="content hidden" id="regimeTab">
-
-<div class="back-row">
-<button onclick="goBack()">← Back</button>
-</div>
-
-<div class="section-header">Create Regime</div>
-
-<select id="rType" onchange="adjustRegimeForm()">
-<option value="Feed">Feed</option>
-<option value="Medication">Medication</option>
-<option value="Stretch">Exercise</option>
-</select>
-
-<div id="feedOptions">
-
-<input id="rIntervalFeed" type="number" placeholder="Interval hours">
-
-</div>
-
-<div id="medOptions" class="hidden">
-
-<input id="rName" placeholder="Medication name">
-<input id="rDose" type="number" placeholder="Dose (ml)">
-<input id="rIntervalMed" type="number" placeholder="Interval hours">
-
-</div>
-
-<div id="stretchOptions" class="hidden">
-
-<input id="rStretchName" placeholder="Exercise name">
-<input id="rIntervalStretch" type="number" placeholder="Interval hours">
-
-</div>
-
-<button class="save-btn" onclick="createRegime()">Save</button>
-
-<div class="section-header">Existing Regimes</div>
-<div id="regimeList"></div>
-
-</div>
-
-</div>
+<div id="toast"></div>
 
 <script>
 
 if ('serviceWorker' in navigator) {
-window.addEventListener('load', () => {
-navigator.serviceWorker.register('sw.js')
-})
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js')
+  })
 }
 
-/* ---------- INITIAL DATA ---------- */
+/* ---------- DATA INIT ---------- */
 
-if(!localStorage.getItem("events")){
-localStorage.setItem("events","[]")
-}
+if (!localStorage.getItem("events"))  localStorage.setItem("events",  "[]")
+if (!localStorage.getItem("regimes")) localStorage.setItem("regimes", "[]")
+if (!localStorage.getItem("profile")) localStorage.setItem("profile", "{}")
 
-if(!localStorage.getItem("regimes")){
-localStorage.setItem("regimes","[]")
-}
-
-/* LOAD DATA */
-let events = JSON.parse(localStorage.getItem("events"))
+let events  = JSON.parse(localStorage.getItem("events"))
 let regimes = JSON.parse(localStorage.getItem("regimes"))
+let profile = JSON.parse(localStorage.getItem("profile"))
 
-let activeFilter="All"
-let activeEditor=null
+let activeFilter = "All"
+let activeEditor = null
 
-let quickFeedMode=null
-let quickFeedMilk=null
-let quickFeedSide=null
-let quickFeedMinutes=null
+// Feed wizard state
+let quickFeedMilk    = null
+let quickFeedMinutes = null
 
-/* repair older events */
-
-events.forEach(e => {
-
-/* fix missing type */
-
-if(!e.type){
-
-if(e.icon==="🤱") e.type="Pump"
-if(e.icon==="🍼") e.type="Feed"
-if(e.icon==="🧷") e.type="Nappy"
-if(e.icon==="🏋️") e.type="Stretch"
-if(e.icon==="💊") e.type="Medication"
-
-}
-
-/* fix icon */
-
-if(!e.icon){
-
-if(e.type==="Feed") e.icon="🍼"
-if(e.type==="Pump") e.icon="🤱"
-if(e.type==="Nappy") e.icon="🧷"
-if(e.type==="Medication") e.icon="💊"
-if(e.type==="Stretch") e.icon="🏋️"
-
-}
-
-/* fix background */
-
-if(!e.bg){
-
-if(e.type==="Feed") e.bg="feed-bg"
-if(e.type==="Pump") e.bg="pump-bg"
-if(e.type==="Nappy") e.bg="nappy-bg"
-if(e.type==="Medication") e.bg="med-bg"
-if(e.type==="Stretch") e.bg="stretch-bg"
-
-}
-
-/* fix feed fields */
-
-if(e.type==="Feed"){
-
-if(!e.mode) e.mode="Bottle"
-if(!e.milk) e.milk="Milly Milk"
-if(e.value===undefined) e.value=0
-if(!e.unit) e.unit = e.mode==="Breast" ? "min" : "ml"
-
-}
-
-/* fix nappy */
-
-if(e.type==="Nappy" && !e.detail){
-e.detail="Wet"
-}
-
-/* fix pump */
-
-if(e.type==="Pump" && e.value===undefined){
-e.value=0
-}
-
-})
-
-saveAll()
+/* ---------- HELPERS ---------- */
 
 function saveAll(){
-localStorage.setItem('regimes',JSON.stringify(regimes))
-localStorage.setItem('events',JSON.stringify(events))
+  localStorage.setItem('regimes', JSON.stringify(regimes))
+  localStorage.setItem('events',  JSON.stringify(events))
+  localStorage.setItem('profile', JSON.stringify(profile))
 }
 
 function scrollTop(){
-window.scrollTo({top:0,behavior:"smooth"})
+  window.scrollTo({ top: 0, behavior: "smooth" })
 }
 
-function switchTab(tab){
-
-document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'))
-
-if(tab==='log'){
-logTab.classList.remove('hidden')
-regimeTab.classList.add('hidden')
-document.querySelectorAll('.tab')[0].classList.add('active')
+function nowISO(){
+  return new Date().toLocaleString("sv-SE").replace(" ", "T")
 }
 
-if(tab==='regime'){
-logTab.classList.add('hidden')
-regimeTab.classList.remove('hidden')
-document.querySelectorAll('.tab')[1].classList.add('active')
+// FIX: extracted shared detail-building logic — was duplicated in renderEntries + renderSingleEvent
+function buildDetails(e){
+  if (e.type === "Feed"){
+    const mode = e.mode || "Bottle"
+    const milk = e.milk || "Milly Milk"
+    let d = `<span onclick="chooseMode(${e.id}, this)">${mode}</span> • <span onclick="chooseMilkType(${e.id}, this)">${milk}</span>`
+    if (e.mode === "Breast"){
+      d += ` • <span onclick="editBreastTime(${e.id}, this)">${e.value} min</span>`
+    } else {
+      d += ` • <span onclick="editValue(${e.id}, this)">${e.value ?? ""} ${e.unit ?? ""}</span>`
+    }
+    return d
+  }
+  if (e.type === "Pump")       return `<span onclick="choosePump(${e.id}, this)">${e.value ?? ""} ml</span>`
+  if (e.type === "Nappy")      return `<span onclick="chooseNappy(${e.id}, this)">${e.detail || "Wet"}</span>`
+  if (e.type === "Stretch")    return "Exercise"
+  if (e.type === "Medication") return `${e.name || "Medication"} ${e.value ?? ""} ${e.unit ?? "ml"}`
+  if (e.type === "Weight")     return `<span onclick="editWeightValue(${e.id}, this)">${e.value ?? ""} kg</span>`
+  return ""
 }
 
+// FIX: extracted icon/bg lookup — was repeated in 3+ places
+function iconFor(type){
+  if (type === "Feed")       return "🍼"
+  if (type === "Pump")       return "🤱"
+  if (type === "Nappy")      return "🧷"
+  if (type === "Medication") return "💊"
+  if (type === "Stretch")    return "🏋️"
+  if (type === "Weight")     return "⚖️"
+  return ""
 }
 
-let feedMode=null
-let feedMilk=null
-
-function startFeed(mode){
-
-resetFeed()
-
-feedMode=mode
-
-if(mode==="Bottle"){
-feedStep2.classList.remove("hidden")
-}else{
-feedMilk="Milly Milk"
-breastMinutes.classList.remove("hidden")
+function bgFor(type){
+  if (type === "Feed")       return "feed-bg"
+  if (type === "Pump")       return "pump-bg"
+  if (type === "Nappy")      return "nappy-bg"
+  if (type === "Medication") return "med-bg"
+  if (type === "Stretch")    return "stretch-bg"
+  if (type === "Weight")     return "weight-bg"
+  return ""
 }
 
+// FIX: single repairEvents() — removed the duplicate inline repair block that ran at startup
+function repairEvents(){
+  events.forEach(e => {
+    if (!e.type){
+      if (e.icon === "🤱") e.type = "Pump"
+      if (e.icon === "🍼") e.type = "Feed"
+      if (e.icon === "🧷") e.type = "Nappy"
+      if (e.icon === "🏋️") e.type = "Stretch"
+      if (e.icon === "💊") e.type = "Medication"
+    }
+    if (!e.icon) e.icon = iconFor(e.type)
+    if (!e.bg)   e.bg   = bgFor(e.type)
+    if (e.type === "Nappy" && !e.detail) e.detail = "Wet"
+    if (e.type === "Pump"  && e.value === undefined) e.value = 0
+    if (e.type === "Weight" && e.value === undefined) e.value = 0
+    if (e.type === "Feed"){
+      if (!e.mode) e.mode = "Bottle"
+      if (!e.milk) e.milk = "Milly Milk"
+      if (!e.unit) e.unit = e.mode === "Breast" ? "min" : "ml"
+    }
+  })
 }
 
-function chooseMilk(milk){
-
-feedMilk=milk
-feedStep2.classList.add("hidden")
-feedAmounts.classList.remove("hidden")
-
-}
-
-function finishFeed(amount){
-
-events.unshift({
-id:Date.now(),
-type:"Feed",
-mode:"Bottle",
-milk:feedMilk,
-value:amount,
-unit:"ml",
-icon:"🍼",
-bg:"feed-bg",
-time:new Date().toLocaleString("sv-SE").replace(" ","T")})
-
-resetFeed()
+// Run once on load to repair any legacy data
+repairEvents()
 saveAll()
-renderAll()
-scrollTop()
 
+/* ---------- RENDER ---------- */
+
+function renderAll(){
+  renderSummary()
+  renderHistorySummary()
+  renderEntries()
+  renderWeightChart()
+  renderRegimes()
+  updateBell()
 }
 
-function finishBreast(min){
+function renderSummary(){
+  const el = document.getElementById("dailySummary")
+  if (!el) return
 
-events.unshift({
-id:Date.now(),
-type:"Feed",
-mode:"Breast",
-milk:"Milly Milk",
-value:min,
-unit:"min",
-icon:"🍼",
-bg:"feed-bg",
-time:new Date().toLocaleString("sv-SE").replace(" ","T")})
+  const now      = new Date()
+  const todayStr = now.toDateString()
 
-resetFeed()
-saveAll()
-renderAll()
-scrollTop()
+  const todayEvents = events.filter(e => new Date(e.time).toDateString() === todayStr)
 
+  // Feed: bottle ml + breast minutes
+  const totalBottleMl  = todayEvents
+    .filter(e => e.type === "Feed" && e.mode !== "Breast")
+    .reduce((s, e) => s + (parseFloat(e.value) || 0), 0)
+  const totalBreastMin = todayEvents
+    .filter(e => e.type === "Feed" && e.mode === "Breast")
+    .reduce((s, e) => s + (parseFloat(e.value) || 0), 0)
+
+  // Nappies
+  const nappyCount = todayEvents.filter(e => e.type === "Nappy").length
+
+  // Pump
+  const totalPumpMl = todayEvents
+    .filter(e => e.type === "Pump")
+    .reduce((s, e) => s + (parseFloat(e.value) || 0), 0)
+
+  // Weight — most recent ever
+  const lastWeight = events
+    .filter(e => e.type === "Weight" && e.value)
+    .sort((a, b) => new Date(b.time) - new Date(a.time))[0]
+
+  const hasAnyData = totalBottleMl > 0 || totalBreastMin > 0 || nappyCount > 0 || totalPumpMl > 0 || lastWeight
+
+  if (!hasAnyData){
+    el.innerHTML = `
+      <div class="summary-card">
+        <div class="summary-title">Today</div>
+        <div class="summary-empty">No events logged today</div>
+      </div>
+    `
+    return
+  }
+
+  // Feed label: show both if both exist
+  let feedValue = "—"
+  let feedLabel = "feed"
+  if (totalBottleMl > 0 && totalBreastMin > 0){
+    feedValue = `${totalBottleMl} ml`
+    feedLabel = `+ ${totalBreastMin} min breast`
+  } else if (totalBottleMl > 0){
+    feedValue = `${totalBottleMl} ml`
+    feedLabel = "bottle"
+  } else if (totalBreastMin > 0){
+    feedValue = `${totalBreastMin} min`
+    feedLabel = "breast"
+  }
+
+  const weightValue = lastWeight
+    ? `${parseFloat(lastWeight.value).toFixed(3)} kg`
+    : "—"
+  const weightDate = lastWeight
+    ? (new Date(lastWeight.time).toDateString() === todayStr
+        ? "today"
+        : new Date(lastWeight.time).toLocaleDateString([], { day:'numeric', month:'short' }))
+    : ""
+
+  el.innerHTML = `
+    <div class="summary-card">
+      <div class="summary-title">Today</div>
+      <div class="summary-grid">
+        <div class="summary-stat">
+          <div class="summary-stat-value">${feedValue}</div>
+          <div class="summary-stat-label">🍼 ${feedLabel}</div>
+        </div>
+        <div class="summary-stat">
+          <div class="summary-stat-value">${nappyCount || "—"}</div>
+          <div class="summary-stat-label">🧷 nappies</div>
+        </div>
+        <div class="summary-stat">
+          <div class="summary-stat-value">${totalPumpMl > 0 ? totalPumpMl + " ml" : "—"}</div>
+          <div class="summary-stat-label">🤱 pumped</div>
+        </div>
+        <div class="summary-stat">
+          <div class="summary-stat-value">${weightValue}</div>
+          <div class="summary-stat-label">⚖️ weight${weightDate ? " · " + weightDate : ""}</div>
+        </div>
+      </div>
+    </div>
+  `
 }
 
-function resetFeed(){
+/* ---------- HISTORY SUMMARY (swipe card 2) ---------- */
 
-feedMode=null
-feedMilk=null
+let activeHistoryChart = "feed"
 
-feedStep2.classList.add("hidden")
-feedAmounts.classList.add("hidden")
-breastMinutes.classList.add("hidden")
+function renderHistorySummary(){
+  const el = document.getElementById("historySummary")
+  if (!el) return
 
+  // Build per-day aggregates
+  const byDay = {}
+  events.forEach(e => {
+    const key = new Date(e.time).toDateString()
+    if (!byDay[key]) byDay[key] = { date: new Date(e.time), feedMl:0, feedMin:0, nappy:0, pump:0 }
+    if (e.type === "Feed" && e.mode !== "Breast") byDay[key].feedMl  += parseFloat(e.value) || 0
+    if (e.type === "Feed" && e.mode === "Breast")  byDay[key].feedMin += parseFloat(e.value) || 0
+    if (e.type === "Nappy")                        byDay[key].nappy   += 1
+    if (e.type === "Pump")                         byDay[key].pump    += parseFloat(e.value) || 0
+  })
+  const days = Object.values(byDay).sort((a, b) => a.date - b.date)
+
+  // Weight points
+  const weightPoints = events
+    .filter(e => e.type === "Weight" && e.value)
+    .map(e => ({ date: new Date(e.time), value: e.value }))
+    .sort((a, b) => a.date - b.date)
+  if (profile.birthWeight && profile.dob){
+    weightPoints.unshift({ date: new Date(profile.dob), value: parseFloat(profile.birthWeight), isBirth: true })
+    weightPoints.sort((a, b) => a.date - b.date)
+  }
+
+  const tabs = [
+    { key:"feed",   label:"🍼 Feed",   cls:"ht-feed"   },
+    { key:"nappy",  label:"🧷 Nappy",  cls:"ht-nappy"  },
+    { key:"pump",   label:"🤱 Pump",   cls:"ht-pump"   },
+    { key:"weight", label:"⚖️ Weight", cls:"ht-weight" },
+  ]
+
+  el.innerHTML = `
+    <div class="history-card">
+      <div class="summary-title">History</div>
+      <div class="history-tabs">
+        ${tabs.map(t => `
+          <button class="history-tab ${t.cls}${activeHistoryChart === t.key ? " active" : ""}"
+            onclick="switchHistoryChart('${t.key}', this)">
+            ${t.label}
+          </button>`).join("")}
+      </div>
+      <div class="history-canvas-wrap" id="historyCanvasWrap"></div>
+    </div>
+  `
+
+  drawHistoryChart(activeHistoryChart, days, weightPoints)
 }
 
-function deleteEvent(id){
+function switchHistoryChart(key, btn){
+  activeHistoryChart = key
+  document.querySelectorAll(".history-tab").forEach(b => b.classList.remove("active"))
+  btn.classList.add("active")
 
-events = events.filter(e => e.id !== id)
+  // Rebuild aggregates for drawing
+  const byDay = {}
+  events.forEach(e => {
+    const key2 = new Date(e.time).toDateString()
+    if (!byDay[key2]) byDay[key2] = { date: new Date(e.time), feedMl:0, feedMin:0, nappy:0, pump:0 }
+    if (e.type === "Feed" && e.mode !== "Breast") byDay[key2].feedMl  += parseFloat(e.value) || 0
+    if (e.type === "Feed" && e.mode === "Breast")  byDay[key2].feedMin += parseFloat(e.value) || 0
+    if (e.type === "Nappy")                        byDay[key2].nappy   += 1
+    if (e.type === "Pump")                         byDay[key2].pump    += parseFloat(e.value) || 0
+  })
+  const days = Object.values(byDay).sort((a, b) => a.date - b.date)
 
-saveAll()
-renderAll()
+  const weightPoints = events
+    .filter(e => e.type === "Weight" && e.value)
+    .map(e => ({ date: new Date(e.time), value: e.value }))
+    .sort((a, b) => a.date - b.date)
+  if (profile.birthWeight && profile.dob){
+    weightPoints.unshift({ date: new Date(profile.dob), value: parseFloat(profile.birthWeight), isBirth: true })
+    weightPoints.sort((a, b) => a.date - b.date)
+  }
 
+  drawHistoryChart(key, days, weightPoints)
 }
 
-function editEvent(id){
+function drawHistoryChart(key, days, weightPoints){
+  const wrap = document.getElementById("historyCanvasWrap")
+  if (!wrap) return
 
-const e = events.find(x => x.id === id)
+  const configs = {
+    feed:   { type:"bar",  valueFn: d => d.feedMl,  color:"#7EC6FF", unit:"ml",  decimals:0 },
+    nappy:  { type:"bar",  valueFn: d => d.nappy,   color:"#FFD66B", unit:"",    decimals:0 },
+    pump:   { type:"bar",  valueFn: d => d.pump,    color:"#C4A5FF", unit:"ml",  decimals:0 },
+    weight: { type:"line", color:"#8FCA9F",          unit:"kg",       decimals:3 },
+  }
+  const cfg = configs[key]
 
-/* ---- EDIT FEED ---- */
+  // Determine data
+  let barData = [], linePoints = []
+  if (cfg.type === "bar"){
+    barData = days.map(d => ({ date: d.date, value: cfg.valueFn(d) }))
+    if (!barData.some(d => d.value > 0)){
+      wrap.innerHTML = `<div class="history-chart-empty">No data yet</div>`
+      return
+    }
+  } else {
+    linePoints = weightPoints
+    if (linePoints.length < 2){
+      wrap.innerHTML = `<div class="history-chart-empty">Log at least 2 weight entries to see the chart</div>`
+      return
+    }
+  }
 
-if(e.type==="Feed"){
+  wrap.innerHTML = `<canvas id="historyCanvas"></canvas>`
+  const canvas = document.getElementById("historyCanvas")
 
-let mode = prompt("Bottle or Breast?", e.mode)
-if(mode) e.mode = mode
+  const dpr  = window.devicePixelRatio || 1
+  const W    = wrap.clientWidth
+  const H    = 220
 
-let milk = prompt("Milk type", e.milk)
-if(milk) e.milk = milk
+  canvas.width  = W * dpr
+  canvas.height = H * dpr
+  canvas.style.width  = W + "px"
+  canvas.style.height = H + "px"
 
-let value = prompt("Amount / Minutes", e.value)
-if(value !== null) e.value = parseInt(value)
+  const ctx = canvas.getContext("2d")
+  ctx.scale(dpr, dpr)
 
+  // Padding — left needs room for Y labels, bottom for X labels
+  const padL = 46, padR = 12, padT = 14, padB = 28
+  const chartW = W - padL - padR
+  const chartH = H - padT - padB
+
+  if (cfg.type === "bar"){
+    const values = barData.map(d => d.value)
+    const maxV   = Math.max(...values, 1)
+
+    // Nice Y max: round up to nearest clean interval
+    const rawStep = maxV / 4
+    const mag     = Math.pow(10, Math.floor(Math.log10(rawStep)))
+    const niceStep = Math.ceil(rawStep / mag) * mag
+    const niceMax  = niceStep * 4
+
+    // Grid + Y labels
+    ctx.font      = `600 10px Quicksand, sans-serif`
+    ctx.textAlign = "right"
+    for (let i = 0; i <= 4; i++){
+      const v = niceStep * i
+      const y = padT + chartH - (v / niceMax) * chartH
+      // Grid line
+      ctx.strokeStyle = "#F0EEF8"
+      ctx.lineWidth   = 1
+      ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(padL + chartW, y); ctx.stroke()
+      // Label
+      ctx.fillStyle = "#9B92D4"
+      const lbl = cfg.unit ? `${v}${cfg.unit}` : String(v)
+      ctx.fillText(lbl, padL - 4, y + 3)
+    }
+
+    // Bars
+    const n   = barData.length
+    const gap = n > 30 ? 1 : 3
+    const barW = Math.max(2, (chartW - gap * (n - 1)) / n)
+
+    barData.forEach((d, i) => {
+      const bH = (d.value / niceMax) * chartH
+      const x  = padL + i * (barW + gap)
+      const y  = padT + chartH - bH
+      ctx.fillStyle = d.value > 0 ? cfg.color : "#F0EEF8"
+      roundRect(ctx, x, y, barW, Math.max(bH, 2), 2)
+      ctx.fill()
+    })
+
+    // X axis date labels — pick ~5 evenly spaced
+    ctx.fillStyle = "#9B92D4"
+    ctx.font      = `600 10px Quicksand, sans-serif`
+    drawXLabels(ctx, barData.map(d => d.date), n, padL, padT + chartH + 14, chartW, barW, gap)
+
+  } else {
+    // Line chart (weight)
+    const values = linePoints.map(p => p.value)
+    const times  = linePoints.map(p => p.date.getTime())
+    const minV   = Math.min(...values)
+    const maxV   = Math.max(...values)
+    const vPad   = (maxV - minV) * 0.15 || 0.05
+
+    // Nice Y axis for weight
+    const rawRange  = (maxV + vPad) - (minV - vPad)
+    const rawStep   = rawRange / 4
+    const mag       = Math.pow(10, Math.floor(Math.log10(rawStep)))
+    const niceStep  = Math.ceil(rawStep / mag) * mag
+    const niceMin   = Math.floor((minV - vPad) / niceStep) * niceStep
+    const niceMax   = niceMin + niceStep * 5
+
+    const minT = Math.min(...times)
+    const maxT = Math.max(...times)
+
+    function toX(t){ return padL + (t - minT) / (maxT - minT || 1) * chartW }
+    function toY(v){ return padT + (1 - (v - niceMin) / (niceMax - niceMin)) * chartH }
+
+    // Grid + Y labels
+    ctx.font      = `600 10px Quicksand, sans-serif`
+    ctx.textAlign = "right"
+    for (let i = 0; i <= 4; i++){
+      const v = niceMin + niceStep * i
+      const y = toY(v)
+      ctx.strokeStyle = "#F0EEF8"
+      ctx.lineWidth   = 1
+      ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(padL + chartW, y); ctx.stroke()
+      ctx.fillStyle = "#9B92D4"
+      ctx.fillText(v.toFixed(cfg.decimals) + cfg.unit, padL - 4, y + 3)
+    }
+
+    // Fill area
+    ctx.beginPath()
+    linePoints.forEach((p, i) => {
+      i === 0 ? ctx.moveTo(toX(p.date.getTime()), toY(p.value))
+              : ctx.lineTo(toX(p.date.getTime()), toY(p.value))
+    })
+    ctx.lineTo(toX(times[times.length - 1]), padT + chartH)
+    ctx.lineTo(toX(times[0]), padT + chartH)
+    ctx.closePath()
+    const grad = ctx.createLinearGradient(0, padT, 0, padT + chartH)
+    grad.addColorStop(0, cfg.color + "40")
+    grad.addColorStop(1, cfg.color + "00")
+    ctx.fillStyle = grad
+    ctx.fill()
+
+    // Line
+    ctx.beginPath()
+    linePoints.forEach((p, i) => {
+      i === 0 ? ctx.moveTo(toX(p.date.getTime()), toY(p.value))
+              : ctx.lineTo(toX(p.date.getTime()), toY(p.value))
+    })
+    ctx.strokeStyle = cfg.color
+    ctx.lineWidth   = 2.5
+    ctx.lineJoin    = "round"
+    ctx.stroke()
+
+    // Dots + value labels
+    linePoints.forEach(p => {
+      const x = toX(p.date.getTime())
+      const y = toY(p.value)
+      ctx.beginPath()
+      ctx.arc(x, y, p.isBirth ? 5 : 4, 0, Math.PI * 2)
+      ctx.fillStyle   = p.isBirth ? cfg.color : "white"
+      ctx.strokeStyle = cfg.color
+      ctx.lineWidth   = 2
+      ctx.fill(); ctx.stroke()
+      // Value above dot
+      ctx.fillStyle  = "#4E3F73"
+      ctx.font       = `700 9px Quicksand, sans-serif`
+      ctx.textAlign  = "center"
+      ctx.fillText(p.value.toFixed(cfg.decimals), x, y - 8)
+    })
+
+    // X labels
+    ctx.fillStyle = "#9B92D4"
+    ctx.font      = `600 10px Quicksand, sans-serif`
+    drawXLabels(ctx, linePoints.map(p => p.date), linePoints.length, padL, padT + chartH + 14, chartW, 0, 0)
+  }
 }
 
-/* ---- EDIT PUMP ---- */
-
-if(e.type==="Pump"){
-
-let value = prompt("Pump ml", e.value)
-if(value !== null) e.value = parseInt(value)
-
+// Draw ~5 evenly-spaced X date labels across the chart
+function drawXLabels(ctx, dates, n, padL, y, chartW, barW, gap){
+  if (n === 0) return
+  const count   = Math.min(n, 5)
+  const indices = []
+  if (count === 1){
+    indices.push(0)
+  } else {
+    for (let i = 0; i < count; i++){
+      indices.push(Math.round(i * (n - 1) / (count - 1)))
+    }
+  }
+  indices.forEach((idx, pos) => {
+    const x = padL + idx * (barW + gap) + barW / 2
+    ctx.textAlign = pos === 0 ? "left" : pos === indices.length - 1 ? "right" : "center"
+    ctx.fillText(fmtDate(dates[idx]), x, y)
+  })
 }
 
-/* ---- EDIT NAPPY ---- */
-
-if(e.type==="Nappy"){
-
-let detail = prompt("Wet / Dirty / Both", e.detail)
-if(detail) e.detail = detail
-
+function roundRect(ctx, x, y, w, h, r){
+  if (h <= 0) return
+  r = Math.min(r, h / 2, w / 2)
+  ctx.beginPath()
+  ctx.moveTo(x + r, y)
+  ctx.lineTo(x + w - r, y)
+  ctx.quadraticCurveTo(x + w, y, x + w, y + r)
+  ctx.lineTo(x + w, y + h - r)
+  ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h)
+  ctx.lineTo(x + r, y + h)
+  ctx.quadraticCurveTo(x, y + h, x, y + h - r)
+  ctx.lineTo(x, y + r)
+  ctx.quadraticCurveTo(x, y, x + r, y)
+  ctx.closePath()
 }
 
-/* ---- EDIT TIME ---- */
-
-let newTime = prompt(
-"Edit time (HH:MM)",
-new Date(e.time).toTimeString().slice(0,5)
-)
-
-if(newTime){
-
-const base = new Date(e.time)
-const [h,m] = newTime.split(":")
-
-base.setHours(parseInt(h))
-base.setMinutes(parseInt(m))
-
-e.time = base.toISOString()
-
+function fmtDate(d){
+  return d.toLocaleDateString([], { day:'numeric', month:'short' })
 }
 
-saveAll()
-renderAll()
+// Summary slide switching
+let currentSlide = 0
 
+function switchSummarySlide(i){
+  currentSlide = i
+  const slides = document.getElementById("summarySlides")
+  if (slides){
+    slides.style.transition = "transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94)"
+    slides.style.transform  = i === 0 ? "translateX(0)" : "translateX(-50%)"
+  }
+  document.querySelectorAll(".summary-dot").forEach((d, idx) => {
+    d.classList.toggle("active", idx === i)
+  })
+  if (i === 1) renderHistorySummary()
 }
 
-function adjustRegimeForm(){
-
-const type = rType.value
-
-feedOptions.classList.toggle('hidden', type !== "Feed")
-medOptions.classList.toggle('hidden', type !== "Medication")
-stretchOptions.classList.toggle('hidden', type !== "Stretch")
-
-}
-
-function createRegime(){
-
-const type = rType.value
-
-let r = {
-id: Date.now(),
-type: type
-}
-
-if(type==="Feed"){
-r.name = "Feed"
-r.interval = parseFloat(rIntervalFeed.value)
-}
-
-if(type==="Medication"){
-r.name = rName.value
-r.dose = parseFloat(rDose.value)
-r.interval = parseFloat(rIntervalMed.value)
-}
-
-if(type==="Stretch"){
-r.name = rStretchName.value || "Exercise"
-r.interval = parseFloat(rIntervalStretch.value)
-}
-
-regimes.push(r)
-
-saveAll()
-renderRegimes()
-
-}
-
-function deleteRegime(id){
-
-regimes = regimes.filter(r => r.id !== id)
-
-saveAll()
-renderRegimes()
-
-}
-
-function renderRegimeButtons(){
-
-regimeButtons.innerHTML=""
-
-const now = new Date()
-
-regimes.forEach(r=>{
-
-const last = events.find(e =>
-e.type === r.type &&
-(r.type !== "Medication" || e.name === r.name)
-)
-
-if(!last) return
-
-const next = new Date(new Date(last.time).getTime() + r.interval*3600000)
-
-const diff = next - now
-
-let text=""
-let css="regime-line"
-
-let icon=""
-
-if(r.type==="Feed") icon="🍼"
-if(r.type==="Medication") icon="💊"
-if(r.type==="Stretch") icon="🏋️"
-
-if(diff <= 0){
-
-text = `${icon} ${r.name} DUE`
-css += " regime-DUE"
-
-}
-else{
-
-const mins = Math.floor(diff/60000)
-const h = Math.floor(mins/60)
-const m = mins % 60
-
-text = `${icon} ${r.name} due in ${h}h ${m}m`
-
-if(mins < 30){
-css += " regime-soon"
-}
-
-}
-
-regimeButtons.innerHTML += `
-<div class="${css}">
-${text}
-</div>
-`
-
-})
-
-}
-
-function renderRegimes(){
-
-regimeList.innerHTML=""
-
-regimes.forEach(r=>{
-
-let icon=""
-
-if(r.type==="Feed") icon="🍼"
-if(r.type==="Medication") icon="💊"
-if(r.type==="Stretch") icon="🏋️"
-
-regimeList.innerHTML += `
-
-<div class="card">
-<div class="row-space">
-
-<div class="row">
-
-<div class="icon-box">
-${icon}
-</div>
-
-<div>
-
-<div class="title">${r.name}</div>
-<div class="sub">${r.interval ? r.interval+"h interval" : "No interval"}</div>
-
-</div>
-
-</div>
-
-<div>
-
-<button class="small" onclick="deleteRegime(${r.id})">🗑</button>
-
-</div>
-
-</div>
-
-</div>
-
-`
-
-})
-
-}
-
-function setFilter(type, btn){
-
-activeFilter = type
-
-document.querySelectorAll(".filter-btn").forEach(b=>{
-b.classList.remove("filter-active")
-})
-
-btn.classList.add("filter-active")
-
-renderEntries()
-
+function renderSingleEvent(id){
+  const e    = events.find(x => x.id === id)
+  const card = document.getElementById(`event-${id}`)
+  if (!card || !e) return
+  card.querySelector(".sub").innerHTML = buildDetails(e)
 }
 
 function renderEntries(){
+  entries.innerHTML = ""
 
-entries.innerHTML=""
+  events.sort((a, b) => new Date(b.time) - new Date(a.time))
 
-events.sort((a,b)=> new Date(b.time) - new Date(a.time))
+  let lastDayKey   = ""
+  let lastFeedTime = null
 
-let lastDayKey=""
-let lastFeedTime=null
+  // Pre-compute daily totals for pump / nappy
+  const pumpTotals  = {}
+  const nappyTotals = {}
 
-let pumpTotals = {}
+  if (activeFilter === "Pump"){
+    events.filter(e => e.type === "Pump").forEach(e => {
+      const key = new Date(e.time).toDateString()
+      pumpTotals[key] = (pumpTotals[key] || 0) + (parseInt(e.value) || 0)
+    })
+  }
 
-if(activeFilter==="Pump"){
+  if (activeFilter === "Nappy"){
+    events.filter(e => e.type === "Nappy").forEach(e => {
+      const key = new Date(e.time).toDateString()
+      nappyTotals[key] = (nappyTotals[key] || 0) + 1
+    })
+  }
 
-const pumpEvents = events.filter(e => (e.type||"").toLowerCase()==="pump")
+  const today     = new Date()
+  const yesterday = new Date()
+  yesterday.setDate(today.getDate() - 1)
 
-pumpEvents.forEach(e=>{
+  events.forEach(e => {
 
-const d = new Date(e.time)
-const key = d.toDateString()
+    // Feed interval indicator
+    if (activeFilter === "Feed" && e.type === "Feed"){
+      const t = new Date(e.time)
+      if (lastFeedTime){
+        const diff = lastFeedTime - t
+        if (diff >= 1800000){
+          const mins = Math.floor(diff / 60000)
+          const h    = Math.floor(mins / 60)
+          const m    = mins % 60
+          entries.innerHTML += `<div style="text-align:center;font-weight:600;color:#6B5FA7;margin:10px 0;">${h}h ${m}m</div>`
+        }
+      }
+      lastFeedTime = t
+    }
 
-if(!pumpTotals[key]) pumpTotals[key]=0
+    const date   = new Date(e.time)
+    const dayKey = date.toDateString()
 
-pumpTotals[key] += (parseInt(e.value) || 0)
+    let label = ""
+    if      (date.toDateString() === today.toDateString())     label = "Today"
+    else if (date.toDateString() === yesterday.toDateString()) label = "Yesterday"
+    else    label = date.toLocaleDateString(undefined, { weekday:'long', day:'numeric', month:'long' })
 
-})
+    if (dayKey !== lastDayKey){
+      let headerText = label
+      if (activeFilter === "Pump"  && pumpTotals[dayKey])  headerText += ` — ${pumpTotals[dayKey]} ml`
+      if (activeFilter === "Nappy" && nappyTotals[dayKey]) headerText += ` — ${nappyTotals[dayKey]} nappies`
+      entries.innerHTML += `<div class="section-header">${headerText}</div>`
+      lastDayKey = dayKey
+    }
 
+    // Apply filter after header so date dividers still group correctly
+    if (activeFilter !== "All" && (e.type || "").toLowerCase() !== activeFilter.toLowerCase()) return
+
+    entries.innerHTML += `
+      <div class="card" id="event-${e.id}">
+        <div class="row-space">
+          <div class="row">
+            <div class="icon-box ${e.bg}">${e.icon}</div>
+            <div>
+              <div class="row-space">
+                <div class="title">${e.type}</div>
+                <div class="time">
+                  <span onclick="editDate(${e.id}, this)">${new Date(e.time).toLocaleDateString([], { month:'short', day:'numeric' })}</span>
+                   • 
+                  <span onclick="editTime(${e.id}, this)">${new Date(e.time).toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' })}</span>
+                </div>
+              </div>
+              <div class="sub">${buildDetails(e)}</div>
+            </div>
+          </div>
+          <div>
+            <button class="small" onclick="deleteEvent(${e.id})">🗑</button>
+          </div>
+        </div>
+      </div>
+    `
+  })
 }
 
-let nappyTotals = {}
-
-if(activeFilter==="Nappy"){
-
-const nappyEvents = events.filter(e => (e.type||"").toLowerCase()==="nappy")
-
-nappyEvents.forEach(e=>{
-
-const d = new Date(e.time)
-const key = d.toDateString()
-
-if(!nappyTotals[key]) nappyTotals[key]=0
-
-nappyTotals[key] += 1
-
-})
-
+function renderRegimes(){
+  regimeList.innerHTML = ""
+  regimes.forEach(r => {
+    const icon = iconFor(r.type)
+    regimeList.innerHTML += `
+      <div class="card">
+        <div class="row-space">
+          <div class="row">
+            <div class="icon-box">${icon}</div>
+            <div>
+              <div class="title">${r.name}</div>
+              <div class="sub">${r.interval ? r.interval + "h interval" : "No interval"}</div>
+            </div>
+          </div>
+          <div>
+            <button class="small" onclick="deleteRegime(${r.id})">🗑</button>
+          </div>
+        </div>
+      </div>
+    `
+  })
 }
 
-events.forEach(e=>{
+/* ---------- EVENTS ---------- */
 
-/* show feed interval */
-
-if(activeFilter==="Feed" && e.type==="Feed"){
-
-const currentFeedTime = new Date(e.time)
-
-if(lastFeedTime){
-
-const diff = lastFeedTime - currentFeedTime
-
-/* ignore cluster feeds under 30 minutes */
-
-if(diff >= 1800000){
-
-const mins = Math.floor(diff/60000)
-const h = Math.floor(mins/60)
-const m = mins % 60
-
-entries.innerHTML += `
-<div style="text-align:center;font-weight:600;color:#6B5FA7;margin:10px 0;">
-${h}h ${m}m
-</div>
-`
-
+function deleteEvent(id){
+  events = events.filter(e => e.id !== id)
+  saveAll()
+  renderAll()
 }
 
+function setFilter(type, btn){
+  activeFilter = type
+  document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("filter-active"))
+  btn.classList.add("filter-active")
+  renderEntries()
+  renderWeightChart()
 }
 
-lastFeedTime = currentFeedTime
+function renderWeightChart(){
+  const el = document.getElementById("weightChart")
+  if (!el) return
 
+  if (activeFilter !== "Weight"){
+    el.innerHTML = ""
+    return
+  }
+
+  const weightEvents = events
+    .filter(e => e.type === "Weight" && e.value)
+    .sort((a, b) => new Date(a.time) - new Date(b.time))
+
+  if (weightEvents.length < 2){
+    el.innerHTML = `
+      <div class="weight-chart-card">
+        <div class="weight-chart-title">Weight over time</div>
+        <div class="weight-chart-empty">Log at least 2 weight entries to see the chart</div>
+      </div>
+    `
+    return
+  }
+
+  // Also include birth weight from profile if it exists
+  const points = []
+  if (profile.birthWeight && profile.dob){
+    points.push({ time: new Date(profile.dob), value: parseFloat(profile.birthWeight), isBirth: true })
+  }
+  weightEvents.forEach(e => points.push({ time: new Date(e.time), value: e.value, isBirth: false }))
+  points.sort((a, b) => a.time - b.time)
+
+  el.innerHTML = `
+    <div class="weight-chart-card">
+      <div class="weight-chart-title">Weight over time</div>
+      <canvas id="weightCanvas"></canvas>
+    </div>
+  `
+
+  const canvas  = document.getElementById("weightCanvas")
+  const dpr     = window.devicePixelRatio || 1
+  const W       = canvas.parentElement.clientWidth - 32  // card padding
+  const H       = 200
+
+  canvas.width  = W * dpr
+  canvas.height = H * dpr
+  canvas.style.width  = W + "px"
+  canvas.style.height = H + "px"
+
+  const ctx = canvas.getContext("2d")
+  ctx.scale(dpr, dpr)
+
+  // Layout
+  const padL = 48, padR = 16, padT = 16, padB = 36
+  const chartW = W - padL - padR
+  const chartH = H - padT - padB
+
+  const values = points.map(p => p.value)
+  const times  = points.map(p => p.time.getTime())
+
+  const minV = Math.min(...values)
+  const maxV = Math.max(...values)
+  const minT = Math.min(...times)
+  const maxT = Math.max(...times)
+
+  // Give a little headroom top/bottom
+  const vPad  = (maxV - minV) * 0.15 || 0.1
+  const vMin  = minV - vPad
+  const vMax  = maxV + vPad
+
+  function toX(t){ return padL + (t - minT) / (maxT - minT || 1) * chartW }
+  function toY(v){ return padT + (1 - (v - vMin) / (vMax - vMin)) * chartH }
+
+  // Grid lines + Y labels
+  ctx.strokeStyle = "#F0EEF8"
+  ctx.lineWidth   = 1
+  ctx.fillStyle   = "#9B92D4"
+  ctx.font        = `600 10px Quicksand, sans-serif`
+  ctx.textAlign   = "right"
+
+  const steps = 4
+  for (let i = 0; i <= steps; i++){
+    const v = vMin + (vMax - vMin) * (i / steps)
+    const y = toY(v)
+    ctx.beginPath()
+    ctx.moveTo(padL, y)
+    ctx.lineTo(padL + chartW, y)
+    ctx.stroke()
+    ctx.fillText(v.toFixed(3), padL - 4, y + 3)
+  }
+
+  // X axis labels (dates)
+  ctx.textAlign   = "center"
+  ctx.fillStyle   = "#9B92D4"
+  const labelCount = Math.min(points.length, 5)
+  const step = Math.floor((points.length - 1) / (labelCount - 1)) || 1
+  for (let i = 0; i < points.length; i += step){
+    const x   = toX(times[i])
+    const lbl = points[i].time.toLocaleDateString([], { day:'numeric', month:'short' })
+    ctx.fillText(lbl, x, H - padB + 16)
+  }
+
+  // Line
+  ctx.beginPath()
+  ctx.strokeStyle = "#AFA3E8"
+  ctx.lineWidth   = 2.5
+  ctx.lineJoin    = "round"
+  points.forEach((p, i) => {
+    const x = toX(p.time.getTime())
+    const y = toY(p.value)
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y)
+  })
+  ctx.stroke()
+
+  // Filled area under line
+  ctx.beginPath()
+  points.forEach((p, i) => {
+    const x = toX(p.time.getTime())
+    const y = toY(p.value)
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y)
+  })
+  ctx.lineTo(toX(times[times.length - 1]), padT + chartH)
+  ctx.lineTo(toX(times[0]), padT + chartH)
+  ctx.closePath()
+  const grad = ctx.createLinearGradient(0, padT, 0, padT + chartH)
+  grad.addColorStop(0, "rgba(175,163,232,0.18)")
+  grad.addColorStop(1, "rgba(175,163,232,0)")
+  ctx.fillStyle = grad
+  ctx.fill()
+
+  // Dots
+  points.forEach(p => {
+    const x = toX(p.time.getTime())
+    const y = toY(p.value)
+    ctx.beginPath()
+    ctx.arc(x, y, p.isBirth ? 5 : 4, 0, Math.PI * 2)
+    ctx.fillStyle   = p.isBirth ? "#8FCA9F" : "white"
+    ctx.strokeStyle = p.isBirth ? "#8FCA9F" : "#AFA3E8"
+    ctx.lineWidth   = 2
+    ctx.fill()
+    ctx.stroke()
+
+    // Value label above dot
+    ctx.fillStyle  = "#6B5FA7"
+    ctx.font       = `700 10px Quicksand, sans-serif`
+    ctx.textAlign  = "center"
+    ctx.fillText(p.value.toFixed(3), x, y - 8)
+  })
 }
-
-const date=new Date(e.time)
-
-const today=new Date()
-const yesterday=new Date()
-yesterday.setDate(today.getDate()-1)
-
-let label=""
-
-if(date.toDateString()===today.toDateString()){
-label="Today"
-}
-else if(date.toDateString()===yesterday.toDateString()){
-label="Yesterday"
-}
-else{
-label=date.toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'long'})
-}
-
-const dayKey = date.toDateString()
-
-if(dayKey!==lastDayKey){
-
-let headerText = label
-
-if(activeFilter==="Pump" && pumpTotals[dayKey]){
-headerText += ` — ${pumpTotals[dayKey]} ml`
-}
-
-if(activeFilter==="Nappy" && nappyTotals[dayKey]){
-headerText += ` — ${nappyTotals[dayKey]} nappies`
-}
-
-entries.innerHTML+=`<div class="section-header">${headerText}</div>`
-
-lastDayKey = dayKey
-
-}
-
-/* FILTER AFTER HEADER */
-
-if(activeFilter!=="All" && (e.type||"").toLowerCase() !== activeFilter.toLowerCase()) return
-
-let details=""
-
-if(e.type==="Feed"){
-
-const mode = e.mode || "Bottle"
-const milk = e.milk || "Milly Milk"
-
-details=`<span onclick="chooseMode(${e.id}, this)">${mode}</span> • 
-<span onclick="chooseMilkType(${e.id}, this)">${milk}</span>`
-
-if(e.mode==="Breast"){
-details+=` • <span onclick="editBreastTime(${e.id}, this)">${e.value} min</span>`
-}
-else{
-details+=` • <span onclick="editValue(${e.id}, this)">${e.value ?? ""} ${e.unit ?? ""}</span>`}
-
-}
-
-if(e.type==="Pump"){
-details=`<span onclick="choosePump(${e.id}, this)">${e.value ?? ""} ml</span>`}
-if(e.type==="Nappy"){
-const detail = e.detail || "Wet"
-details=`<span onclick="chooseNappy(${e.id}, this)">${detail}</span>`
-}
-if(e.type==="Stretch") details="Exercise"
-if(e.type==="Medication"){
-const name = e.name || "Medication"
-const val = e.value ?? ""
-details=`${name} ${val} ml`
-}
-entries.innerHTML+=`
-
-<div class="card" id="event-${e.id}">
-
-<div class="row-space">
-
-<div class="row">
-
-<div class="icon-box ${e.bg}">${e.icon}</div>
-
-<div>
-
-<div class="row-space">
-
-<div class="title">
-${e.type}
-</div>
-
-<div class="time">
-<span onclick="editDate(${e.id}, this)">
-${new Date(e.time).toLocaleDateString([], {month:'short', day:'numeric'})}
-</span>
- • 
-<span onclick="editTime(${e.id}, this)">
-${new Date(e.time).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}
-</span>
-</div>
-
-</div>
-
-<div class="sub">${details}</div>
-
-</div>
-
-</div>
-
-<div>
-
-<button class="small" onclick="deleteEvent(${e.id})">🗑</button>
-
-</div>
-
-</div>
-
-</div>
-
-`
-})
-
-}
-
-
-function renderSingleEvent(id){
-
-const e = events.find(x => x.id === id)
-const card = document.getElementById(`event-${id}`)
-
-if(!card || !e) return
-
-let details=""
-
-if(e.type==="Feed"){
-
-const mode = e.mode || "Bottle"
-const milk = e.milk || "Milly Milk"
-
-details=`<span onclick="chooseMode(${e.id}, this)">${mode}</span> • 
-<span onclick="chooseMilkType(${e.id}, this)">${milk}</span>`
-
-if(e.mode==="Breast"){
-details+=` • <span onclick="editBreastTime(${e.id}, this)">${e.value} min</span>`
-}
-else{
-details+=` • <span onclick="editValue(${e.id}, this)">${e.value ?? ""} ${e.unit ?? ""}</span>`
-}
-
-}
-
-if(e.type==="Pump"){
-details=`<span onclick="choosePump(${e.id}, this)">${e.value ?? ""} ml</span>`
-}
-
-if(e.type==="Nappy"){
-details=`<span onclick="chooseNappy(${e.id}, this)">${e.detail}</span>`
-}
-
-if(e.type==="Stretch"){
-details="Stretch"
-}
-
-if(e.type==="Medication"){
-details=`${e.name} ${e.value ?? ""} ml`
-}
-
-card.querySelector(".sub").innerHTML = details
-}
-
-function repairEvents(){
-
-events.forEach(e => {
-
-if(!e.type){
-if(e.icon==="🤱") e.type="Pump"
-if(e.icon==="🍼") e.type="Feed"
-if(e.icon==="🧷") e.type="Nappy"
-if(e.icon==="🏋️") e.type="Stretch"
-if(e.icon==="💊") e.type="Medication"
-}
-
-if(!e.icon){
-if(e.type==="Feed") e.icon="🍼"
-if(e.type==="Pump") e.icon="🤱"
-if(e.type==="Nappy") e.icon="🧷"
-if(e.type==="Medication") e.icon="💊"
-if(e.type==="Stretch") e.icon="🏋️"
-}
-
-if(!e.bg){
-if(e.type==="Feed") e.bg="feed-bg"
-if(e.type==="Pump") e.bg="pump-bg"
-if(e.type==="Nappy") e.bg="nappy-bg"
-if(e.type==="Medication") e.bg="med-bg"
-if(e.type==="Stretch") e.bg="stretch-bg"
-}
-
-if(e.type==="Nappy" && !e.detail){
-e.detail="Wet"
-}
-
-if(e.type==="Pump" && e.value===undefined){
-e.value=0
-}
-
-if(e.type==="Feed"){
-if(!e.mode) e.mode="Bottle"
-if(!e.milk) e.milk="Milly Milk"
-if(!e.unit) e.unit = e.mode==="Breast" ? "min" : "ml"
-}
-
-})
-
-}
-
-function editDate(id, el){
-
-const e = events.find(x => x.id === id)
-const current = new Date(e.time)
-
-const yyyy = current.getFullYear()
-const mm = String(current.getMonth()+1).padStart(2,'0')
-const dd = String(current.getDate()).padStart(2,'0')
-
-el.innerHTML = `<input type="date" value="${yyyy}-${mm}-${dd}">`
-
-const input = el.querySelector("input")
-input.focus()
-
-input.onblur = () => {
-
-if(!input.value){
-renderSingleEvent(id)
-return
-}
-
-const [y,m,d] = input.value.split("-")
-
-current.setFullYear(parseInt(y))
-current.setMonth(parseInt(m)-1)
-current.setDate(parseInt(d))
-
-e.time = current.toISOString()
-
-saveAll()
-renderSingleEvent(id)
-updateBell()
-
-}
-
-}
-
-function editTime(id, el){
-
-const e = events.find(x => x.id === id)
-
-const d = new Date(e.time)
-
-const hh = String(d.getHours()).padStart(2,'0')
-const mm = String(d.getMinutes()).padStart(2,'0')
-
-const original = `${hh}:${mm}`
-
-el.innerHTML = `<input type="time" value="${original}" style="font-size:14px;">`
-
-const input = el.querySelector("input")
-input.focus()
-
-input.onblur = () => {
-
-if(!input.value) {
-renderSingleEvent(id)
-return
-}
-
-/* do nothing if unchanged */
-
-if(input.value === original){
-renderSingleEvent(id)
-return
-}
-
-const [h,m] = input.value.split(":")
-
-const updated = new Date(e.time)
-
-updated.setHours(parseInt(h))
-updated.setMinutes(parseInt(m))
-
-e.time = updated.toISOString()
-
-saveAll()
-renderSingleEvent(id)
-updateBell()
-}
-
-}
-
-function renderAll(){
-renderEntries()
-renderRegimes()
-updateBell()
-}
-
-renderAll()
-
-setTimeout(updateBell,50)
-
-setInterval(updateBell,60000)
 
 function logEvent(data){
-
-events.unshift({
-id:Date.now(),
-time:new Date().toLocaleString("sv-SE").replace(" ","T"),
-...data
-})
-
-saveAll()
-renderAll()
-closeWizard()
-scrollTop()
-
-}
-
-function logPump(){
-
-let v = prompt("Pump amount (ml)")
-if(!v) return
-
-events.unshift({
-id:Date.now(),
-type:"Pump",
-value:parseInt(v),
-unit:"ml",
-icon:"🤱",
-bg:"pump-bg",
-time:new Date().toLocaleString("sv-SE").replace(" ","T")})
-
-saveAll()
-renderAll()
-scrollTop()
-
-}
-
-function logNap(){
-
-events.unshift({
-id:Date.now(),
-type:"Nap",
-icon:"😴",
-bg:"nap-bg",
-time:new Date().toLocaleString("sv-SE").replace(" ","T")})
-
-saveAll()
-renderAll()
-scrollTop()
-
-}
-
-function logStretch(){
-
-events.unshift({
-id:Date.now(),
-type:"Stretch",
-icon:"🏋️",
-bg:"stretch-bg",
-time:new Date().toLocaleString("sv-SE").replace(" ","T")})
-
-saveAll()
-renderAll()
-scrollTop()
-
+  events.unshift({
+    id:   Date.now(),
+    time: nowISO(),
+    ...data
+  })
+  saveAll()
+  renderAll()
+  closeWizard()
+  scrollTop()
 }
 
 function logNappy(type){
-
-events.unshift({
-id:Date.now(),
-type:"Nappy",
-detail:type,
-icon:"🧷",
-bg:"nappy-bg",
-time:new Date().toLocaleString("sv-SE").replace(" ","T")})
-
-saveAll()
-renderAll()
-
-showToast("✓ Nappy logged")
-
-scrollTop()
-
-}
-
-function toggleMode(id){
-
-const e = events.find(x => x.id === id)
-
-if(e.mode === "Bottle"){
-e.mode = "Breast"
-}else{
-e.mode = "Bottle"
-}
-
-saveAll()
-renderAll()
-
-}
-function toggleMilk(id){
-
-const e = events.find(x => x.id === id)
-
-if(e.milk === "Milly Milk"){
-e.milk = "Formula"
-}else{
-e.milk = "Milly Milk"
-}
-
-saveAll()
-renderSingleEvent(id)
-updateBell()
-
-}
-
-function editValue(id, el){
-
-if(activeEditor){
-renderSingleEvent(id)
-updateBell()
-activeEditor=null
-}
-
-activeEditor = el
-
-const e = events.find(x => x.id === id)
-
-el.innerHTML = `
-<input type="number" value="${e.value}" style="
-width:60px;
-font-size:14px;
-border:none;
-background:#eee;
-border-radius:6px;
-padding:2px 4px;
-">
-`
-
-const input = el.querySelector("input")
-input.focus()
-
-/* prevent click inside input from closing */
-input.addEventListener("click", function(ev){
-ev.stopPropagation()
-})
-
-input.oninput = () => {
-
-e.value = parseInt(input.value) || 0
-saveAll()
-
-}
-
-/* click-away close */
-
-document.addEventListener("click", close)
-
-function close(ev){
-
-if(!el.contains(ev.target)){
-renderSingleEvent(id)
-updateBell()
-activeEditor=null
-document.removeEventListener("click", close)
-}
-
-}
-
-}
-
-function chooseMode(id, el){
-
-if(activeEditor){
-renderSingleEvent(id)
-updateBell()
-activeEditor=null
-}
-
-activeEditor = el
-
-const e = events.find(x => x.id === id)
-
-el.innerHTML = `
-<span class="choice-btn ${e.mode==="Bottle"?"active":""}" data-v="Bottle">Bottle</span>
-<span class="choice-btn ${e.mode==="Breast"?"active":""}" data-v="Breast">Breast</span>
-`
-
-const buttons = el.querySelectorAll(".choice-btn")
-
-buttons.forEach(b => {
-
-b.onclick = () => {
-
-e.mode = b.dataset.v
-
-saveAll()
-renderSingleEvent(id)
-updateBell()
-}
-
-})
-
-document.addEventListener("click", close)
-
-function close(ev){
-
-if(!el.contains(ev.target)){
-renderSingleEvent(id)
-updateBell()
-activeEditor=null
-document.removeEventListener("click", close)
-}
-}
-
-}
-
-function chooseMilkType(id, el){
-if(activeEditor){
-renderSingleEvent(id)
-updateBell()
-activeEditor=null
-}
-
-activeEditor = el
-
-const e = events.find(x => x.id === id)
-
-el.innerHTML = `
-<span class="choice-btn ${e.milk==="Milly Milk"?"active":""}" data-v="Milly Milk">Milly Milk</span>
-<span class="choice-btn ${e.milk==="Formula"?"active":""}" data-v="Formula">Formula</span>
-`
-
-const buttons = el.querySelectorAll(".choice-btn")
-
-buttons.forEach(b => {
-
-b.onclick = () => {
-
-e.milk = b.dataset.v
-
-saveAll()
-renderSingleEvent(id)
-updateBell()
-}
-
-})
-
-document.addEventListener("click", close)
-
-function close(ev){
-
-if(!el.contains(ev.target)){
-renderSingleEvent(id)
-updateBell()
-activeEditor=null
-document.removeEventListener("click", close)
-}
-
-}
-
-}
-
-function chooseNappy(id, el){
-if(activeEditor){
-renderSingleEvent(id)
-updateBell()
-activeEditor=null
-}
-activeEditor = el
-
-const e = events.find(x => x.id === id)
-
-el.innerHTML = `
-<span class="choice-btn ${e.detail==="Wet"?"active":""}" data-v="Wet">Wet</span>
-<span class="choice-btn ${e.detail==="Dirty"?"active":""}" data-v="Dirty">Dirty</span>
-<span class="choice-btn ${e.detail==="Both"?"active":""}" data-v="Both">Both</span>
-`
-
-const buttons = el.querySelectorAll(".choice-btn")
-
-buttons.forEach(b => {
-
-b.onclick = () => {
-
-e.detail = b.dataset.v
-
-saveAll()
-renderSingleEvent(id)
-updateBell()
-}
-
-})
-
-document.addEventListener("click", close)
-
-function close(ev){
-
-if(!el.contains(ev.target)){
-renderSingleEvent(id)
-updateBell()
-activeEditor=null
-document.removeEventListener("click", close)
-}
-
-}
-
-}
-
-function choosePump(id, el){
-
-if(activeEditor){
-renderSingleEvent(id)
-updateBell()
-activeEditor=null
-}
-
-activeEditor = el
-
-const e = events.find(x => x.id === id)
-
-const amounts = [15,30,40,50,60,70]
-
-el.innerHTML = amounts.map(a => `
-<span class="choice-btn ${e.value===a?"active":""}" data-v="${a}">
-${a}
-</span>
-`).join(" ")
-
-const buttons = el.querySelectorAll(".choice-btn")
-
-buttons.forEach(b => {
-
-b.onclick = (ev) => {
-
-ev.stopPropagation()
-
-e.value = parseInt(b.dataset.v)
-
-saveAll()
-renderSingleEvent(id)
-updateBell()
-
-}
-
-})
-
-document.addEventListener("click", close)
-
-function close(ev){
-
-if(!el.contains(ev.target)){
-renderSingleEvent(id)
-updateBell()
-activeEditor=null
-document.removeEventListener("click", close)
-}
-
-}
-
-}
-
-function editPump(id, el){
-
-const e = events.find(x => x.id === id)
-
-el.innerHTML = `
-<input 
-type="number" 
-value="${e.value}" 
-step="5"
-min="0"
-class="pump-input"
-> ml
-`
-
-const input = el.querySelector("input")
-
-input.focus()
-
-input.oninput = () => {
-
-e.value = parseInt(input.value) || 0
-saveAll()
-
-}
-
-document.addEventListener("click", close)
-
-function close(ev){
-
-if(!el.contains(ev.target)){
-renderSingleEvent(id)
-updateBell()
-activeEditor=null
-document.removeEventListener("click", close)
-}
-
-}
-
-}
-
-function editBreastTime(id, el){
-
-if(activeEditor){
-renderSingleEvent(id)
-updateBell()
-activeEditor=null
-}
-
-activeEditor = el
-
-const e = events.find(x => x.id === id)
-
-el.innerHTML = `
-<input 
-type="number"
-value="${e.value}"
-step="5"
-min="0"
-class="pump-input"
-> min
-`
-
-const input = el.querySelector("input")
-
-input.focus()
-
-/* prevent arrow clicks from closing editor */
-input.addEventListener("click", function(ev){
-ev.stopPropagation()
-})
-
-input.oninput = () => {
-
-e.value = parseInt(input.value) || 0
-saveAll()
-
-}
-
-document.addEventListener("click", close)
-
-function close(ev){
-
-if(!el.contains(ev.target)){
-renderSingleEvent(id)
-updateBell()
-activeEditor=null
-document.removeEventListener("click", close)
-}
-
-}
-
-}
-
-/* TOAST FUNCTION */
-
-function showToast(message){
-
-const toast = document.getElementById("toast")
-
-toast.textContent = message
-
-toast.classList.add("show")
-
-setTimeout(()=>{
-toast.classList.remove("show")
-},2000)
-
-}
-
-function exportCSV(){
-
-let rows = [
-["id","type","mode","milk","value","unit","detail","name","time"]
-]
-
-repairEvents()
-
-events.forEach(e => {
-
-rows.push([
-e.id || "",
-e.type || "",
-e.mode || "",
-e.milk || "",
-e.value || "",
-e.unit || "",
-e.detail || "",
-e.name || "",
-e.time || ""
-])
-
-})
-
-let csv = rows.map(r => r.join(",")).join("\n")
-
-let blob = new Blob([csv], {type:"text/csv"})
-let url = URL.createObjectURL(blob)
-
-let a = document.createElement("a")
-a.href = url
-a.download = "baby-data.csv"
-a.click()
-
-URL.revokeObjectURL(url)
-
-}
-
-
-function handleCSVImport(event){
-const file = event.target.files[0]
-
-if(!file) return
-
-const reader = new FileReader()
-
-reader.onload = function(e){
-
-const text = e.target.result
-const rows = text.split("\n").slice(1)
-
-let imported = 0
-
-rows.forEach(r => {
-
-const cols = r.split(",")
-
-if(cols.length < 9) return
-
-const id = parseInt(cols[0])
-
-/* skip duplicates */
-if(events.some(ev => ev.id === id)) return
-
-const newEvent = {
-
-id: id,
-type: cols[1] || "",
-
-mode: cols[2] || "",
-milk: cols[3] || "",
-value: cols[4] ? parseInt(cols[4]) : 0,
-unit: cols[5] || "",
-detail: cols[6] || "",
-name: cols[7] || "",
-time: cols[8] ? new Date(cols[8]).toISOString() : "",
-
-icon:
-cols[1] === "Feed" ? "🍼" :
-cols[1] === "Pump" ? "🤱" :
-cols[1] === "Nappy" ? "🧷" :
-cols[1] === "Medication" ? "💊" :
-cols[1] === "Stretch" ? "🏋️" : "",
-
-bg:
-cols[1] === "Feed" ? "feed-bg" :
-cols[1] === "Pump" ? "pump-bg" :
-cols[1] === "Nappy" ? "nappy-bg" :
-cols[1] === "Medication" ? "med-bg" :
-cols[1] === "Stretch" ? "stretch-bg" : ""
-
-}
-
-events.push(newEvent)
-imported++
-
-})
-
-repairEvents()
-
-saveAll()
-renderAll()
-
-if(imported === 0){
-alert("No new events imported")
-}else{
-alert(imported + " new events imported")
-}
-
-}
-
-reader.readAsText(file)
-
-}
-
-function openQuick(type){
-
-const panel = document.getElementById("quickPanel")
-
-panel.innerHTML=""
-
-/* click-away close */
-
-function closeQuick(e){
-
-const panel = document.getElementById("quickPanel")
-
-if(!panel) return
-
-// if click is inside wizard, ignore
-if(panel.contains(e.target)) return
-
-// if click is on quick tile, ignore
-if(e.target.closest(".quick-tile")) return
-
-panel.innerHTML=""
-document.removeEventListener("click", closeQuick)
-
-}
-
-setTimeout(()=>{
-document.addEventListener("click", closeQuick)
-},10)
-
-/* NAPPY */
-
-if(type==="nappy"){
-
-panel.innerHTML=`
-<div class="quick-option-grid">
-
-<button class="quick-option nappy" onclick="logNappy('Wet')">
-💧
-Pee
-</button>
-
-<button class="quick-option nappy" onclick="logNappy('Dirty')">
-💩
-Poo
-</button>
-
-<button class="quick-option nappy" onclick="logNappy('Both')">
-🧷
-Mixed
-</button>
-
-</div>
-`
-}
-
-/* PUMP */
-
-if(type==="pump"){
-
-panel.innerHTML=`
-
-<div class="pump-row">
-
-<input 
-type="range"
-min="10"
-max="70"
-step="5"
-value="30"
-id="pumpSlider"
-class="pump-slider"
-oninput="updatePumpValue(this.value)"
->
-
-<button class="quick-option pump pump-log"
-onclick="finishPump(document.getElementById('pumpSlider').value)">
-<div class="tile-icon">🤱</div>
-Log
-</button>
-
-</div>
-
-<div class="pump-value">
-<span id="pumpValue">30</span> ml
-</div>
-
-`
-
-}
-
-/* FEED */
-
-if(type==="feed"){
-showFeedStep1()
-}
-/* MEDS */
-
-if(type==="meds"){
-
-let meds = regimes.filter(r => r.type==="Medication")
-
-let html = `<div class="quick-option-grid">`
-
-meds.forEach(m=>{
-html += `
-<button class="quick-option meds"
-onclick="logMedication('${m.name}')">
-💊
-${m.name}
-</button>
-`
-})
-
-html += `
-<button class="quick-option meds"
-onclick="showMedicationWizard()">
-➕
-New
-</button>
-`
-
-html += `</div>`
-
-panel.innerHTML = html
-
-}
-/* EXERCISE */
-
-if(type==="exercise"){
-
-let exercises = regimes.filter(r => r.type==="Stretch")
-
-let html = `<div class="quick-option-grid">`
-
-exercises.forEach(ex=>{
-html += `
-<button class="quick-option exercise"
-onclick="logExercise('${ex.name}')">
-🏋️
-${ex.name}
-</button>
-`
-})
-
-html += `
-<button class="quick-option exercise"
-onclick="showExerciseWizard()">
-➕
-New
-</button>
-`
-
-html += `</div>`
-
-panel.innerHTML = html
-
-}
-}
-
-function updatePumpValue(v){
-document.getElementById("pumpValue").textContent = v
+  logEvent({ type:"Nappy", detail:type, icon:"🧷", bg:"nappy-bg" })
+  showToast("✓ Nappy logged")
 }
 
 function logMedication(name){
+  logEvent({ type:"Medication", name:name, value:0, unit:"ml", icon:"💊", bg:"med-bg" })
+  document.getElementById("quickPanel").innerHTML = ""
+}
 
-events.unshift({
-id:Date.now(),
-type:"Medication",
-name:name,
-value:0,
-unit:"ml",
-icon:"💊",
-bg:"med-bg",
-time:new Date().toLocaleString("sv-SE").replace(" ","T")})
-
-saveAll()
-renderAll()
-
-document.getElementById("quickPanel").innerHTML=""
-
-scrollTop()
-
+function logExercise(name){
+  logEvent({ type:"Stretch", name:name, icon:"🏋️", bg:"stretch-bg" })
 }
 
 function finishBottleFeed(amount){
-
-events.unshift({
-id:Date.now(),
-type:"Feed",
-mode:"Bottle",
-milk:quickFeedMilk,
-value:amount,
-unit:"ml",
-icon:"🍼",
-bg:"feed-bg",
-time:new Date().toLocaleString("sv-SE").replace(" ","T")})
-
-saveAll()
-renderAll()
-
-document.getElementById("quickPanel").innerHTML=""
-
-scrollTop()
-
+  logEvent({ type:"Feed", mode:"Bottle", milk:quickFeedMilk, value:parseInt(amount), unit:"ml", icon:"🍼", bg:"feed-bg" })
+  document.getElementById("quickPanel").innerHTML = ""
 }
 
-function finishBreastFeed(minutes,side){
-
-events.unshift({
-id:Date.now(),
-type:"Feed",
-mode:"Breast",
-milk:"Milly Milk",
-side:side,
-value:parseInt(minutes),
-unit:"min",
-icon:"🍼",
-bg:"feed-bg",
-time:new Date().toLocaleString("sv-SE").replace(" ","T")})
-
-saveAll()
-renderAll()
-
-document.getElementById("quickPanel").innerHTML=""
-
-scrollTop()
-
+function finishBreastFeed(minutes, side){
+  logEvent({ type:"Feed", mode:"Breast", milk:"Milly Milk", side:side, value:parseInt(minutes), unit:"min", icon:"🍼", bg:"feed-bg" })
+  document.getElementById("quickPanel").innerHTML = ""
 }
 
 function finishPump(amount){
+  logEvent({ type:"Pump", value:parseInt(amount), unit:"ml", icon:"🤱", bg:"pump-bg" })
+  document.getElementById("quickPanel").innerHTML = ""
+}
 
-events.unshift({
-id:Date.now(),
-type:"Pump",
-value:parseInt(amount),
-unit:"ml",
-icon:"🤱",
-bg:"pump-bg",
-time:new Date().toLocaleString("sv-SE").replace(" ","T")})
+/* ---------- INLINE EDITORS ---------- */
 
-saveAll()
-renderAll()
+function closeActiveEditor(id){
+  if (activeEditor){
+    renderSingleEvent(id)
+    updateBell()
+    activeEditor = null
+  }
+}
 
-document.getElementById("quickPanel").innerHTML=""
+// Restores a .time span to its display text without re-rendering the whole card.
+// editDate/editTime must use this — renderSingleEvent only updates .sub, not .time spans.
+function restoreTimeSpan(id, el, type){
+  const e = events.find(x => x.id === id)
+  if (!e) return
+  if (type === "date"){
+    el.innerHTML = new Date(e.time).toLocaleDateString([], { month:'short', day:'numeric' })
+  } else {
+    el.innerHTML = new Date(e.time).toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' })
+  }
+}
 
-scrollTop()
+function editDate(id, el){
+  const e       = events.find(x => x.id === id)
+  const current = new Date(e.time)
+  const yyyy    = current.getFullYear()
+  const mm      = String(current.getMonth() + 1).padStart(2, '0')
+  const dd      = String(current.getDate()).padStart(2, '0')
 
+  el.innerHTML = `<input type="date" value="${yyyy}-${mm}-${dd}" style="font-size:13px;padding:2px 4px;width:auto;">`
+  const input  = el.querySelector("input")
+  input.focus()
+
+  input.onblur = () => {
+    if (!input.value){ restoreTimeSpan(id, el, 'date'); return }
+    const [y, m, d] = input.value.split("-")
+    current.setFullYear(parseInt(y))
+    current.setMonth(parseInt(m) - 1)
+    current.setDate(parseInt(d))
+    e.time = current.toISOString()
+    saveAll()
+    restoreTimeSpan(id, el, 'date')
+    updateBell()
+    renderSummary()
+  }
+}
+
+function editTime(id, el){
+  const e  = events.find(x => x.id === id)
+  const d  = new Date(e.time)
+  const hh = String(d.getHours()).padStart(2, '0')
+  const mm = String(d.getMinutes()).padStart(2, '0')
+  const original = `${hh}:${mm}`
+
+  el.innerHTML = `<input type="time" value="${original}" style="font-size:13px;padding:2px 4px;width:auto;">`
+  const input  = el.querySelector("input")
+  input.focus()
+
+  input.onblur = () => {
+    if (!input.value || input.value === original){ restoreTimeSpan(id, el, 'time'); return }
+    const [h, m] = input.value.split(":")
+    const updated = new Date(e.time)
+    updated.setHours(parseInt(h))
+    updated.setMinutes(parseInt(m))
+    e.time = updated.toISOString()
+    saveAll()
+    restoreTimeSpan(id, el, 'time')
+    updateBell()
+    renderSummary()
+  }
+}
+
+function editValue(id, el){
+  closeActiveEditor(id)
+  activeEditor = el
+  const e = events.find(x => x.id === id)
+
+  el.innerHTML = `<input type="number" value="${e.value}" style="width:60px;font-size:14px;border:none;background:#eee;border-radius:6px;padding:2px 4px;">`
+  const input  = el.querySelector("input")
+  input.focus()
+  input.addEventListener("click", ev => ev.stopPropagation())
+  input.oninput = () => { e.value = parseInt(input.value) || 0; saveAll() }
+
+  document.addEventListener("click", function close(ev){
+    if (!el.contains(ev.target)){
+      renderSingleEvent(id); updateBell(); activeEditor = null
+      document.removeEventListener("click", close)
+    }
+  })
+}
+
+
+// Shows a compact pill row below the tapped span as a sibling element,
+// so it never reflows the .sub text line.
+function showPillPopover(id, el, options, onPick){
+  closeActiveEditor(id)
+  activeEditor = el
+
+  const card = el.closest(".card")
+  const existing = card.querySelector(".inline-popover")
+  if (existing) existing.remove()
+
+  const popover = document.createElement("div")
+  popover.className = "inline-popover"
+  popover.innerHTML = options.map(o =>
+    `<span class="choice-btn ${o.active ? 'active' : ''}" data-v="${o.value}">${o.label}</span>`
+  ).join("")
+
+  el.closest(".sub").after(popover)
+
+  popover.querySelectorAll(".choice-btn").forEach(b => {
+    b.onclick = ev => {
+      ev.stopPropagation()
+      onPick(b.dataset.v)
+      popover.remove()
+      activeEditor = null
+      renderSingleEvent(id)
+      updateBell()
+    }
+  })
+
+  requestAnimationFrame(() => { popover.style.opacity = 1 })
+
+  setTimeout(() => {
+    document.addEventListener("click", function close(ev){
+      if (!popover.contains(ev.target) && !el.contains(ev.target)){
+        popover.remove()
+        activeEditor = null
+        document.removeEventListener("click", close)
+      }
+    })
+  }, 10)
+}
+
+function chooseMode(id, el){
+  const e = events.find(x => x.id === id)
+  showPillPopover(id, el, [
+    { label:"Bottle", value:"Bottle", active: e.mode === "Bottle" },
+    { label:"Breast", value:"Breast", active: e.mode === "Breast" }
+  ], v => { e.mode = v; saveAll() })
+}
+
+function chooseMilkType(id, el){
+  const e = events.find(x => x.id === id)
+  showPillPopover(id, el, [
+    { label:"Milly Milk", value:"Milly Milk", active: e.milk === "Milly Milk" },
+    { label:"Formula",    value:"Formula",    active: e.milk === "Formula" }
+  ], v => { e.milk = v; saveAll() })
+}
+
+function chooseNappy(id, el){
+  const e = events.find(x => x.id === id)
+  showPillPopover(id, el, [
+    { label:"Wet",   value:"Wet",   active: e.detail === "Wet" },
+    { label:"Dirty", value:"Dirty", active: e.detail === "Dirty" },
+    { label:"Both",  value:"Both",  active: e.detail === "Both" }
+  ], v => { e.detail = v; saveAll() })
+}
+
+function choosePump(id, el){
+  const e = events.find(x => x.id === id)
+  showPillPopover(id, el,
+    [15, 30, 40, 50, 60, 70].map(a => ({ label: String(a), value: String(a), active: e.value === a })),
+    v => { e.value = parseInt(v); saveAll() }
+  )
+}
+
+function editBreastTime(id, el){
+  closeActiveEditor(id)
+  activeEditor = el
+  const e = events.find(x => x.id === id)
+
+  el.innerHTML = `<input type="number" value="${e.value}" step="5" min="0" class="pump-input"> min`
+  const input  = el.querySelector("input")
+  input.focus()
+  input.addEventListener("click", ev => ev.stopPropagation())
+  input.oninput = () => { e.value = parseInt(input.value) || 0; saveAll() }
+
+  document.addEventListener("click", function close(ev){
+    if (!el.contains(ev.target)){
+      renderSingleEvent(id); updateBell(); activeEditor = null
+      document.removeEventListener("click", close)
+    }
+  })
+}
+
+function editWeightValue(id, el){
+  closeActiveEditor(id)
+  activeEditor = el
+  const e = events.find(x => x.id === id)
+
+  el.innerHTML = `<input type="number" step="0.001" min="0" value="${e.value}" style="width:80px;font-size:14px;border:none;background:#eee;border-radius:6px;padding:2px 4px;"> kg`
+  const input  = el.querySelector("input")
+  input.focus()
+  input.addEventListener("click", ev => ev.stopPropagation())
+  input.oninput = () => {
+    const v = parseFloat(input.value)
+    if (!isNaN(v)) { e.value = Math.round(v * 1000) / 1000; saveAll() }
+  }
+
+  document.addEventListener("click", function close(ev){
+    if (!el.contains(ev.target)){
+      renderSingleEvent(id); updateBell(); activeEditor = null
+      document.removeEventListener("click", close)
+    }
+  })
+}
+
+
+
+/* ---------- REGIMES ---------- */
+
+function adjustRegimeForm(){
+  const type = rType.value
+  feedOptions.classList.toggle('hidden',   type !== "Feed")
+  medOptions.classList.toggle('hidden',    type !== "Medication")
+  stretchOptions.classList.toggle('hidden', type !== "Stretch")
+}
+
+function createRegime(){
+  const type = rType.value
+
+  // FIX: validate interval before saving to prevent NaN breaking updateBell
+  let interval = NaN
+  if (type === "Feed")       interval = parseFloat(rIntervalFeed.value)
+  if (type === "Medication") interval = parseFloat(rIntervalMed.value)
+  if (type === "Stretch")    interval = parseFloat(rIntervalStretch.value)
+
+  if (!interval || isNaN(interval) || interval <= 0){
+    showToast("⚠️ Enter a valid interval")
+    return
+  }
+
+  let r = { id: Date.now(), type, interval }
+
+  if (type === "Feed")       r.name = "Feed"
+  if (type === "Medication") { r.name = rName.value.trim() || "Medication"; r.dose = parseFloat(rDose.value) }
+  if (type === "Stretch")    r.name = rStretchName.value.trim() || "Exercise"
+
+  if (!r.name){ showToast("⚠️ Enter a name"); return }
+
+  regimes.push(r)
+  saveAll()
+  renderRegimes()
+}
+
+function deleteRegime(id){
+  regimes = regimes.filter(r => r.id !== id)
+  saveAll()
+  renderRegimes()
+}
+
+/* ---------- BELL / REGIME PANEL ---------- */
+
+function updateBell(){
+  const bell = document.querySelector(".bell-btn")
+  if (!bell) return
+
+  const now = new Date()
+  let state = "normal"
+
+  regimes.forEach(r => {
+    const last = events
+      .filter(e => e.type === r.type && (r.type !== "Medication" || e.name === r.name))
+      .sort((a, b) => new Date(b.time) - new Date(a.time))[0]
+
+    if (!last){ state = "due"; return }
+
+    const diff = new Date(new Date(last.time).getTime() + r.interval * 3600000) - now
+
+    if (diff <= 0)                          state = "due"
+    else if (diff < 1800000 && state !== "due") state = "soon"
+  })
+
+  bell.classList.remove("bell-normal", "bell-soon", "bell-due")
+  bell.classList.add(state === "due" ? "bell-due" : state === "soon" ? "bell-soon" : "bell-normal")
+}
+
+function toggleRegimes(e){
+  e.stopPropagation()
+  const panel = document.getElementById("regimePanel")
+  document.getElementById("menuPanel").classList.add("hidden")
+  panel.classList.toggle("hidden")
+  if (!panel.classList.contains("hidden")) renderRegimePanel()
+}
+
+function renderRegimePanel(){
+  const panel = document.getElementById("regimePanel")
+  const now   = new Date()
+
+  let dueNow   = []
+  let upcoming = []
+
+  regimes.forEach(r => {
+    const last = events
+      .filter(e => e.type === r.type && (r.type !== "Medication" || e.name === r.name))
+      .sort((a, b) => new Date(b.time) - new Date(a.time))[0]
+
+    if (!last){ dueNow.push(r); return }
+
+    const diff = new Date(new Date(last.time).getTime() + r.interval * 3600000) - now
+    if (diff <= 0) dueNow.push(r)
+    else           upcoming.push({ r, diff })
+  })
+
+  let html = ""
+
+  if (dueNow.length){
+    html += `<div style="color:#E54848;font-weight:700;margin-bottom:8px">Due now</div>`
+    dueNow.forEach(r => { html += `<div>${r.name}</div>` })
+    html += `<hr style="margin:10px 0;border:none;border-top:1px solid #eee">`
+  }
+
+  upcoming.forEach(o => {
+    const mins = Math.floor(o.diff / 60000)
+    const h    = Math.floor(mins / 60)
+    const m    = mins % 60
+    html += `<div>${o.r.name} — ${h}h ${m}m</div>`
+  })
+
+  panel.innerHTML = html || `<div>No regimes saved</div>`
+}
+
+setTimeout(updateBell, 50)
+setInterval(updateBell, 60000)
+
+/* ---------- QUICK LOG ---------- */
+
+function openQuick(type){
+  const panel = document.getElementById("quickPanel")
+  panel.innerHTML = ""
+
+  function closeQuick(e){
+    const panel = document.getElementById("quickPanel")
+    if (!panel) return
+    if (panel.contains(e.target)) return
+    if (e.target.closest(".quick-tile")) return
+    panel.innerHTML = ""
+    document.removeEventListener("click", closeQuick)
+  }
+
+  setTimeout(() => document.addEventListener("click", closeQuick), 10)
+
+  if (type === "nappy"){
+    panel.innerHTML = `
+      <div class="quick-option-grid">
+        <button class="quick-option nappy" onclick="logNappy('Wet')">💧<br>Pee</button>
+        <button class="quick-option nappy" onclick="logNappy('Dirty')">💩<br>Poo</button>
+        <button class="quick-option nappy" onclick="logNappy('Both')">🧷<br>Mixed</button>
+      </div>
+    `
+  }
+
+  if (type === "pump"){
+    panel.innerHTML = `
+      <div class="pump-row">
+        <input type="range" min="10" max="70" step="5" value="30" id="pumpSlider" class="pump-slider"
+          oninput="document.getElementById('pumpValue').textContent=this.value">
+        <button class="quick-option pump pump-log"
+          onclick="finishPump(document.getElementById('pumpSlider').value)">
+          <div class="tile-icon">🤱</div>Log
+        </button>
+      </div>
+      <div class="pump-value"><span id="pumpValue">30</span> ml</div>
+    `
+  }
+
+  if (type === "feed") showFeedStep1()
+
+  if (type === "meds"){
+    const meds = regimes.filter(r => r.type === "Medication")
+    let html = `<div class="quick-option-grid">`
+    meds.forEach(m => {
+      html += `<button class="quick-option meds" onclick="logMedication('${m.name}')">💊<br>${m.name}</button>`
+    })
+    html += `<button class="quick-option meds" onclick="showMedicationWizard()">➕<br>New</button></div>`
+    panel.innerHTML = html
+  }
+
+  if (type === "exercise"){
+    const exercises = regimes.filter(r => r.type === "Stretch")
+    let html = `<div class="quick-option-grid">`
+    exercises.forEach(ex => {
+      html += `<button class="quick-option exercise" onclick="logExercise('${ex.name}')">🏋️<br>${ex.name}</button>`
+    })
+    html += `<button class="quick-option exercise" onclick="showExerciseWizard()">➕<br>New</button></div>`
+    panel.innerHTML = html
+  }
+
+  if (type === "weight"){
+    panel.innerHTML = `
+      <div style="padding:10px">
+        <input id="weightInput" type="number" step="0.001" min="0" placeholder="Weight in kg (e.g. 3.450)">
+        <button class="save-btn" onclick="finishWeight()">Log Weight</button>
+      </div>
+    `
+    setTimeout(() => {
+      const inp = document.getElementById("weightInput")
+      if (inp) inp.focus()
+    }, 120)
+  }
 }
 
 /* ---------- FEED WIZARD ---------- */
 
+function showStep(html){
+  const panel = document.getElementById("quickPanel")
+  panel.style.opacity   = 0
+  panel.style.transform = "translateY(6px)"
+  setTimeout(() => {
+    panel.innerHTML          = html
+    panel.style.transition   = "all 0.18s ease"
+    panel.style.opacity      = 1
+    panel.style.transform    = "translateY(0)"
+  }, 80)
+}
+
+function closeWizard(){
+  document.getElementById("quickPanel").innerHTML = ""
+}
+
 function showFeedStep1(){
-
-showStep(`
-<div class="quick-option-grid">
-
-<button class="quick-option feed"
-onclick="event.stopPropagation(); showFeedBreastSlider()">
-🤱
-Breast
-</button>
-
-<button class="quick-option feed"
-onclick="event.stopPropagation(); showFeedBottleMilk()">
-🍼
-Bottle
-</button>
-
-</div>
-`)
-
-}
-
-function showExerciseWizard(){
-
-showStep(`
-
-<div style="padding:10px">
-
-<input id="exerciseName" placeholder="Exercise name">
-
-<button class="save-btn"
-onclick="finishExerciseWizard()">
-Log
-</button>
-
-</div>
-
-`)
-
-}
-
-function finishExerciseWizard(){
-
-const name = document.getElementById("exerciseName").value.trim()
-
-if(!name){
-alert("Enter exercise name")
-return
-}
-
-logEvent({
-type:"Stretch",
-name:name,
-icon:"🏋️",
-bg:"stretch-bg"
-})
-
-}
-function logExercise(name){
-
-logEvent({
-type:"Stretch",
-name:name,
-icon:"🏋️",
-bg:"stretch-bg"
-})
-
-}
-
-function showMedicationWizard(){
-
-showStep(`
-
-<div style="padding:10px">
-
-<input id="medName" placeholder="Medication name">
-
-<button class="save-btn"
-onclick="showMedicationDose()">
-Next
-</button>
-
-</div>
-
-`)
-
-}
-
-function showMedicationDose(){
-
-const name = document.getElementById("medName").value.trim()
-
-if(!name){
-alert("Enter medication name")
-return
-}
-
-showStep(`
-
-<div style="padding:10px">
-
-<input id="medDose" type="number" placeholder="Dose">
-
-<select id="medUnit">
-<option value="ml">ml</option>
-<option value="mg">mg</option>
-</select>
-
-<button class="save-btn"
-onclick="finishMedication('${name}')">
-Log
-</button>
-
-</div>
-
-`)
-
-}
-
-function finishMedication(name){
-
-const dose = parseFloat(document.getElementById("medDose").value)
-const unit = document.getElementById("medUnit").value
-
-if(!dose){
-alert("Enter dose")
-return
-}
-
-events.unshift({
-id:Date.now(),
-type:"Medication",
-name:name,
-value:dose,
-unit:unit,
-icon:"💊",
-bg:"med-bg",
-time:new Date().toLocaleString("sv-SE").replace(" ","T")})
-
-saveAll()
-renderAll()
-
-document.getElementById("quickPanel").innerHTML=""
-
-scrollTop()
-
+  showStep(`
+    <div class="quick-option-grid">
+      <button class="quick-option feed" onclick="event.stopPropagation(); showFeedBreastSlider()">🤱<br>Breast</button>
+      <button class="quick-option feed" onclick="event.stopPropagation(); showFeedBottleMilk()">🍼<br>Bottle</button>
+    </div>
+  `)
 }
 
 function showFeedBreastSlider(){
-
-showStep(`
-
-<div class="pump-row">
-
-<input
-type="range"
-min="1"
-max="20"
-step="1"
-value="10"
-id="breastSlider"
-class="pump-slider"
-oninput="document.getElementById('breastValue').textContent=this.value"
->
-
-<button class="quick-option feed pump-log"
-onclick="event.stopPropagation(); showFeedBreastSide(document.getElementById('breastSlider').value)">
-Next
-</button>
-
-</div>
-
-<div class="pump-value">
-<span id="breastValue">10</span> min
-</div>
-
-`)
-
+  showStep(`
+    <div class="pump-row">
+      <input type="range" min="1" max="60" step="1" value="10" id="breastSlider" class="pump-slider"
+        oninput="document.getElementById('breastValue').textContent=this.value">
+      <button class="quick-option feed pump-log"
+        onclick="event.stopPropagation(); showFeedBreastSide(document.getElementById('breastSlider').value)">
+        Next
+      </button>
+    </div>
+    <div class="pump-value"><span id="breastValue">10</span> min</div>
+  `)
 }
 
 function showFeedBreastSide(minutes){
-
-quickFeedMinutes = minutes
-
-showStep(`
-<div class="quick-option-grid">
-
-<button class="quick-option feed"
-onclick="event.stopPropagation(); finishBreastFeed(${minutes},'Left')">
-⬅️
-Left
-</button>
-
-<button class="quick-option feed"
-onclick="event.stopPropagation(); finishBreastFeed(${minutes},'Right')">
-➡️
-Right
-</button>
-
-<button class="quick-option feed"
-onclick="event.stopPropagation(); finishBreastFeed(${minutes},'Both')">
-🔄
-Both
-</button>
-
-</div>
-`)
+  quickFeedMinutes = minutes
+  showStep(`
+    <div class="quick-option-grid">
+      <button class="quick-option feed" onclick="event.stopPropagation(); finishBreastFeed(${minutes},'Left')">⬅️<br>Left</button>
+      <button class="quick-option feed" onclick="event.stopPropagation(); finishBreastFeed(${minutes},'Right')">➡️<br>Right</button>
+      <button class="quick-option feed" onclick="event.stopPropagation(); finishBreastFeed(${minutes},'Both')">🔄<br>Both</button>
+    </div>
+  `)
 }
 
 function showFeedBottleMilk(){
-
-showStep(`
-<div class="quick-option-grid">
-
-<button class="quick-option feed"
-onclick="event.stopPropagation(); showFeedBottleSlider('Milly Milk')">
-🥛
-Milly
-</button>
-
-<button class="quick-option feed"
-onclick="event.stopPropagation(); showFeedBottleSlider('Formula')">
-🧪
-Formula
-</button>
-
-</div>
-`)
+  showStep(`
+    <div class="quick-option-grid">
+      <button class="quick-option feed" onclick="event.stopPropagation(); showFeedBottleSlider('Milly Milk')">🥛<br>Milly</button>
+      <button class="quick-option feed" onclick="event.stopPropagation(); showFeedBottleSlider('Formula')">🧪<br>Formula</button>
+    </div>
+  `)
 }
 
 function showFeedBottleSlider(milk){
-
-quickFeedMilk = milk
-
-showStep(`
-
-<div class="pump-row">
-
-<input
-type="range"
-min="0"
-max="70"
-step="5"
-value="30"
-id="bottleSlider"
-class="pump-slider"
-oninput="document.getElementById('bottleValue').textContent=this.value"
->
-
-<button class="quick-option feed pump-log"
-onclick="event.stopPropagation(); finishBottleFeed(document.getElementById('bottleSlider').value)">
-Log
-</button>
-
-</div>
-
-<div class="pump-value">
-<span id="bottleValue">30</span> ml
-</div>
-
-`)
-
+  quickFeedMilk = milk
+  showStep(`
+    <div class="pump-row">
+      <input type="range" min="0" max="70" step="5" value="30" id="bottleSlider" class="pump-slider"
+        oninput="document.getElementById('bottleValue').textContent=this.value">
+      <button class="quick-option feed pump-log"
+        onclick="event.stopPropagation(); finishBottleFeed(document.getElementById('bottleSlider').value)">
+        Log
+      </button>
+    </div>
+    <div class="pump-value"><span id="bottleValue">30</span> ml</div>
+  `)
 }
+
+/* ---------- MEDICATION WIZARD ---------- */
+
+function showMedicationWizard(){
+  showStep(`
+    <div style="padding:10px">
+      <input id="medName" placeholder="Medication name">
+      <button class="save-btn" onclick="showMedicationDose()">Next</button>
+    </div>
+  `)
+}
+
+function showMedicationDose(){
+  const name = document.getElementById("medName").value.trim()
+  if (!name){ showToast("⚠️ Enter medication name"); return }
+  showStep(`
+    <div style="padding:10px">
+      <input id="medDose" type="number" placeholder="Dose">
+      <select id="medUnit">
+        <option value="ml">ml</option>
+        <option value="mg">mg</option>
+      </select>
+      <button class="save-btn" onclick="finishMedication('${name}')">Log</button>
+    </div>
+  `)
+}
+
+function finishMedication(name){
+  const dose = parseFloat(document.getElementById("medDose").value)
+  const unit = document.getElementById("medUnit").value
+  if (!dose){ showToast("⚠️ Enter dose"); return }
+  logEvent({ type:"Medication", name, value:dose, unit, icon:"💊", bg:"med-bg" })
+  document.getElementById("quickPanel").innerHTML = ""
+}
+
+/* ---------- EXERCISE WIZARD ---------- */
+
+function showExerciseWizard(){
+  showStep(`
+    <div style="padding:10px">
+      <input id="exerciseName" placeholder="Exercise name">
+      <button class="save-btn" onclick="finishExerciseWizard()">Log</button>
+    </div>
+  `)
+}
+
+function finishExerciseWizard(){
+  const name = document.getElementById("exerciseName").value.trim()
+  if (!name){ showToast("⚠️ Enter exercise name"); return }
+  logEvent({ type:"Stretch", name, icon:"🏋️", bg:"stretch-bg" })
+}
+
+function finishWeight(){
+  const raw = parseFloat(document.getElementById("weightInput").value)
+  if (!raw || isNaN(raw) || raw <= 0){ showToast("⚠️ Enter a valid weight"); return }
+  // Round to 3 decimal places
+  const value = Math.round(raw * 1000) / 1000
+  logEvent({ type:"Weight", value, unit:"kg", icon:"⚖️", bg:"weight-bg" })
+  document.getElementById("quickPanel").innerHTML = ""
+}
+
+
+/* ---------- MENU / NAV ---------- */
 
 function toggleMenu(e){
-
-e.stopPropagation()
-document.getElementById("regimePanel").classList.add("hidden")
-const menu = document.getElementById("menuPanel")
-
-menu.classList.toggle("hidden")
-
+  e.stopPropagation()
+  document.getElementById("regimePanel").classList.add("hidden")
+  document.getElementById("menuPanel").classList.toggle("hidden")
 }
-
-/* close menu or regimes if clicking outside */
 
 window.addEventListener("click", function(e){
+  const menu   = document.getElementById("menuPanel")
+  const regime = document.getElementById("regimePanel")
+  const burger = document.querySelector(".menu-btn")
+  const bell   = document.querySelector(".bell-btn")
 
-const menu = document.getElementById("menuPanel")
-const regime = document.getElementById("regimePanel")
+  if (menu && !menu.classList.contains("hidden")){
+    if (!menu.contains(e.target) && !burger.contains(e.target))
+      menu.classList.add("hidden")
+  }
 
-const burger = document.querySelector(".menu-btn")
-const bell = document.querySelector(".bell-btn")
+  if (regime && !regime.classList.contains("hidden")){
+    if (!regime.contains(e.target) && !bell.contains(e.target))
+      regime.classList.add("hidden")
+  }
+})
 
-/* close menu */
-
-if(menu && !menu.classList.contains("hidden")){
-if(!menu.contains(e.target) && !burger.contains(e.target)){
-menu.classList.add("hidden")
-}
-}
-
-/* close regimes */
-
-if(regime && !regime.classList.contains("hidden")){
-if(!regime.contains(e.target) && !bell.contains(e.target)){
-regime.classList.add("hidden")
-}
-}
-
+window.addEventListener("DOMContentLoaded", function(){
+  document.getElementById("menuPanel").classList.add("hidden")
 })
 
 function openRegimes(){
+  document.getElementById("menuPanel").classList.add("hidden")
+  document.getElementById("logTab").classList.add("hidden")
+  document.getElementById("profileTab").classList.add("hidden")
+  document.getElementById("regimeTab").classList.remove("hidden")
+}
 
-document.getElementById("menuPanel").classList.add("hidden")
+function openProfile(){
+  document.getElementById("menuPanel").classList.add("hidden")
+  document.getElementById("logTab").classList.add("hidden")
+  document.getElementById("regimeTab").classList.add("hidden")
+  document.getElementById("profileTab").classList.remove("hidden")
 
-document.getElementById("logTab").classList.add("hidden")
-document.getElementById("regimeTab").classList.remove("hidden")
+  // Populate fields with saved data
+  document.getElementById("profileName").value        = profile.name        || ""
+  document.getElementById("profileDOB").value         = profile.dob         || ""
+  document.getElementById("profileBirthWeight").value = profile.birthWeight  || ""
+  document.getElementById("profileBirthLength").value = profile.birthLength  || ""
+  document.getElementById("profileSavedMsg").textContent = ""
+}
 
+function saveProfile(){
+  profile.name        = document.getElementById("profileName").value.trim()
+  profile.dob         = document.getElementById("profileDOB").value
+  profile.birthWeight = parseFloat(document.getElementById("profileBirthWeight").value) || ""
+  profile.birthLength = parseFloat(document.getElementById("profileBirthLength").value) || ""
+
+  saveAll()
+
+  const msg = document.getElementById("profileSavedMsg")
+  msg.textContent = "✓ Saved"
+  setTimeout(() => { msg.textContent = "" }, 2000)
 }
 
 function goBack(){
-
-document.getElementById("regimeTab").classList.add("hidden")
-document.getElementById("logTab").classList.remove("hidden")
-
+  document.getElementById("regimeTab").classList.add("hidden")
+  document.getElementById("profileTab").classList.add("hidden")
+  document.getElementById("logTab").classList.remove("hidden")
 }
 
-window.addEventListener("DOMContentLoaded", function(){
+/* ---------- IMPORT / EXPORT ---------- */
 
-document.getElementById("menuPanel").classList.add("hidden")
+// FIX: CSV fields are now quoted to handle commas in names
+function csvEscape(val){
+  const s = String(val ?? "")
+  return s.includes(",") || s.includes('"') || s.includes("\n")
+    ? `"${s.replace(/"/g, '""')}"` : s
+}
 
+function exportCSV(){
+  repairEvents()
+  const header = ["id","type","mode","milk","value","unit","detail","name","time","weight_kg"]
+  const rows = events.map(e => [
+    e.id, e.type, e.mode, e.milk, e.value, e.unit, e.detail, e.name, e.time,
+    e.type === "Weight" ? e.value : ""
+  ].map(csvEscape))
+
+  const csv  = [header, ...rows].map(r => r.join(",")).join("\n")
+  const blob = new Blob([csv], { type:"text/csv" })
+  const url  = URL.createObjectURL(blob)
+  const a    = document.createElement("a")
+  a.href     = url
+  a.download = "baby-data.csv"
+  a.click()
+  URL.revokeObjectURL(url)
+}
+
+function handleCSVImport(event){
+  const file = event.target.files[0]
+  if (!file) return
+
+  const reader = new FileReader()
+  reader.onload = function(e){
+    const rows = e.target.result.split("\n").slice(1)
+    let imported = 0
+
+    rows.forEach(r => {
+      const cols = r.split(",")
+      if (cols.length < 9) return
+      const id = parseInt(cols[0])
+      if (events.some(ev => ev.id === id)) return
+
+      const type = cols[1] || ""
+      events.push({
+        id,
+        type,
+        mode:   cols[2] || "",
+        milk:   cols[3] || "",
+        value:  cols[4] ? parseInt(cols[4]) : 0,
+        unit:   cols[5] || "",
+        detail: cols[6] || "",
+        name:   cols[7] || "",
+        time:   cols[8] ? new Date(cols[8]).toISOString() : "",
+        icon:   iconFor(type),
+        bg:     bgFor(type)
+      })
+      imported++
+    })
+
+    repairEvents()
+    saveAll()
+    renderAll()
+
+    showToast(imported === 0 ? "No new events imported" : `${imported} events imported`)
+  }
+  reader.readAsText(file)
+}
+
+/* ---------- UTILITIES ---------- */
+
+function showToast(message){
+  const toast = document.getElementById("toast")
+  toast.textContent = message
+  toast.classList.add("show")
+  setTimeout(() => toast.classList.remove("show"), 2000)
+}
+
+let graphsOpen = false
+
+function toggleGraphs(){
+
+const shelf = document.getElementById("graphShelf")
+const btn = document.getElementById("graphToggleBtn")
+
+graphsOpen = !graphsOpen
+
+if(graphsOpen){
+
+shelf.classList.remove("hidden")
+
+requestAnimationFrame(()=>{
+shelf.classList.add("open")
 })
 
-function showStep(html){
+btn.textContent = "Hide Graphs ▴"
 
-const panel = document.getElementById("quickPanel")
+renderHistorySummary()
 
-panel.style.opacity = 0
-panel.style.transform = "translateY(6px)"
+}else{
+
+shelf.classList.remove("open")
 
 setTimeout(()=>{
-panel.innerHTML = html
-panel.style.transition = "all 0.18s ease"
-panel.style.opacity = 1
-panel.style.transform = "translateY(0)"
-},80)
+shelf.classList.add("hidden")
+},350)
+
+btn.textContent = "Show Graphs ▾"
 
 }
-function closeWizard(){
-document.getElementById("quickPanel").innerHTML=""
-}
-
-function toggleRegimes(e){
-
-e.stopPropagation()
-
-const panel = document.getElementById("regimePanel")
-
-document.getElementById("menuPanel").classList.add("hidden")
-
-panel.classList.toggle("hidden")
-
-if(!panel.classList.contains("hidden")){
-renderRegimePanel()
-}
-
-}
-
-function renderRegimePanel(){
-
-const panel = document.getElementById("regimePanel")
-
-const now = new Date()
-
-let dueNow = []
-let upcoming = []
-
-regimes.forEach(r=>{
-
-const last = events
-.filter(e =>
-e.type === r.type &&
-(r.type !== "Medication" || e.name === r.name)
-)
-.sort((a,b)=> new Date(b.time) - new Date(a.time))[0]
-
-if(!last){
-dueNow.push(r)
-return
-}
-
-const next = new Date(new Date(last.time).getTime() + r.interval*3600000)
-
-const diff = next - now
-
-if(diff <= 0){
-dueNow.push(r)
-}
-else{
-upcoming.push({r,diff})
-}
-
-})
-
-let html=""
-
-/* DUE NOW */
-
-if(dueNow.length){
-
-html+=`<div style="color:#E54848;font-weight:700;margin-bottom:8px">Due now</div>`
-
-dueNow.forEach(r=>{
-html+=`<div>${r.name}</div>`
-})
-
-html+=`<hr style="margin:10px 0;border:none;border-top:1px solid #eee">`
-
-}
-
-/* UPCOMING */
-
-upcoming.forEach(o=>{
-
-const mins = Math.floor(o.diff/60000)
-const h = Math.floor(mins/60)
-const m = mins % 60
-
-html+=`<div>${o.r.name} — ${h}h ${m}m</div>`
-
-})
-
-if(html===""){
-html = `<div>No regimes saved</div>`
-}
-
-panel.innerHTML = html
-
-}
-
-function updateBell(){
-
-const bell = document.querySelector(".bell-btn")
-
-if(!bell) return
-
-const now = new Date()
-
-let state = "normal"
-
-regimes.forEach(r=>{
-
-const last = events
-.filter(e =>
-e.type === r.type &&
-(r.type !== "Medication" || e.name === r.name)
-)
-.sort((a,b)=> new Date(b.time) - new Date(a.time))[0]
-
-if(!last){
-state = "due"
-return
-}
-
-const next = new Date(new Date(last.time).getTime() + r.interval*3600000)
-
-const diff = next - now
-
-if(diff <= 0){
-state = "due"
-}
-else if(diff < 1800000 && state !== "due"){
-state = "soon"
-}
-
-})
-
-bell.classList.remove("bell-normal","bell-soon","bell-due")
-
-bell.classList.add(
-state==="due" ? "bell-due" :
-state==="soon" ? "bell-soon" :
-"bell-normal"
-)
 
 }
 
 function clearAllData(){
-
-if(!confirm("Clear ALL events and regimes?")){
-return
+  if (!confirm("Clear ALL events and regimes?")) return
+  events  = []
+  regimes = []
+  profile = {}
+  saveAll()
+  renderAll()
+  document.getElementById("menuPanel").classList.add("hidden")
+  showToast("All data cleared")
 }
 
-events = []
-regimes = []
-
-localStorage.setItem("events","[]")
-localStorage.setItem("regimes","[]")
-
+/* ---------- INIT ---------- */
 renderAll()
 
-document.getElementById("menuPanel").classList.add("hidden")
-
-showToast("All data cleared")
-
-}
-
 </script>
-
-<div id="toast"></div>
 
 </body>
 </html>
