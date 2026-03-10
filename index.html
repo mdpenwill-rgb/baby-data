@@ -11,6 +11,9 @@
 
 <meta name="theme-color" content="#B9AEEA">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Baby Data">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
 
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
 
@@ -67,12 +70,11 @@ background:transparent;
 background:var(--ui-purple);
 color:white;
 border:none;
-height:48px;
-padding:0 20px;
+padding:8px 20px;
 border-radius:999px;
 font-family:'Quicksand',sans-serif;
 font-weight:700;
-font-size:16px;
+font-size:14px;
 cursor:pointer;
 display:block;
 margin:16px auto;
@@ -382,6 +384,11 @@ button.primary.quick-feed{background:var(--feed);color:#0B3A5C;}
 button.primary.quick-pump{background:var(--pump);color:#3A2A66;}
 button.primary.quick-meds{background:var(--meds);color:#5C1F3C;}
 button.primary.quick-exercise{background:var(--exercise);color:#134735;}
+
+button.filter-btn{
+background:#D6EDF9;
+color:#3A6A88;
+}
 
 .filter-active{
 background:var(--ui-blue) !important;
@@ -933,6 +940,15 @@ background:#F7F6FD;
 color:#4E3F73;
 }
 
+.profile-hint{
+font-size:10px;
+font-weight:600;
+color:#B0AAD8;
+text-transform:none;
+letter-spacing:0;
+margin-left:6px;
+}
+
 .profile-saved{
 text-align:center;
 font-size:13px;
@@ -944,6 +960,127 @@ min-height:20px;
 transition:opacity 0.3s ease;
 }
 
+.support-card{
+background:linear-gradient(135deg,#FFF8E7 0%,#FFF3F8 100%);
+border-radius:22px;
+padding:20px 18px;
+margin-top:20px;
+box-shadow:0 4px 20px rgba(0,0,0,0.05);
+border:1px solid rgba(255,214,107,0.4);
+text-align:center;
+}
+
+.support-emoji{
+font-size:28px;
+margin-bottom:10px;
+}
+
+.support-title{
+font-size:16px;
+font-weight:700;
+color:#4E3F73;
+margin-bottom:6px;
+}
+
+.support-body{
+font-size:13px;
+color:#7A6E8A;
+line-height:1.5;
+margin-bottom:16px;
+}
+
+.support-btns{
+display:flex;
+gap:10px;
+justify-content:center;
+flex-wrap:wrap;
+}
+
+.support-tip-btn{
+background:#FFD66B;
+color:#4A3A00;
+border:none;
+padding:10px 20px;
+border-radius:999px;
+font-family:'Quicksand',sans-serif;
+font-weight:700;
+font-size:14px;
+cursor:pointer;
+transition:transform 0.12s ease, box-shadow 0.12s ease;
+box-shadow:0 2px 8px rgba(0,0,0,0.08);
+}
+
+.support-tip-btn:active{
+transform:scale(0.95);
+box-shadow:0 2px 6px rgba(0,0,0,0.15) inset;
+}
+
+.support-feedback-btn{
+background:#E8E0F7;
+color:#4E3F73;
+border:none;
+padding:10px 20px;
+border-radius:999px;
+font-family:'Quicksand',sans-serif;
+font-weight:700;
+font-size:14px;
+cursor:pointer;
+transition:transform 0.12s ease, box-shadow 0.12s ease;
+box-shadow:0 2px 8px rgba(0,0,0,0.08);
+}
+
+.support-feedback-btn:active{
+transform:scale(0.95);
+box-shadow:0 2px 6px rgba(0,0,0,0.15) inset;
+}
+
+/* BACKUP TAB */
+.backup-hint{
+font-size:13px;
+color:#888;
+margin:10px 0 18px;
+line-height:1.5;
+}
+.backup-item{
+background:rgba(255,255,255,0.07);
+border-radius:14px;
+padding:14px 16px;
+margin-bottom:10px;
+display:flex;
+align-items:center;
+gap:12px;
+}
+.backup-info{
+flex:1;
+}
+.backup-date{
+font-size:14px;
+font-weight:600;
+color:rgba(255,255,255,0.85);
+}
+.backup-meta{
+font-size:12px;
+color:rgba(255,255,255,0.45);
+margin-top:2px;
+}
+.restore-btn{
+background:var(--ui-purple,#AFA3E8);
+color:#fff;
+border:none;
+border-radius:10px;
+padding:8px 14px;
+font-size:13px;
+font-weight:600;
+cursor:pointer;
+flex-shrink:0;
+}
+.restore-btn:active{transform:scale(0.95);}
+.no-backups{
+font-size:14px;
+color:rgba(255,255,255,0.35);
+text-align:center;
+margin-top:24px;
+}
 
 
 </style>
@@ -965,7 +1102,7 @@ transition:opacity 0.3s ease;
       </button>
 
       <div class="app-title">
-        <span class="app-name">Baby Alex</span>
+        <span class="app-name" id="appTitle">Baby Data</span>
       </div>
 
       <button class="menu-btn" onclick="toggleMenu(event)">☰</button>
@@ -977,7 +1114,9 @@ transition:opacity 0.3s ease;
       <button onclick="exportCSV()">⬇️ Export</button>
       <button onclick="openRegimes()">⚙️ Regimes</button>
       <button onclick="openProfile()">👶 Profile</button>
+      <button onclick="openBackups()">💾 Backups</button>
       <button onclick="clearAllData()">🗑 Clear Data</button>
+      <button onclick="openSupport()">☕ Support Baby Data</button>
     </div>
 
     <div id="regimePanel" class="regime-panel hidden"></div>
@@ -1074,8 +1213,13 @@ transition:opacity 0.3s ease;
     <div class="profile-card">
 
       <div class="profile-field">
+        <label>Nickname <span class="profile-hint">shown in the header</span></label>
+        <input id="profileNickname" type="text">
+      </div>
+
+      <div class="profile-field">
         <label>Name</label>
-        <input id="profileName" type="text" placeholder="e.g. Alex">
+        <input id="profileName" type="text">
       </div>
 
       <div class="profile-field">
@@ -1085,12 +1229,12 @@ transition:opacity 0.3s ease;
 
       <div class="profile-field">
         <label>Birth Weight (kg)</label>
-        <input id="profileBirthWeight" type="number" step="0.001" min="0" placeholder="e.g. 3.250">
+        <input id="profileBirthWeight" type="number" step="0.001" min="0">
       </div>
 
       <div class="profile-field">
         <label>Birth Length (cm)</label>
-        <input id="profileBirthLength" type="number" step="0.1" min="0" placeholder="e.g. 50.5">
+        <input id="profileBirthLength" type="number" step="0.1" min="0">
       </div>
 
     </div>
@@ -1098,6 +1242,35 @@ transition:opacity 0.3s ease;
     <div class="profile-saved" id="profileSavedMsg"></div>
 
     <button class="save-btn" onclick="saveProfile()">Save Profile</button>
+
+    <div class="support-card">
+      <div class="support-emoji">☕</div>
+      <div class="support-text">
+        <div class="support-title">Enjoying Baby Data?</div>
+        <div class="support-body">If you like this app and you want my newborn son to afford improv classes — click here to tip!</div>
+      </div>
+      <div class="support-btns">
+        <button class="support-tip-btn" onclick="window.open('https://ko-fi.com/babydata','_blank')">Leave a tip ☕</button>
+        <button class="support-feedback-btn" onclick="window.open('https://forms.gle/HmR52dcqUpmVpXRXA','_blank')">Send feedback 💌</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BACKUP TAB -->
+  <div class="content hidden" id="backupTab">
+
+    <div class="back-row">
+      <button onclick="goBack()">← Back</button>
+    </div>
+
+    <div class="section-header">Backups</div>
+
+    <button class="save-btn" onclick="createBackup(true)">💾 Create Backup Now</button>
+
+    <div class="backup-hint">Up to 5 backups are kept. Restoring will replace all current data.</div>
+
+    <div id="backupList"></div>
 
   </div>
 
@@ -1119,9 +1292,14 @@ if (!localStorage.getItem("events"))  localStorage.setItem("events",  "[]")
 if (!localStorage.getItem("regimes")) localStorage.setItem("regimes", "[]")
 if (!localStorage.getItem("profile")) localStorage.setItem("profile", "{}")
 
-let events  = JSON.parse(localStorage.getItem("events"))
-let regimes = JSON.parse(localStorage.getItem("regimes"))
-let profile = JSON.parse(localStorage.getItem("profile"))
+function safeParse(key, fallback){
+  try { return JSON.parse(localStorage.getItem(key)) || fallback }
+  catch(e) { console.warn("Corrupted data for", key, "— resetting"); return fallback }
+}
+
+let events  = safeParse("events",  [])
+let regimes = safeParse("regimes", [])
+let profile = safeParse("profile", {})
 
 let activeFilter = "All"
 let activeEditor = null
@@ -1142,6 +1320,14 @@ function scrollTop(){
   window.scrollTo({ top: 0, behavior: "smooth" })
 }
 
+function openSupport(){
+  document.getElementById("menuPanel").classList.add("hidden")
+  openProfile()
+  setTimeout(() => {
+    document.querySelector('.support-card').scrollIntoView({ behavior: 'smooth', block: 'center' })
+  }, 100)
+}
+
 function nowISO(){
   return new Date().toLocaleString("sv-SE").replace(" ", "T")
 }
@@ -1150,7 +1336,7 @@ function nowISO(){
 function buildDetails(e){
   if (e.type === "Feed"){
     const mode = e.mode || "Bottle"
-    const milk = e.milk || "Milly Milk"
+    const milk = e.milk || "Milk"
     let d = `<span onclick="chooseMode(${e.id}, this)">${mode}</span> • <span onclick="chooseMilkType(${e.id}, this)">${milk}</span>`
     if (e.mode === "Breast"){
       d += ` • <span onclick="editBreastTime(${e.id}, this)">${e.value} min</span>`
@@ -1201,11 +1387,11 @@ function repairEvents(){
     if (!e.icon) e.icon = iconFor(e.type)
     if (!e.bg)   e.bg   = bgFor(e.type)
     if (e.type === "Nappy" && !e.detail) e.detail = "Wet"
-    if (e.type === "Pump"  && e.value === undefined) e.value = 0
-    if (e.type === "Weight" && e.value === undefined) e.value = 0
+    if (e.type === "Pump"   && e.value == null) e.value = 0
+    if (e.type === "Weight" && e.value == null) e.value = 0
     if (e.type === "Feed"){
       if (!e.mode) e.mode = "Bottle"
-      if (!e.milk) e.milk = "Milly Milk"
+      if (!e.milk) e.milk = "Milk"
       if (!e.unit) e.unit = e.mode === "Breast" ? "min" : "ml"
     }
   })
@@ -1951,7 +2137,7 @@ function finishBottleFeed(amount){
 }
 
 function finishBreastFeed(minutes, side){
-  logEvent({ type:"Feed", mode:"Breast", milk:"Milly Milk", side:side, value:parseInt(minutes), unit:"min", icon:"🍼", bg:"feed-bg" })
+  logEvent({ type:"Feed", mode:"Breast", milk:"Milk", side:side, value:parseInt(minutes), unit:"min", icon:"🍼", bg:"feed-bg" })
   document.getElementById("quickPanel").innerHTML = ""
 }
 
@@ -2105,7 +2291,7 @@ function chooseMode(id, el){
 function chooseMilkType(id, el){
   const e = events.find(x => x.id === id)
   showPillPopover(id, el, [
-    { label:"Milly Milk", value:"Milly Milk", active: e.milk === "Milly Milk" },
+    { label:"Milk", value:"Milk", active: e.milk === "Milk" },
     { label:"Formula",    value:"Formula",    active: e.milk === "Formula" }
   ], v => { e.milk = v; saveAll() })
 }
@@ -2418,7 +2604,7 @@ function showFeedBreastSide(minutes){
 function showFeedBottleMilk(){
   showStep(`
     <div class="quick-option-grid">
-      <button class="quick-option feed" onclick="event.stopPropagation(); showFeedBottleSlider('Milly Milk')">🥛<br>Milly</button>
+      <button class="quick-option feed" onclick="event.stopPropagation(); showFeedBottleSlider('Milk')">🥛<br>Milk</button>
       <button class="quick-option feed" onclick="event.stopPropagation(); showFeedBottleSlider('Formula')">🧪<br>Formula</button>
     </div>
   `)
@@ -2533,6 +2719,7 @@ function openRegimes(){
   document.getElementById("menuPanel").classList.add("hidden")
   document.getElementById("logTab").classList.add("hidden")
   document.getElementById("profileTab").classList.add("hidden")
+  document.getElementById("backupTab").classList.add("hidden")
   document.getElementById("regimeTab").classList.remove("hidden")
 }
 
@@ -2540,9 +2727,11 @@ function openProfile(){
   document.getElementById("menuPanel").classList.add("hidden")
   document.getElementById("logTab").classList.add("hidden")
   document.getElementById("regimeTab").classList.add("hidden")
+  document.getElementById("backupTab").classList.add("hidden")
   document.getElementById("profileTab").classList.remove("hidden")
 
   // Populate fields with saved data
+  document.getElementById("profileNickname").value    = profile.nickname    || ""
   document.getElementById("profileName").value        = profile.name        || ""
   document.getElementById("profileDOB").value         = profile.dob         || ""
   document.getElementById("profileBirthWeight").value = profile.birthWeight  || ""
@@ -2550,13 +2739,20 @@ function openProfile(){
   document.getElementById("profileSavedMsg").textContent = ""
 }
 
+function applyNickname(){
+  const nick = profile.nickname || ""
+  document.getElementById("appTitle").textContent = nick ? "Baby " + nick : "Baby Data"
+}
+
 function saveProfile(){
+  profile.nickname    = document.getElementById("profileNickname").value.trim()
   profile.name        = document.getElementById("profileName").value.trim()
   profile.dob         = document.getElementById("profileDOB").value
   profile.birthWeight = parseFloat(document.getElementById("profileBirthWeight").value) || ""
   profile.birthLength = parseFloat(document.getElementById("profileBirthLength").value) || ""
 
   saveAll()
+  applyNickname()
 
   const msg = document.getElementById("profileSavedMsg")
   msg.textContent = "✓ Saved"
@@ -2566,7 +2762,94 @@ function saveProfile(){
 function goBack(){
   document.getElementById("regimeTab").classList.add("hidden")
   document.getElementById("profileTab").classList.add("hidden")
+  document.getElementById("backupTab").classList.add("hidden")
   document.getElementById("logTab").classList.remove("hidden")
+}
+
+/* ---------- BACKUPS ---------- */
+
+function openBackups(){
+  document.getElementById("menuPanel").classList.add("hidden")
+  document.getElementById("logTab").classList.add("hidden")
+  document.getElementById("regimeTab").classList.add("hidden")
+  document.getElementById("profileTab").classList.add("hidden")
+  document.getElementById("backupTab").classList.remove("hidden")
+  renderBackups()
+}
+
+function getBackupKeys(){
+  return Object.keys(localStorage)
+    .filter(k => k.startsWith("backup_"))
+    .sort()
+}
+
+function pruneBackups(){
+  const keys = getBackupKeys()
+  while (keys.length > 5){
+    localStorage.removeItem(keys.shift())
+  }
+}
+
+function createBackup(showToastMsg){
+  const key = "backup_" + new Date().toISOString()
+  const snapshot = { events, regimes, profile }
+  localStorage.setItem(key, JSON.stringify(snapshot))
+  pruneBackups()
+  if (showToastMsg) {
+    renderBackups()
+    showToast("Backup created")
+  }
+}
+
+function renderBackups(){
+  const list = document.getElementById("backupList")
+  const keys = getBackupKeys().reverse() // newest first
+  if (!keys.length){
+    list.innerHTML = '<div class="no-backups">No backups yet</div>'
+    return
+  }
+  list.innerHTML = keys.map(key => {
+    const snap = safeParse(key, null)
+    const eventCount = snap ? snap.events.length : "?"
+    const d = new Date(key.replace("backup_", ""))
+    const dateLabel = d.toLocaleDateString([], { day:"numeric", month:"short" })
+    const timeLabel = d.toLocaleTimeString([], { hour:"2-digit", minute:"2-digit" })
+    return `<div class="card">
+      <div class="row-space">
+        <div class="row">
+          <div class="icon-box" style="background:#E6E0F1">💾</div>
+          <div>
+            <div class="title">${dateLabel} &nbsp;<span class="time">${timeLabel}</span></div>
+            <div class="sub">${eventCount} events</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <button class="restore-btn" onclick="restoreBackup('${key}')">Restore</button>
+          <button class="small" onclick="deleteBackup('${key}')">🗑</button>
+        </div>
+      </div>
+    </div>`
+  }).join("")
+}
+
+function deleteBackup(key){
+  if (!confirm("Are you sure you want to permanently delete this backup?")) return
+  localStorage.removeItem(key)
+  renderBackups()
+}
+
+function restoreBackup(key){
+  if (!confirm("Restore this backup? All current data will be replaced.")) return
+  const snap = safeParse(key, null)
+  if (!snap){ showToast("Backup unreadable"); return }
+  events  = snap.events  || []
+  regimes = snap.regimes || []
+  profile = snap.profile || {}
+  saveAll()
+  applyNickname()
+  renderAll()
+  goBack()
+  showToast("Backup restored")
 }
 
 /* ---------- IMPORT / EXPORT ---------- */
@@ -2682,18 +2965,21 @@ btn.textContent = "Show Graphs ▾"
 }
 
 function clearAllData(){
-  if (!confirm("Clear ALL events and regimes?")) return
+  if (!confirm("Clear ALL events and regimes? A backup will be created first.")) return
+  createBackup(false)
   events  = []
   regimes = []
   profile = {}
   saveAll()
+  applyNickname()
   renderAll()
   document.getElementById("menuPanel").classList.add("hidden")
-  showToast("All data cleared")
+  showToast("Data cleared — backup saved")
 }
 
 /* ---------- INIT ---------- */
 renderAll()
+applyNickname()
 
 </script>
 

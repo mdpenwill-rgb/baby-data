@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Baby Data — Final Icon</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #1e1e30;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  padding: 48px 24px;
+}
+
+.row {
+  display: flex;
+  align-items: flex-end;
+  gap: 36px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.label {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(185,174,234,0.45);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+/* Phone mockup */
+.phone {
+  background: #2a2a3e;
+  border-radius: 36px;
+  padding: 28px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: 200px;
+  border: 1.5px solid rgba(255,255,255,0.08);
+}
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  width: 100%;
+}
+.home-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.home-icon span {
+  font-size: 7px;
+  color: white;
+  opacity: 0.7;
+  font-weight: 500;
+}
+.placeholder-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+}
+.phone-note {
+  font-size: 10px;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+</style>
+</head>
+<body>
+
+<!-- Large preview -->
+<div class="row">
+
+  <!-- 512px — store submission size -->
+  <div class="slot">
+    <svg id="icon512" width="220" height="220" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="bg" cx="28%" cy="30%" r="82%">
+          <stop offset="0%"   stop-color="#F7F4FF"/>
+          <stop offset="55%"  stop-color="#F0ECFC"/>
+          <stop offset="100%" stop-color="#E8F3FD"/>
+        </radialGradient>
+        <filter id="bshadow" x="-10%" y="-10%" width="120%" height="130%">
+          <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#9B8FD4" flood-opacity="0.18"/>
+        </filter>
+        <filter id="barshadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#8B80C8" flood-opacity="0.15"/>
+        </filter>
+        <clipPath id="round"><rect width="200" height="200" rx="46"/></clipPath>
+      </defs>
+
+      <g clip-path="url(#round)">
+
+        <!-- Background -->
+        <rect width="200" height="200" fill="url(#bg)"/>
+
+        <!-- Soft highlight blob — top left, like the app's radial glow -->
+        <ellipse cx="45" cy="48" rx="95" ry="72" fill="white" opacity="0.45"/>
+
+        <!-- Very subtle bottom right shadow -->
+        <ellipse cx="160" cy="165" rx="70" ry="55" fill="#C4B8EA" opacity="0.08"/>
+
+        <!-- B — in the app's dark purple -->
+        <text x="14" y="152"
+              font-family="-apple-system,'Helvetica Neue',Arial,sans-serif"
+              font-weight="900"
+              font-size="138"
+              fill="#6B5FA7"
+              filter="url(#bshadow)">B</text>
+
+        <!-- Bars — exact app colours: nappy yellow, pump purple, feed blue -->
+        <!-- Bar shadows -->
+        <rect x="113" y="131" width="19" height="29" rx="7" fill="#FFD66B" opacity="0.3" filter="url(#barshadow)"/>
+        <rect x="135" y="111" width="19" height="49" rx="7" fill="#C4A5FF" opacity="0.3" filter="url(#barshadow)"/>
+        <rect x="157" y="94"  width="19" height="66" rx="7" fill="#7EC6FF" opacity="0.3" filter="url(#barshadow)"/>
+        <!-- Bars -->
+        <rect x="113" y="130" width="19" height="29" rx="7" fill="#FFD66B"/>
+        <rect x="135" y="110" width="19" height="49" rx="7" fill="#C4A5FF"/>
+        <rect x="157" y="93"  width="19" height="66" rx="7" fill="#7EC6FF"/>
+
+        <!-- Baseline -->
+        <line x1="111" y1="161" x2="178" y2="161" stroke="#6B5FA7" stroke-width="2" opacity="0.15"/>
+
+        <!-- Decorative dots — top right, same palette -->
+        <circle cx="170" cy="28" r="5"   fill="#FFD66B" opacity="0.55"/>
+        <circle cx="183" cy="18" r="3.5" fill="#C4A5FF" opacity="0.5"/>
+        <circle cx="157" cy="18" r="3"   fill="#7EC6FF" opacity="0.45"/>
+
+      </g>
+    </svg>
+    <div class="label">512 × 512</div>
+  </div>
+
+  <!-- 192px — Android home screen -->
+  <div class="slot">
+    <svg width="96" height="96" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="bg2" cx="28%" cy="30%" r="82%">
+          <stop offset="0%"   stop-color="#F7F4FF"/>
+          <stop offset="55%"  stop-color="#F0ECFC"/>
+          <stop offset="100%" stop-color="#E8F3FD"/>
+        </radialGradient>
+        <filter id="bs2">
+          <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#9B8FD4" flood-opacity="0.18"/>
+        </filter>
+        <clipPath id="r2"><rect width="200" height="200" rx="46"/></clipPath>
+      </defs>
+      <g clip-path="url(#r2)">
+        <rect width="200" height="200" fill="url(#bg2)"/>
+        <ellipse cx="45" cy="48" rx="95" ry="72" fill="white" opacity="0.45"/>
+        <text x="14" y="152" font-family="-apple-system,'Helvetica Neue',Arial,sans-serif"
+              font-weight="900" font-size="138" fill="#6B5FA7" filter="url(#bs2)">B</text>
+        <rect x="113" y="130" width="19" height="29" rx="7" fill="#FFD66B"/>
+        <rect x="135" y="110" width="19" height="49" rx="7" fill="#C4A5FF"/>
+        <rect x="157" y="93"  width="19" height="66" rx="7" fill="#7EC6FF"/>
+        <line x1="111" y1="161" x2="178" y2="161" stroke="#6B5FA7" stroke-width="2" opacity="0.15"/>
+        <circle cx="170" cy="28" r="5"   fill="#FFD66B" opacity="0.55"/>
+        <circle cx="183" cy="18" r="3.5" fill="#C4A5FF" opacity="0.5"/>
+        <circle cx="157" cy="18" r="3"   fill="#7EC6FF" opacity="0.45"/>
+      </g>
+    </svg>
+    <div class="label">192 × 192</div>
+  </div>
+
+  <!-- 60px — iPhone home screen -->
+  <div class="slot">
+    <svg width="60" height="60" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="bg3" cx="28%" cy="30%" r="82%">
+          <stop offset="0%"   stop-color="#F7F4FF"/>
+          <stop offset="55%"  stop-color="#F0ECFC"/>
+          <stop offset="100%" stop-color="#E8F3FD"/>
+        </radialGradient>
+        <filter id="bs3">
+          <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#9B8FD4" flood-opacity="0.18"/>
+        </filter>
+        <clipPath id="r3"><rect width="200" height="200" rx="46"/></clipPath>
+      </defs>
+      <g clip-path="url(#r3)">
+        <rect width="200" height="200" fill="url(#bg3)"/>
+        <ellipse cx="45" cy="48" rx="95" ry="72" fill="white" opacity="0.45"/>
+        <text x="14" y="152" font-family="-apple-system,'Helvetica Neue',Arial,sans-serif"
+              font-weight="900" font-size="138" fill="#6B5FA7" filter="url(#bs3)">B</text>
+        <rect x="113" y="130" width="19" height="29" rx="7" fill="#FFD66B"/>
+        <rect x="135" y="110" width="19" height="49" rx="7" fill="#C4A5FF"/>
+        <rect x="157" y="93"  width="19" height="66" rx="7" fill="#7EC6FF"/>
+        <line x1="111" y1="161" x2="178" y2="161" stroke="#6B5FA7" stroke-width="2" opacity="0.15"/>
+        <circle cx="170" cy="28" r="5"   fill="#FFD66B" opacity="0.55"/>
+        <circle cx="183" cy="18" r="3.5" fill="#C4A5FF" opacity="0.5"/>
+        <circle cx="157" cy="18" r="3"   fill="#7EC6FF" opacity="0.45"/>
+      </g>
+    </svg>
+    <div class="label">60 × 60</div>
+  </div>
+
+</div>
+
+<!-- Phone mockup -->
+<div class="phone">
+  <div class="phone-note">Home screen</div>
+  <div class="home-grid">
+    <!-- placeholder icons -->
+    <div class="home-icon">
+      <svg width="34" height="34" viewBox="0 0 200 200"><rect width="200" height="200" rx="46" fill="#3a8fd4"/></svg>
+      <span>Maps</span>
+    </div>
+    <div class="home-icon">
+      <svg width="34" height="34" viewBox="0 0 200 200"><rect width="200" height="200" rx="46" fill="#e8534a"/></svg>
+      <span>Photos</span>
+    </div>
+    <!-- Baby Data icon -->
+    <div class="home-icon">
+      <svg width="34" height="34" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="bg4" cx="28%" cy="30%" r="82%">
+            <stop offset="0%"   stop-color="#F7F4FF"/>
+            <stop offset="100%" stop-color="#E8F3FD"/>
+          </radialGradient>
+          <clipPath id="r4"><rect width="200" height="200" rx="46"/></clipPath>
+        </defs>
+        <g clip-path="url(#r4)">
+          <rect width="200" height="200" fill="url(#bg4)"/>
+          <ellipse cx="45" cy="48" rx="95" ry="72" fill="white" opacity="0.45"/>
+          <text x="14" y="152" font-family="-apple-system,'Helvetica Neue',Arial,sans-serif"
+                font-weight="900" font-size="138" fill="#6B5FA7">B</text>
+          <rect x="113" y="130" width="19" height="29" rx="7" fill="#FFD66B"/>
+          <rect x="135" y="110" width="19" height="49" rx="7" fill="#C4A5FF"/>
+          <rect x="157" y="93"  width="19" height="66" rx="7" fill="#7EC6FF"/>
+        </g>
+      </svg>
+      <span>Baby Data</span>
+    </div>
+    <div class="home-icon">
+      <svg width="34" height="34" viewBox="0 0 200 200"><rect width="200" height="200" rx="46" fill="#5cb85c"/></svg>
+      <span>Health</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Baby Data — Icon Options</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #16162a;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 40px 24px 48px;
+  font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+}
+.slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 28px 16px;
+}
+.num {
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(185,174,234,0.5);
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+}
+.name {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.7);
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ 1: FOOTPRINTS ═══════════════════ -->
+<div class="slot">
+  <div class="num">Option 1</div>
+  <svg width="160" height="160" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#6B5FA7"/>
+        <stop offset="100%" stop-color="#5B9AC4"/>
+      </linearGradient>
+      <clipPath id="c1"><rect width="200" height="200" rx="44"/></clipPath>
+    </defs>
+    <g clip-path="url(#c1)">
+      <rect width="200" height="200" fill="url(#g1)"/>
+      <!-- Left foot -->
+      <g transform="translate(65,128) rotate(-14)">
+        <ellipse cx="0" cy="10" rx="20" ry="30" fill="white" opacity="0.93"/>
+        <circle cx="-15" cy="-18" r="8"   fill="white" opacity="0.93"/>
+        <circle cx="-7"  cy="-24" r="7"   fill="white" opacity="0.93"/>
+        <circle cx="1"   cy="-26" r="6.5" fill="white" opacity="0.93"/>
+        <circle cx="9"   cy="-24" r="6"   fill="white" opacity="0.93"/>
+        <circle cx="16"  cy="-19" r="5.5" fill="white" opacity="0.93"/>
+      </g>
+      <!-- Right foot (mirrored) -->
+      <g transform="translate(135,72) rotate(14) scale(-1,1)">
+        <ellipse cx="0" cy="10" rx="20" ry="30" fill="white" opacity="0.93"/>
+        <circle cx="-15" cy="-18" r="8"   fill="white" opacity="0.93"/>
+        <circle cx="-7"  cy="-24" r="7"   fill="white" opacity="0.93"/>
+        <circle cx="1"   cy="-26" r="6.5" fill="white" opacity="0.93"/>
+        <circle cx="9"   cy="-24" r="6"   fill="white" opacity="0.93"/>
+        <circle cx="16"  cy="-19" r="5.5" fill="white" opacity="0.93"/>
+      </g>
+    </g>
+  </svg>
+  <div class="name">Footprints</div>
+</div>
+
+<!-- ═══════════════════ 2: bd MONOGRAM ═══════════════════ -->
+<div class="slot">
+  <div class="num">Option 2</div>
+  <svg width="160" height="160" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#7060B8"/>
+        <stop offset="100%" stop-color="#4E8FBF"/>
+      </linearGradient>
+      <clipPath id="c2"><rect width="200" height="200" rx="44"/></clipPath>
+    </defs>
+    <g clip-path="url(#c2)">
+      <rect width="200" height="200" fill="url(#g2)"/>
+      <!-- Subtle circle behind text -->
+      <circle cx="100" cy="100" r="85" fill="white" opacity="0.06"/>
+      <text x="100" y="137"
+            text-anchor="middle"
+            font-family="-apple-system,'Helvetica Neue',Arial,sans-serif"
+            font-weight="800"
+            font-size="102"
+            fill="white"
+            letter-spacing="-3">bd</text>
+    </g>
+  </svg>
+  <div class="name">bd Monogram</div>
+</div>
+
+<!-- ═══════════════════ 3: BOTTLE + GRAPH ═══════════════════ -->
+<div class="slot">
+  <div class="num">Option 3</div>
+  <svg width="160" height="160" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="g3" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#5A4F9A"/>
+        <stop offset="100%" stop-color="#4A86B3"/>
+      </linearGradient>
+      <clipPath id="c3"><rect width="200" height="200" rx="44"/></clipPath>
+      <!-- Clip to bottle body shape for bars -->
+      <clipPath id="bottle-body">
+        <path d="M 82,64 Q 65,68 65,84 L 65,164 Q 65,178 79,178 L 121,178 Q 135,178 135,164 L 135,84 Q 135,68 118,64 Z"/>
+      </clipPath>
+    </defs>
+    <g clip-path="url(#c3)">
+      <rect width="200" height="200" fill="url(#g3)"/>
+      <!-- Bottle cap -->
+      <rect x="87" y="28" width="26" height="16" rx="6" fill="white" opacity="0.88"/>
+      <!-- Neck -->
+      <rect x="82" y="42" width="36" height="24" rx="4" fill="white" opacity="0.88"/>
+      <!-- Bottle body fill (light) -->
+      <path d="M 82,64 Q 65,68 65,84 L 65,164 Q 65,178 79,178 L 121,178 Q 135,178 135,164 L 135,84 Q 135,68 118,64 Z"
+            fill="white" opacity="0.12"/>
+      <!-- Bars inside bottle, clipped -->
+      <g clip-path="url(#bottle-body)">
+        <rect x="71"  y="140" width="18" height="38" rx="4" fill="#FFD66B"/>
+        <rect x="91"  y="118" width="18" height="60" rx="4" fill="#C4A5FF"/>
+        <rect x="111" y="100" width="18" height="78" rx="4" fill="#7EC6FF"/>
+      </g>
+      <!-- Bottle outline -->
+      <path d="M 82,64 Q 65,68 65,84 L 65,164 Q 65,178 79,178 L 121,178 Q 135,178 135,164 L 135,84 Q 135,68 118,64 Z"
+            fill="none" stroke="white" stroke-width="4.5" opacity="0.88"/>
+    </g>
+  </svg>
+  <div class="name">Bottle + Graph</div>
+</div>
+
+<!-- ═══════════════════ 4: HEARTBEAT ═══════════════════ -->
+<div class="slot">
+  <div class="num">Option 4</div>
+  <svg width="160" height="160" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="g4" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#45398A"/>
+        <stop offset="100%" stop-color="#6258A8"/>
+      </linearGradient>
+      <clipPath id="c4"><rect width="200" height="200" rx="44"/></clipPath>
+    </defs>
+    <g clip-path="url(#c4)">
+      <rect width="200" height="200" fill="url(#g4)"/>
+      <!-- Subtle grid lines -->
+      <line x1="0" y1="100" x2="200" y2="100" stroke="white" stroke-width="1" opacity="0.08"/>
+      <line x1="0" y1="60"  x2="200" y2="60"  stroke="white" stroke-width="1" opacity="0.05"/>
+      <line x1="0" y1="140" x2="200" y2="140" stroke="white" stroke-width="1" opacity="0.05"/>
+      <!-- Glow effect -->
+      <path d="M 10,100 L 52,100 L 66,52 L 80,148 L 93,68 L 107,100 L 190,100"
+            stroke="white" stroke-width="16" fill="none"
+            stroke-linecap="round" stroke-linejoin="round" opacity="0.12"/>
+      <!-- Main line -->
+      <path d="M 10,100 L 52,100 L 66,52 L 80,148 L 93,68 L 107,100 L 190,100"
+            stroke="white" stroke-width="5" fill="none"
+            stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- Yellow dot at peak -->
+      <circle cx="66" cy="52" r="6" fill="#FFD66B"/>
+    </g>
+  </svg>
+  <div class="name">Heartbeat</div>
+</div>
+
+<!-- ═══════════════════ 5: BABY FACE ═══════════════════ -->
+<div class="slot">
+  <div class="num">Option 5</div>
+  <svg width="160" height="160" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="g5" x1="0" y1="0" x2="0.4" y2="1">
+        <stop offset="0%" stop-color="#7060B8"/>
+        <stop offset="100%" stop-color="#5597C8"/>
+      </linearGradient>
+      <clipPath id="c5"><rect width="200" height="200" rx="44"/></clipPath>
+    </defs>
+    <g clip-path="url(#c5)">
+      <rect width="200" height="200" fill="url(#g5)"/>
+      <!-- Face -->
+      <circle cx="100" cy="108" r="67" fill="white" opacity="0.96"/>
+      <!-- Cheeks -->
+      <circle cx="72"  cy="122" r="13" fill="#FFB3C6" opacity="0.38"/>
+      <circle cx="128" cy="122" r="13" fill="#FFB3C6" opacity="0.38"/>
+      <!-- Eyes -->
+      <circle cx="80"  cy="97" r="7.5" fill="#6B5FA7"/>
+      <circle cx="120" cy="97" r="7.5" fill="#6B5FA7"/>
+      <!-- Eye shine -->
+      <circle cx="83"  cy="94" r="2.8" fill="white"/>
+      <circle cx="123" cy="94" r="2.8" fill="white"/>
+      <!-- Smile -->
+      <path d="M 79 121 Q 100 144 121 121"
+            stroke="#6B5FA7" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+      <!-- Hair tufts -->
+      <path d="M 80 43 Q 73 31 80 25" stroke="#6B5FA7" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+      <path d="M 100 41 Q 100 28 100 22" stroke="#6B5FA7" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+      <path d="M 120 43 Q 127 31 120 25" stroke="#6B5FA7" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+    </g>
+  </svg>
+  <div class="name">Baby Face</div>
+</div>
+
+<!-- ═══════════════════ 6: B + BARS ═══════════════════ -->
+<div class="slot">
+  <div class="num">Option 6</div>
+  <svg width="160" height="160" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="g6" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#6B5FA7"/>
+        <stop offset="100%" stop-color="#4A88B5"/>
+      </linearGradient>
+      <clipPath id="c6"><rect width="200" height="200" rx="44"/></clipPath>
+    </defs>
+    <g clip-path="url(#c6)">
+      <rect width="200" height="200" fill="url(#g6)"/>
+      <!-- Large B -->
+      <text x="30" y="148"
+            font-family="-apple-system,'Helvetica Neue',Arial,sans-serif"
+            font-weight="900"
+            font-size="130"
+            fill="white"
+            opacity="0.95">B</text>
+      <!-- Bar chart — bottom right -->
+      <rect x="116" y="130" width="16" height="26" rx="4" fill="#FFD66B"/>
+      <rect x="136" y="112" width="16" height="44" rx="4" fill="white" opacity="0.55"/>
+      <rect x="156" y="96"  width="16" height="60" rx="4" fill="#7EC6FF"/>
+      <!-- Baseline -->
+      <line x1="114" y1="158" x2="174" y2="158" stroke="white" stroke-width="2.5" opacity="0.35"/>
+    </g>
+  </svg>
+  <div class="name">B + Bars</div>
+</div>
+
+</body>
+</html>

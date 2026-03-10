@@ -1,1 +1,18 @@
-"orientation": "portrait"
+{
+  "name": "Baby Data",
+  "short_name": "Baby Data",
+  "description": "Simple, beautiful baby tracking — feeds, nappies, pumping, weight and more.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#EDE8FA",
+  "theme_color": "#B9AEEA",
+  "orientation": "portrait",
+  "lang": "en-GB",
+  "categories": ["health", "lifestyle"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

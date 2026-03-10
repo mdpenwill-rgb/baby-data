@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h3>Icon Export</h3>
+<div id="output"></div>
+<script>
+const sizes = [192, 512];
+const svg = `<svg width="512" height="512" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg" cx="28%" cy="30%" r="82%">
+      <stop offset="0%" stop-color="#F7F4FF"/>
+      <stop offset="55%" stop-color="#F0ECFC"/>
+      <stop offset="100%" stop-color="#E8F3FD"/>
+    </radialGradient>
+    <filter id="bshadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#9B8FD4" flood-opacity="0.18"/>
+    </filter>
+    <filter id="barshadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#8B80C8" flood-opacity="0.15"/>
+    </filter>
+    <clipPath id="round"><rect width="200" height="200" rx="46"/></clipPath>
+  </defs>
+  <g clip-path="url(#round)">
+    <rect width="200" height="200" fill="url(#bg)"/>
+    <ellipse cx="45" cy="48" rx="95" ry="72" fill="white" opacity="0.45"/>
+    <ellipse cx="160" cy="165" rx="70" ry="55" fill="#C4B8EA" opacity="0.08"/>
+    <text x="14" y="152" font-family="-apple-system,'Helvetica Neue',Arial,sans-serif" font-weight="900" font-size="138" fill="#6B5FA7" filter="url(#bshadow)">B</text>
+    <rect x="113" y="131" width="19" height="29" rx="7" fill="#FFD66B" opacity="0.3" filter="url(#barshadow)"/>
+    <rect x="135" y="111" width="19" height="49" rx="7" fill="#C4A5FF" opacity="0.3" filter="url(#barshadow)"/>
+    <rect x="157" y="94" width="19" height="66" rx="7" fill="#7EC6FF" opacity="0.3" filter="url(#barshadow)"/>
+    <rect x="113" y="130" width="19" height="29" rx="7" fill="#FFD66B"/>
+    <rect x="135" y="110" width="19" height="49" rx="7" fill="#C4A5FF"/>
+    <rect x="157" y="93" width="19" height="66" rx="7" fill="#7EC6FF"/>
+    <line x1="111" y1="161" x2="178" y2="161" stroke="#6B5FA7" stroke-width="2" opacity="0.15"/>
+    <circle cx="170" cy="28" r="5" fill="#FFD66B" opacity="0.55"/>
+    <circle cx="183" cy="18" r="3.5" fill="#C4A5FF" opacity="0.5"/>
+    <circle cx="157" cy="18" r="3" fill="#7EC6FF" opacity="0.45"/>
+  </g>
+</svg>`;
+
+async function exportIcons() {
+  const blob = new Blob([svg], {type: 'image/svg+xml'});
+  const url = URL.createObjectURL(blob);
+  const img = new Image();
+  img.src = url;
+  await img.decode();
+
+  const results = {};
+  for (const size of sizes) {
+    const canvas = document.createElement('canvas');
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, size, size);
+    results['icon-' + size] = canvas.toDataURL('image/png');
+
+    // Show download links
+    const a = document.createElement('a');
+    a.href = results['icon-' + size];
+    a.download = 'icon-' + size + '.png';
+    a.textContent = 'Download icon-' + size + '.png';
+    a.style.display = 'block';
+    a.style.margin = '8px';
+    document.getElementById('output').appendChild(a);
+  }
+
+  // Maskable: same 512 but with extra padding (safe zone = 80% center)
+  const mCanvas = document.createElement('canvas');
+  mCanvas.width = 512;
+  mCanvas.height = 512;
+  const mCtx = mCanvas.getContext('2d');
+  // Fill background to edges
+  mCtx.fillStyle = '#F0ECFC';
+  mCtx.fillRect(0, 0, 512, 512);
+  // Draw icon smaller in center (80% safe zone)
+  const pad = 512 * 0.1;
+  mCtx.drawImage(img, pad, pad, 512 - pad*2, 512 - pad*2);
+  results['icon-512-maskable'] = mCanvas.toDataURL('image/png');
+
+  const a2 = document.createElement('a');
+  a2.href = results['icon-512-maskable'];
+  a2.download = 'icon-512-maskable.png';
+  a2.textContent = 'Download icon-512-maskable.png';
+  a2.style.display = 'block';
+  a2.style.margin = '8px';
+  document.getElementById('output').appendChild(a2);
+
+  URL.revokeObjectURL(url);
+  window._iconData = results;
+  document.getElementById('output').insertAdjacentHTML('beforeend', '<p style="color:green">Ready! Data stored in window._iconData</p>');
+}
+exportIcons();
+</script>
+</body>
+</html>
