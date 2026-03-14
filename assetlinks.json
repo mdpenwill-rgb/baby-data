@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "com.babydata.tracker",
+        "sha256_cert_fingerprints": ["CE:5C:AC:1B:4E:23:16:7E:94:64:2F:75:5D:A1:8E:5D:2A:75:C6:E9:71:8E:A4:4D:EE:0D:54:28:5E:34:76:A9"]
+      }
+    }]
