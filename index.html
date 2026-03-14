@@ -1151,13 +1151,13 @@ margin-top:24px;
     <div class="section-header">Filter by</div>
 
     <div class="choice-row">
-      <button class="random filter-btn filter-active" onclick="setFilter('All', this)">All</button>
-      <button class="random filter-btn" onclick="setFilter('Feed', this)">Feed</button>
-      <button class="random filter-btn" onclick="setFilter('Pump', this)">Pump</button>
-      <button class="random filter-btn" onclick="setFilter('Nappy', this)">Nappy</button>
-      <button class="random filter-btn" onclick="setFilter('Medication', this)">Meds</button>
-      <button class="random filter-btn" onclick="setFilter('Stretch', this)">Exercise</button>
-      <button class="random filter-btn" onclick="setFilter('Weight', this)">Weight</button>
+      <button class="random filter-btn filter-active" data-type="All" onclick="setFilter('All', this)">All</button>
+      <button class="random filter-btn" data-type="Feed" onclick="setFilter('Feed', this)">Feed</button>
+      <button class="random filter-btn" data-type="Pump" onclick="setFilter('Pump', this)">Pump</button>
+      <button class="random filter-btn" data-type="Nappy" onclick="setFilter('Nappy', this)">Nappy</button>
+      <button class="random filter-btn" data-type="Medication" onclick="setFilter('Medication', this)">Meds</button>
+      <button class="random filter-btn" data-type="Exercise" onclick="setFilter('Exercise', this)">Exercise</button>
+      <button class="random filter-btn" data-type="Weight" onclick="setFilter('Weight', this)">Weight</button>
     </div>
 
     <div id="weightChart"></div>
@@ -1176,7 +1176,7 @@ margin-top:24px;
     <select id="rType" onchange="adjustRegimeForm()">
       <option value="Feed">Feed</option>
       <option value="Medication">Medication</option>
-      <option value="Stretch">Exercise</option>
+      <option value="Exercise">Exercise</option>
     </select>
 
     <div id="feedOptions">
@@ -1301,7 +1301,7 @@ let events  = safeParse("events",  [])
 let regimes = safeParse("regimes", [])
 let profile = safeParse("profile", {})
 
-let activeFilter = "All"
+let activeFilters = new Set()
 let activeEditor = null
 
 // Feed wizard state
@@ -1347,7 +1347,7 @@ function buildDetails(e){
   }
   if (e.type === "Pump")       return `<span onclick="choosePump(${e.id}, this)">${e.value ?? ""} ml</span>`
   if (e.type === "Nappy")      return `<span onclick="chooseNappy(${e.id}, this)">${e.detail || "Wet"}</span>`
-  if (e.type === "Stretch")    return "Exercise"
+  if (e.type === "Exercise")   return e.name || "Exercise"
   if (e.type === "Medication") return `${e.name || "Medication"} ${e.value ?? ""} ${e.unit ?? "ml"}`
   if (e.type === "Weight")     return `<span onclick="editWeightValue(${e.id}, this)">${e.value ?? ""} kg</span>`
   return ""
@@ -1359,7 +1359,7 @@ function iconFor(type){
   if (type === "Pump")       return "🤱"
   if (type === "Nappy")      return "🧷"
   if (type === "Medication") return "💊"
-  if (type === "Stretch")    return "🏋️"
+  if (type === "Exercise")   return "🏋️"
   if (type === "Weight")     return "⚖️"
   return ""
 }
@@ -1369,19 +1369,23 @@ function bgFor(type){
   if (type === "Pump")       return "pump-bg"
   if (type === "Nappy")      return "nappy-bg"
   if (type === "Medication") return "med-bg"
-  if (type === "Stretch")    return "stretch-bg"
+  if (type === "Exercise")   return "stretch-bg"
   if (type === "Weight")     return "weight-bg"
   return ""
 }
 
 // FIX: single repairEvents() — removed the duplicate inline repair block that ran at startup
 function repairEvents(){
+  // Migrate old "Stretch" type to "Exercise"
+  events.forEach(e => { if (e.type === "Stretch") e.type = "Exercise" })
+  regimes.forEach(r => { if (r.type === "Stretch") r.type = "Exercise" })
+
   events.forEach(e => {
     if (!e.type){
       if (e.icon === "🤱") e.type = "Pump"
       if (e.icon === "🍼") e.type = "Feed"
       if (e.icon === "🧷") e.type = "Nappy"
-      if (e.icon === "🏋️") e.type = "Stretch"
+      if (e.icon === "🏋️") e.type = "Exercise"
       if (e.icon === "💊") e.type = "Medication"
     }
     if (!e.icon) e.icon = iconFor(e.type)
@@ -1837,14 +1841,14 @@ function renderEntries(){
   const pumpTotals  = {}
   const nappyTotals = {}
 
-  if (activeFilter === "Pump"){
+  if (activeFilters.has("Pump")){
     events.filter(e => e.type === "Pump").forEach(e => {
       const key = new Date(e.time).toDateString()
       pumpTotals[key] = (pumpTotals[key] || 0) + (parseInt(e.value) || 0)
     })
   }
 
-  if (activeFilter === "Nappy"){
+  if (activeFilters.has("Nappy")){
     events.filter(e => e.type === "Nappy").forEach(e => {
       const key = new Date(e.time).toDateString()
       nappyTotals[key] = (nappyTotals[key] || 0) + 1
@@ -1858,7 +1862,7 @@ function renderEntries(){
   events.forEach(e => {
 
     // Feed interval indicator
-    if (activeFilter === "Feed" && e.type === "Feed"){
+    if (activeFilters.has("Feed") && e.type === "Feed"){
       const t = new Date(e.time)
       if (lastFeedTime){
         const diff = lastFeedTime - t
@@ -1882,14 +1886,14 @@ function renderEntries(){
 
     if (dayKey !== lastDayKey){
       let headerText = label
-      if (activeFilter === "Pump"  && pumpTotals[dayKey])  headerText += ` — ${pumpTotals[dayKey]} ml`
-      if (activeFilter === "Nappy" && nappyTotals[dayKey]) headerText += ` — ${nappyTotals[dayKey]} nappies`
+      if (activeFilters.has("Pump")  && pumpTotals[dayKey])  headerText += ` — ${pumpTotals[dayKey]} ml`
+      if (activeFilters.has("Nappy") && nappyTotals[dayKey]) headerText += ` — ${nappyTotals[dayKey]} nappies`
       entries.innerHTML += `<div class="section-header">${headerText}</div>`
       lastDayKey = dayKey
     }
 
     // Apply filter after header so date dividers still group correctly
-    if (activeFilter !== "All" && (e.type || "").toLowerCase() !== activeFilter.toLowerCase()) return
+    if (activeFilters.size > 0 && !activeFilters.has(e.type)) return
 
     entries.innerHTML += `
       <div class="card" id="event-${e.id}">
@@ -1949,9 +1953,21 @@ function deleteEvent(id){
 }
 
 function setFilter(type, btn){
-  activeFilter = type
+  if (type === "All"){
+    activeFilters.clear()
+  } else if (activeFilters.has(type)){
+    activeFilters.delete(type)
+  } else {
+    activeFilters.add(type)
+  }
   document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("filter-active"))
-  btn.classList.add("filter-active")
+  if (activeFilters.size === 0){
+    document.querySelector(".filter-btn").classList.add("filter-active")
+  } else {
+    document.querySelectorAll(".filter-btn").forEach(b => {
+      if (activeFilters.has(b.dataset.type)) b.classList.add("filter-active")
+    })
+  }
   renderEntries()
   renderWeightChart()
 }
@@ -1960,7 +1976,7 @@ function renderWeightChart(){
   const el = document.getElementById("weightChart")
   if (!el) return
 
-  if (activeFilter !== "Weight"){
+  if (!activeFilters.has("Weight")){
     el.innerHTML = ""
     return
   }
@@ -2128,7 +2144,7 @@ function logMedication(name){
 }
 
 function logExercise(name){
-  logEvent({ type:"Stretch", name:name, icon:"🏋️", bg:"stretch-bg" })
+  logEvent({ type:"Exercise", name:name, icon:"🏋️", bg:"stretch-bg" })
 }
 
 function finishBottleFeed(amount){
@@ -2308,7 +2324,7 @@ function chooseNappy(id, el){
 function choosePump(id, el){
   const e = events.find(x => x.id === id)
   showPillPopover(id, el,
-    [15, 30, 40, 50, 60, 70].map(a => ({ label: String(a), value: String(a), active: e.value === a })),
+    [15, 30, 50, 70, 100, 150].map(a => ({ label: String(a), value: String(a), active: e.value === a })),
     v => { e.value = parseInt(v); saveAll() }
   )
 }
@@ -2362,7 +2378,7 @@ function adjustRegimeForm(){
   const type = rType.value
   feedOptions.classList.toggle('hidden',   type !== "Feed")
   medOptions.classList.toggle('hidden',    type !== "Medication")
-  stretchOptions.classList.toggle('hidden', type !== "Stretch")
+  stretchOptions.classList.toggle('hidden', type !== "Exercise")
 }
 
 function createRegime(){
@@ -2372,7 +2388,7 @@ function createRegime(){
   let interval = NaN
   if (type === "Feed")       interval = parseFloat(rIntervalFeed.value)
   if (type === "Medication") interval = parseFloat(rIntervalMed.value)
-  if (type === "Stretch")    interval = parseFloat(rIntervalStretch.value)
+  if (type === "Exercise")   interval = parseFloat(rIntervalStretch.value)
 
   if (!interval || isNaN(interval) || interval <= 0){
     showToast("⚠️ Enter a valid interval")
@@ -2383,7 +2399,7 @@ function createRegime(){
 
   if (type === "Feed")       r.name = "Feed"
   if (type === "Medication") { r.name = rName.value.trim() || "Medication"; r.dose = parseFloat(rDose.value) }
-  if (type === "Stretch")    r.name = rStretchName.value.trim() || "Exercise"
+  if (type === "Exercise")   r.name = rStretchName.value.trim() || "Exercise"
 
   if (!r.name){ showToast("⚠️ Enter a name"); return }
 
@@ -2502,7 +2518,7 @@ function openQuick(type){
   if (type === "pump"){
     panel.innerHTML = `
       <div class="pump-row">
-        <input type="range" min="10" max="70" step="5" value="30" id="pumpSlider" class="pump-slider"
+        <input type="range" min="10" max="150" step="5" value="30" id="pumpSlider" class="pump-slider"
           oninput="document.getElementById('pumpValue').textContent=this.value">
         <button class="quick-option pump pump-log"
           onclick="finishPump(document.getElementById('pumpSlider').value)">
@@ -2516,20 +2532,28 @@ function openQuick(type){
   if (type === "feed") showFeedStep1()
 
   if (type === "meds"){
-    const meds = regimes.filter(r => r.type === "Medication")
+    const regimeNames = new Set(regimes.filter(r => r.type === "Medication").map(r => r.name))
+    const recentNames = [...new Set(events.filter(e => e.type === "Medication" && e.name && !regimeNames.has(e.name)).map(e => e.name))]
     let html = `<div class="quick-option-grid">`
-    meds.forEach(m => {
-      html += `<button class="quick-option meds" onclick="logMedication('${m.name}')">💊<br>${m.name}</button>`
+    regimeNames.forEach(name => {
+      html += `<button class="quick-option meds" onclick="logMedication('${name}')">💊<br>${name}</button>`
+    })
+    recentNames.forEach(name => {
+      html += `<button class="quick-option meds" onclick="logMedication('${name}')">💊<br>${name}</button>`
     })
     html += `<button class="quick-option meds" onclick="showMedicationWizard()">➕<br>New</button></div>`
     panel.innerHTML = html
   }
 
   if (type === "exercise"){
-    const exercises = regimes.filter(r => r.type === "Stretch")
+    const regimeNames = new Set(regimes.filter(r => r.type === "Exercise").map(r => r.name))
+    const recentNames = [...new Set(events.filter(e => e.type === "Exercise" && e.name && !regimeNames.has(e.name)).map(e => e.name))]
     let html = `<div class="quick-option-grid">`
-    exercises.forEach(ex => {
-      html += `<button class="quick-option exercise" onclick="logExercise('${ex.name}')">🏋️<br>${ex.name}</button>`
+    regimeNames.forEach(name => {
+      html += `<button class="quick-option exercise" onclick="logExercise('${name}')">🏋️<br>${name}</button>`
+    })
+    recentNames.forEach(name => {
+      html += `<button class="quick-option exercise" onclick="logExercise('${name}')">🏋️<br>${name}</button>`
     })
     html += `<button class="quick-option exercise" onclick="showExerciseWizard()">➕<br>New</button></div>`
     panel.innerHTML = html
@@ -2673,7 +2697,7 @@ function showExerciseWizard(){
 function finishExerciseWizard(){
   const name = document.getElementById("exerciseName").value.trim()
   if (!name){ showToast("⚠️ Enter exercise name"); return }
-  logEvent({ type:"Stretch", name, icon:"🏋️", bg:"stretch-bg" })
+  logEvent({ type:"Exercise", name, icon:"🏋️", bg:"stretch-bg" })
 }
 
 function finishWeight(){
@@ -2741,7 +2765,12 @@ function openProfile(){
 
 function applyNickname(){
   const nick = profile.nickname || ""
-  document.getElementById("appTitle").textContent = nick ? "Baby " + nick : "Baby Data"
+  const el = document.getElementById("appTitle")
+  if (nick) {
+    el.innerHTML = `Baby <span style="color:#C4B5ED;text-shadow:0 0 1px #6B5FA7, 0 0 1px #6B5FA7">${nick}</span>`
+  } else {
+    el.textContent = "Baby Data"
+  }
 }
 
 function saveProfile(){
